@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>TrackCheck.ipa</key>
+	<array>
+		<dict>
+			<key>architectures</key>
+			<array>
+				<string>arm64</string>
+			</array>
+			<key>certificate</key>
+			<dict>
+				<key>SHA1</key>
+				<string>CAF3C310E945E716BD1E8F2721E8D41D8FBB3598</string>
+				<key>dateExpires</key>
+				<string>2021/3/24</string>
+				<key>type</key>
+				<string>Apple Development</string>
+			</dict>
+			<key>entitlements</key>
+			<dict>
+				<key>application-identifier</key>
+				<string>89CTY2D5G8.com.ethome.ipad.TrackCheck</string>
+				<key>com.apple.developer.team-identifier</key>
+				<string>89CTY2D5G8</string>
+				<key>get-task-allow</key>
+				<true/>
+				<key>keychain-access-groups</key>
+				<array>
+					<string>89CTY2D5G8.com.ethome.ipad.TrackCheck</string>
+				</array>
+			</dict>
+			<key>name</key>
+			<string>TrackCheck.app</string>
+			<key>profile</key>
+			<dict>
+				<key>UUID</key>
+				<string>8610a4f5-003f-4392-8c9e-860725089f4d</string>
+				<key>name</key>
+				<string>iOS Team Provisioning Profile: com.*</string>
+			</dict>
+			<key>team</key>
+			<dict>
+				<key>id</key>
+				<string>89CTY2D5G8</string>
+				<key>name</key>
+				<string>Hangzhou Xiaowen Intelligent Technology Co., Ltd. (Company)</string>
+			</dict>
+		</dict>
+	</array>
+</dict>
+</plist>
