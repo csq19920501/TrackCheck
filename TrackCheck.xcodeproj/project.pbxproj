@@ -204,6 +204,7 @@
 		B556CB7825A885A900523758 /* DeviceTool.m in Sources */ = {isa = PBXBuildFile; fileRef = B556CB7725A885A900523758 /* DeviceTool.m */; };
 		B55829D025EF544B000AD684 /* UKNavigationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B55829CE25EF544A000AD684 /* UKNavigationViewController.m */; };
 		B55829D125F0BE11000AD684 /* libPods-TrackCheck.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 59A37D2DEF2B065C598A77A1 /* libPods-TrackCheck.a */; settings = {ATTRIBUTES = (Required, ); }; };
+		B58588242602E82700AC296B /* CloudKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B58588232602E82700AC296B /* CloudKit.framework */; };
 		B591261F25F624B600DEC727 /* CSQVisualMap.m in Sources */ = {isa = PBXBuildFile; fileRef = B591261E25F624B600DEC727 /* CSQVisualMap.m */; };
 		B59850A625C190450057FDCD /* CSQGraphic.m in Sources */ = {isa = PBXBuildFile; fileRef = B59850A525C190450057FDCD /* CSQGraphic.m */; };
 		B5DCF46925F1F9FC008F60D6 /* ReportCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B5DCF46825F1F9FC008F60D6 /* ReportCell.m */; };
@@ -623,6 +624,8 @@
 		B556CB7725A885A900523758 /* DeviceTool.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DeviceTool.m; sourceTree = "<group>"; };
 		B55829CE25EF544A000AD684 /* UKNavigationViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UKNavigationViewController.m; sourceTree = "<group>"; };
 		B55829CF25EF544B000AD684 /* UKNavigationViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UKNavigationViewController.h; sourceTree = "<group>"; };
+		B58588222602E82100AC296B /* TrackCheck.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = TrackCheck.entitlements; sourceTree = "<group>"; };
+		B58588232602E82700AC296B /* CloudKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CloudKit.framework; path = System/Library/Frameworks/CloudKit.framework; sourceTree = SDKROOT; };
 		B591261D25F624B600DEC727 /* CSQVisualMap.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CSQVisualMap.h; sourceTree = "<group>"; };
 		B591261E25F624B600DEC727 /* CSQVisualMap.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CSQVisualMap.m; sourceTree = "<group>"; };
 		B59850A425C190440057FDCD /* CSQGraphic.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CSQGraphic.h; sourceTree = "<group>"; };
@@ -637,6 +640,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				B55829D125F0BE11000AD684 /* libPods-TrackCheck.a in Frameworks */,
+				B58588242602E82700AC296B /* CloudKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1062,6 +1066,7 @@
 		B556CA1325A55A2400523758 /* TrackCheck */ = {
 			isa = PBXGroup;
 			children = (
+				B58588222602E82100AC296B /* TrackCheck.entitlements */,
 				B5362C9D25BBC46C00AE189A /* TYAlertController */,
 				B556518B25B166CD00CB61D7 /* Alert */,
 				B556515125B160F900CB61D7 /* Tools */,
@@ -1388,6 +1393,7 @@
 		FB24DFD980EFF4E103CDDB4A /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				B58588232602E82700AC296B /* CloudKit.framework */,
 				59A37D2DEF2B065C598A77A1 /* libPods-TrackCheck.a */,
 			);
 			name = Frameworks;
@@ -1932,6 +1938,7 @@
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = TrackCheck/TrackCheck.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 89CTY2D5G8;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
@@ -1948,7 +1955,7 @@
 					"\"$PODS_CONFIGURATION_BUILD_DIR\"",
 				);
 				ONLY_ACTIVE_ARCH = YES;
-				PRODUCT_BUNDLE_IDENTIFIER = com.ethome.ipad.TrackCheck;
+				PRODUCT_BUNDLE_IDENTIFIER = com.ethome.ipad.TrackCheck2;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TARGETED_DEVICE_FAMILY = "1,2";
 				USER_HEADER_SEARCH_PATHS = "${SRCROOT}/**";
@@ -1961,6 +1968,7 @@
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = TrackCheck/TrackCheck.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 89CTY2D5G8;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
@@ -1979,7 +1987,7 @@
 					"/**",
 				);
 				ONLY_ACTIVE_ARCH = YES;
-				PRODUCT_BUNDLE_IDENTIFIER = com.ethome.ipad.TrackCheck;
+				PRODUCT_BUNDLE_IDENTIFIER = com.ethome.ipad.TrackCheck2;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TARGETED_DEVICE_FAMILY = "1,2";
 				USER_HEADER_SEARCH_PATHS = "${SRCROOT}/**";

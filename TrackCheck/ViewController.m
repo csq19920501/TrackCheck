@@ -23,8 +23,9 @@
 #import "HistoryDataViewController.h"
 #import "ReportCell.h"
 #import "CSQVisualMap.h"
-
-@interface ViewController ()<UITableViewDelegate,UITableViewDataSource>
+#import "DLCustomAlertController.h"
+#import "DLDateAnimation.h"
+@interface ViewController ()<UITableViewDelegate,UITableViewDataSource,UIImagePickerControllerDelegate,UINavigationControllerDelegate>
 @property (weak, nonatomic) IBOutlet PYZoomEchartsView *kEchartView1;
 @property (weak, nonatomic) IBOutlet PYZoomEchartsView *kEchartView2;
 @property (weak, nonatomic) IBOutlet PYZoomEchartsView *kEchartView3;
@@ -46,6 +47,8 @@
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *X3But;
 //@property (weak, nonatomic) IBOutlet UITableView *reoprtTableV;
 //@property (weak, nonatomic) IBOutlet UITableView *reportTableV1;
+
+@property (strong,nonatomic) UIImagePickerController* pickController;
 
 @property (nonatomic,assign)NSInteger textCount;
 
@@ -73,11 +76,14 @@
         but.layer.masksToBounds = YES;
         but.layer.cornerRadius = 16;
     }
+    UIButton *camearBut = (UIButton*)[self.view viewWithTag:107];
+    camearBut.layer.masksToBounds = YES;
+    camearBut.layer.cornerRadius = 16;
+    
     _endBut.enabled = NO;
     _endBut.alpha = 0.35;
     _saveBut.enabled = NO;
     _saveBut.alpha = 0.35;
-    
     
     NSArray *butArr = @[_firstButton,_secondButton,_threeButton];
     for (UIButton *but in butArr) {
@@ -98,6 +104,95 @@
 //    self.navigationItem.backBarButtonItem = backItem;
      [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleAppDidBackGround) name:UIApplicationDidEnterBackgroundNotification object:nil];
      [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(appBecomeActive) name:UIApplicationDidBecomeActiveNotification object:nil];
+}
+- (IBAction)相机:(id)sender {
+//    AVAuthorizationStatus cameraStatus = [AVCaptureDevice authorizationStatusForMediaType:AVMediaTypeVideo];
+    if ([UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera]) {
+        self.pickController = [[UIImagePickerController alloc]init];
+        self.pickController.sourceType = UIImagePickerControllerSourceTypeCamera;
+        self.pickController.mediaTypes = [UIImagePickerController availableMediaTypesForSourceType:UIImagePickerControllerSourceTypeCamera];//@[@"public.image"]; 
+        self.pickController.delegate = self;         //代理设置
+        self.pickController.allowsEditing = NO;      //是否提供编辑交互界面 比如说拍完照之后的编辑页面(缩放,剪裁等)
+        //使用内置编辑控件时，图像选择器控制器会强制执行某些选项。对于照片，强制执行方形裁剪以及最大像素尺寸。对于视频，选择器强制执行最大电影长度和分辨率。如果要让用户指定自定义裁剪，则必须提供自己的编辑UI。
+//        self.pickController.showsCameraControls = YES;//是否显示相机控制按钮
+//        self.pickController.cameraOverlayView = self.cameraOverLayView; //自定义相机控制页面
+     //如果不需要自定义控制页面可以省略上面两行
+     //设置闪光灯模式
+       self.pickController.cameraFlashMode = UIImagePickerControllerCameraFlashModeAuto;
+       [self presentViewController:_pickController animated:YES completion:nil];
+        /*
+         typedef NS_ENUM(NSInteger, UIImagePickerControllerCameraFlashMode) {
+         UIImagePickerControllerCameraFlashModeOff  = -1,
+         UIImagePickerControllerCameraFlashModeAuto = 0,
+         UIImagePickerControllerCameraFlashModeOn   = 1
+         }
+         */
+    }else{
+        [HUD showAlertWithText:@"请查看相机权限"];
+        return;
+    }
+}
+//结束采集之后 之后怎么处理都在这里写 通过Infokey取出相应的信息  Infokey可在进入文件中查看
+- (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary<UIImagePickerControllerInfoKey, id> *)info{
+
+    __weak typeof(self) weakSelf = self;
+    [picker dismissViewControllerAnimated:YES completion:^{
+        
+            __block NSString * mediaType = [info objectForKey:UIImagePickerControllerMediaType];
+            NSLog(@"info = %@",info);
+            NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+                      dateFormatter.dateFormat = @"yyyy-MM-dd HH:mm:ss";
+            NSString *timeStr = [dateFormatter stringFromDate:[NSDate date]];
+            NSString *documentPath = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory,NSUserDomainMask, YES) objectAtIndex:0];
+            
+        
+        
+        NSMutableArray *typeArr = [NSMutableArray array];
+        for (Device *device in DEVICETOOL.deviceArr) {
+            if(device.selected){
+                [typeArr addObject:device.typeStr];
+            }
+        }
+        __block NSString *saveDeviceType = @"";
+        DLCustomAlertController *customAlertC = [[DLCustomAlertController alloc] init];
+        customAlertC.title = @"选择关联设备";
+        customAlertC.pickerDatas = @[typeArr];//arr;
+        DLDateAnimation * animation = [[DLDateAnimation alloc] init];
+        customAlertC.selectValues = ^(NSArray * _Nonnull dateArray){
+            if(dateArray.count > 0){
+                saveDeviceType = dateArray[0] ;
+                if ([mediaType isEqualToString:@"public.image"]) {//照片
+                //        UIImage* editedImage =(UIImage *)[info objectForKey:
+                //                    UIImagePickerControllerEditedImage]; //取出编辑过的照片
+                        UIImage* originalImage =(UIImage *)[info objectForKey:
+                                    UIImagePickerControllerOriginalImage];//取出原生照片
+                        UIImage* imageToSave = nil;
+                //        if(editedImage){
+                //            imageToSave = editedImage;
+                //        } else {
+                            imageToSave = originalImage;
+                //        }
+                    //将新图像（原始图像或已编辑）保存到相机胶卷
+                        UIImageWriteToSavedPhotosAlbum(imageToSave,nil,nil,nil);
+                        NSString *filename = [documentPath stringByAppendingPathComponent:[NSString stringWithFormat:@"%@_%@_%@_%@.jpg",DEVICETOOL.stationStr,DEVICETOOL.roadSwitchNo,saveDeviceType,timeStr]];
+                        NSData *data = UIImagePNGRepresentation(imageToSave);
+                        [data writeToFile:filename atomically:YES];
+                    }
+                    else if ([mediaType isEqualToString:@"public.movie"]) {//视频 UIImagePickerControllerMediaURL}
+                        NSString * mediaURL = [info objectForKey:UIImagePickerControllerMediaURL];
+                        NSData * data = [NSData dataWithContentsOfFile:mediaURL];
+                        
+                        NSString *filename = [documentPath stringByAppendingPathComponent:[NSString stringWithFormat:@"%@_%@_%@_%@.mov",DEVICETOOL.stationStr,DEVICETOOL.roadSwitchNo,saveDeviceType,timeStr]];
+                        [data writeToFile:filename atomically:YES];
+                    }
+                 [HUD showAlertWithText:@"保存成功，可在系统文件app内查看"];
+            }
+        };
+        [weakSelf presentViewController:customAlertC animation:animation completion:nil];
+    }];
+}
+- (void)imagePickerControllerDidCancel:(UIImagePickerController *)picker{
+    [picker dismissViewControllerAnimated:YES completion:nil];
 }
 -(void)appBecomeActive{
  

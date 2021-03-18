@@ -73,7 +73,7 @@ static int width = 15;
     NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
        dateFormatter.dateFormat = @"yyyy-MM-dd";
     _timeStr = [dateFormatter stringFromDate:[NSDate date]];
-    _stationStr = DEVICETOOL.stationStr;
+    _stationStr = DEVICETOOL.stationStr.length >0?DEVICETOOL.stationStr:@"";
 //    [self setupFormat];
     
 //    UIBarButtonItem *backBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"返回" style:UIBarButtonItemStylePlain target:self action:@selector(backBarButtonItemAction)];
@@ -194,12 +194,14 @@ static int width = 15;
         
         workbook_close(workbook);
         
-        UIDocumentPickerViewController *documentPickerVC = [[UIDocumentPickerViewController alloc] initWithURL:[NSURL fileURLWithPath:filename] inMode:UIDocumentPickerModeExportToService];
-        // 设置代理
-        documentPickerVC.delegate = self;
-        // 设置模态弹出方式
-        documentPickerVC.modalPresentationStyle = UIModalPresentationFormSheet;
-        [self presentViewController:documentPickerVC animated:YES completion:nil];
+        [HUD showAlertWithText:@"保存成功，可在系统文件app内查看"];
+    
+//        UIDocumentPickerViewController *documentPickerVC = [[UIDocumentPickerViewController alloc] initWithURL:[NSURL fileURLWithPath:filename] inMode:UIDocumentPickerModeExportToService];
+//        // 设置代理
+//        documentPickerVC.delegate = self;
+//        // 设置模态弹出方式
+//        documentPickerVC.modalPresentationStyle = UIModalPresentationFormSheet;
+//        [self presentViewController:documentPickerVC animated:YES completion:nil];
     
 }
 
@@ -339,9 +341,11 @@ static int width = 15;
                   cell.text = @"";
                 
                 NSMutableAttributedString *attributedString = [[NSMutableAttributedString alloc]initWithString:[NSString stringWithFormat:@"                     %@道岔锁闭力测试表",_stationStr]];
+                if(_stationStr.length > 0){
                 [attributedString addAttribute:NSLinkAttributeName
                                          value:@"station://"
                                          range:[[attributedString string] rangeOfString:_stationStr]];
+                }
                 if(!_stationV3){
                     _stationV3 = [[UITextView  alloc]init];
                                 _stationV3.attributedText = attributedString;
@@ -548,9 +552,12 @@ static int width = 15;
               cell.text = @"";
             
             NSMutableAttributedString *attributedString = [[NSMutableAttributedString alloc]initWithString:[NSString stringWithFormat:@"                     %@道岔转换力测试表",_stationStr]];
-            [attributedString addAttribute:NSLinkAttributeName
-                                     value:@"station://"
-                                     range:[[attributedString string] rangeOfString:_stationStr]];
+            if(_stationStr.length > 0){
+                [attributedString addAttribute:NSLinkAttributeName
+                value:@"station://"
+                range:[[attributedString string] rangeOfString:_stationStr]];
+            }
+            
             if(!_stationV){
                 _stationV = [[UITextView  alloc]init];
                             _stationV.attributedText = attributedString;
