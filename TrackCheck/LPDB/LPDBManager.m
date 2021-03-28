@@ -27,8 +27,8 @@
         strPath = [strPath substringToIndex:range.location];
         documentsDirectory = [strPath stringByAppendingFormat:@"/Documents"];
     }else {
-        NSArray *paths = NSSearchPathForDirectoriesInDomains(NSApplicationSupportDirectory, NSUserDomainMask, YES);
-        documentsDirectory = [paths objectAtIndex:0];
+        NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+        documentsDirectory = [paths objectAtIndex:0];//NSDocumentDirectory  NSApplicationSupportDirectory
     }
     return documentsDirectory;	
     

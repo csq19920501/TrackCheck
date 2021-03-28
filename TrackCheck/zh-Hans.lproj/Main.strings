@@ -1,0 +1,246 @@
+
+/* Class = "UILabel"; text = "请选择伸缩对应定反类型"; ObjectID = "0Dn-Ab-Aad"; */
+"0Dn-Ab-Aad.text" = "请选择伸缩对应定反类型";
+
+/* Class = "UIButton"; normalTitle = "X3"; ObjectID = "0JK-Pi-rAM"; */
+"0JK-Pi-rAM.normalTitle" = "X3";
+
+/* Class = "UINavigationItem"; title = "历史曲线"; ObjectID = "1Jy-Os-oS6"; */
+"1Jy-Os-oS6.title" = "历史曲线";
+
+/* Class = "UILabel"; text = "地点：杭州南站110道岔"; ObjectID = "2hN-hG-veF"; */
+"2hN-hG-veF.text" = "地点：杭州南站110道岔";
+
+/* Class = "UIButton"; normalTitle = "J3"; ObjectID = "39G-5c-rW4"; */
+"39G-5c-rW4.normalTitle" = "J3";
+
+/* Class = "UIBarButtonItem"; title = "存档"; ObjectID = "4DQ-BZ-A5B"; */
+"4DQ-BZ-A5B.title" = "存档";
+
+/* Class = "UIButton"; normalTitle = "杭州南站"; ObjectID = "4Zf-d8-ndt"; */
+"4Zf-d8-ndt.normalTitle" = "杭州南站";
+
+/* Class = "UIBarButtonItem"; title = "存档"; ObjectID = "5yx-n0-cwk"; */
+"5yx-n0-cwk.title" = "存档";
+
+/* Class = "UIButton"; normalTitle = "开始"; ObjectID = "6Vo-9Y-S6h"; */
+"6Vo-9Y-S6h.normalTitle" = "开始";
+
+/* Class = "UITextField"; text = "2021-02-03"; ObjectID = "735-gy-2PW"; */
+"735-gy-2PW.text" = "2021-02-03";
+
+/* Class = "UILabel"; text = "勾选锁闭力对应牵引点"; ObjectID = "7F7-Lv-YM3"; */
+"7F7-Lv-YM3.text" = "勾选锁闭力对应牵引点";
+
+/* Class = "UIButton"; normalTitle = "J6"; ObjectID = "8mc-ko-weY"; */
+"8mc-ko-weY.normalTitle" = "J6";
+
+/* Class = "UIButton"; normalTitle = "Button"; ObjectID = "D0i-4n-NMG"; */
+"D0i-4n-NMG.normalTitle" = "Button";
+
+/* Class = "UIBarButtonItem"; title = "杭州东站108岔路"; ObjectID = "DzU-rj-7hf"; */
+"DzU-rj-7hf.title" = "杭州东站108岔路";
+
+/* Class = "UIButton"; normalTitle = "J3"; ObjectID = "F1I-LO-5Xd"; */
+"F1I-LO-5Xd.normalTitle" = "J3";
+
+/* Class = "UITextField"; text = "杭州南站"; ObjectID = "F3A-2t-XYp"; */
+"F3A-2t-XYp.text" = "杭州南站";
+
+/* Class = "UIButton"; normalTitle = "定位锁闭力--反位锁闭力"; ObjectID = "Fdu-OB-Vtz"; */
+"Fdu-OB-Vtz.normalTitle" = "定位锁闭力--反位锁闭力";
+
+/* Class = "UIButton"; normalTitle = "3分"; ObjectID = "GTe-FU-O9L"; */
+"GTe-FU-O9L.normalTitle" = "3分";
+
+/* Class = "UIBarButtonItem"; title = "对比"; ObjectID = "Gap-6T-9st"; */
+"Gap-6T-9st.title" = "对比";
+
+/* Class = "UIButton"; normalTitle = "查询"; ObjectID = "GhJ-5g-ZP1"; */
+"GhJ-5g-ZP1.normalTitle" = "查询";
+
+/* Class = "UISegmentedControl"; GtF-oe-cNV.segmentTitles[0] = "转换阻力"; ObjectID = "GtF-oe-cNV"; */
+"GtF-oe-cNV.segmentTitles[0]" = "转换阻力";
+
+/* Class = "UISegmentedControl"; GtF-oe-cNV.segmentTitles[1] = "锁闭力"; ObjectID = "GtF-oe-cNV"; */
+"GtF-oe-cNV.segmentTitles[1]" = "锁闭力";
+
+/* Class = "UILabel"; text = "站点:"; ObjectID = "HgV-xh-PoK"; */
+"HgV-xh-PoK.text" = "站点:";
+
+/* Class = "UIButton"; normalTitle = "伸出=定位 缩进=反位"; ObjectID = "IRj-17-cHf"; */
+"IRj-17-cHf.normalTitle" = "伸出=定位 缩进=反位";
+
+/* Class = "UIButton"; normalTitle = "J1"; ObjectID = "IuH-q4-p05"; */
+"IuH-q4-p05.normalTitle" = "J1";
+
+/* Class = "UILabel"; text = "历史记录"; ObjectID = "Jr8-0S-T71"; */
+"Jr8-0S-T71.text" = "历史记录";
+
+/* Class = "UILabel"; text = "牵引点:反扳闭锁力"; ObjectID = "KUZ-2i-l79"; */
+"KUZ-2i-l79.text" = "牵引点:反扳闭锁力";
+
+/* Class = "UINavigationItem"; title = "阻力转换"; ObjectID = "LF3-sc-4ka"; */
+"LF3-sc-4ka.title" = "阻力转换";
+
+/* Class = "UITextField"; text = "2021-02-03"; ObjectID = "LvN-XO-QRX"; */
+"LvN-XO-QRX.text" = "2021-02-03";
+
+/* Class = "UIButton"; normalTitle = "J5"; ObjectID = "Mjj-ka-VXd"; */
+"Mjj-ka-VXd.normalTitle" = "J5";
+
+/* Class = "UIButton"; normalTitle = "J4"; ObjectID = "MrK-VO-qMQ"; */
+"MrK-VO-qMQ.normalTitle" = "J4";
+
+/* Class = "UIButton"; normalTitle = "切换"; ObjectID = "Mre-Af-Var"; */
+"Mre-Af-Var.normalTitle" = "切换";
+
+/* Class = "UILabel"; text = "结束日期:"; ObjectID = "MwI-RP-7Yb"; */
+"MwI-RP-7Yb.text" = "结束日期:";
+
+/* Class = "UINavigationItem"; title = "测试地点设置"; ObjectID = "NAG-T7-czQ"; */
+"NAG-T7-czQ.title" = "测试地点设置";
+
+/* Class = "UIButton"; normalTitle = "相机"; ObjectID = "NMi-Su-1xd"; */
+"NMi-Su-1xd.normalTitle" = "相机";
+
+/* Class = "UIButton"; normalTitle = "清空"; ObjectID = "PV0-Vr-ggS"; */
+"PV0-Vr-ggS.normalTitle" = "清空";
+
+/* Class = "UIButton"; normalTitle = "J1"; ObjectID = "PrC-eF-8vv"; */
+"PrC-eF-8vv.normalTitle" = "J1";
+
+/* Class = "UIButton"; normalTitle = "伸出=反位 缩进=定位"; ObjectID = "R3C-HD-oz7"; */
+"R3C-HD-oz7.normalTitle" = "伸出=反位 缩进=定位";
+
+/* Class = "UILabel"; text = "牵引点:反扳闭锁力"; ObjectID = "RAI-x0-YsY"; */
+"RAI-x0-YsY.text" = "牵引点:反扳闭锁力";
+
+/* Class = "UIBarButtonItem"; title = "导出"; ObjectID = "S5Q-Fb-75S"; */
+"S5Q-Fb-75S.title" = "导出";
+
+/* Class = "UIButton"; normalTitle = "J1"; ObjectID = "SOv-eB-at4"; */
+"SOv-eB-at4.normalTitle" = "J1";
+
+/* Class = "UILabel"; text = "00:00"; ObjectID = "ShF-db-R3B"; */
+"ShF-db-R3B.text" = "00:00";
+
+/* Class = "UIButton"; normalTitle = "心轨"; ObjectID = "Tew-Xf-l7G"; */
+"Tew-Xf-l7G.normalTitle" = "心轨";
+
+/* Class = "UIBarButtonItem"; title = "Item"; ObjectID = "Tun-N5-DYc"; */
+"Tun-N5-DYc.title" = "Item";
+
+/* Class = "UILabel"; text = "搜索设备中"; ObjectID = "UdF-6O-0Pl"; */
+"UdF-6O-0Pl.text" = "搜索设备中";
+
+/* Class = "UIButton"; normalTitle = "4分"; ObjectID = "W4b-xy-sae"; */
+"W4b-xy-sae.normalTitle" = "4分";
+
+/* Class = "UILabel"; text = "地点：杭州南站110道岔"; ObjectID = "WXw-31-B19"; */
+"WXw-31-B19.text" = "地点：杭州南站110道岔";
+
+/* Class = "UIButton"; normalTitle = "确认"; ObjectID = "Xor-ow-8Ma"; */
+"Xor-ow-8Ma.normalTitle" = "确认";
+
+/* Class = "UIButton"; normalTitle = "保存"; ObjectID = "YDY-AP-gqw"; */
+"YDY-AP-gqw.normalTitle" = "保存";
+
+/* Class = "UINavigationItem"; title = "历史数据"; ObjectID = "YE2-9f-k3p"; */
+"YE2-9f-k3p.title" = "历史数据";
+
+/* Class = "UILabel"; text = "请输入监测站点名称"; ObjectID = "ZlG-XG-yr6"; */
+"ZlG-XG-yr6.text" = "请输入监测站点名称";
+
+/* Class = "UILabel"; text = "2021-02-03 18:00:00"; ObjectID = "a0P-Na-oOV"; */
+"a0P-Na-oOV.text" = "2021-02-03 18:00:00";
+
+/* Class = "UIButton"; normalTitle = "J4"; ObjectID = "ahT-QU-VGW"; */
+"ahT-QU-VGW.normalTitle" = "J4";
+
+/* Class = "UIBarButtonItem"; title = "报表"; ObjectID = "bMW-UR-TXc"; */
+"bMW-UR-TXc.title" = "报表";
+
+/* Class = "UIButton"; normalTitle = "J2"; ObjectID = "cEw-ak-7f9"; */
+"cEw-ak-7f9.normalTitle" = "J2";
+
+/* Class = "UIButton"; normalTitle = "5分"; ObjectID = "cW4-0g-ExA"; */
+"cW4-0g-ExA.normalTitle" = "5分";
+
+/* Class = "UIBarButtonItem"; title = "报表"; ObjectID = "eYk-h5-dsQ"; */
+"eYk-h5-dsQ.title" = "报表";
+
+/* Class = "UIButton"; normalTitle = "Button"; ObjectID = "ehf-wK-1vS"; */
+"ehf-wK-1vS.normalTitle" = "Button";
+
+/* Class = "UISegmentedControl"; emY-gY-ttd.segmentTitles[0] = "转换阻力"; ObjectID = "emY-gY-ttd"; */
+"emY-gY-ttd.segmentTitles[0]" = "转换阻力";
+
+/* Class = "UISegmentedControl"; emY-gY-ttd.segmentTitles[1] = "锁闭力"; ObjectID = "emY-gY-ttd"; */
+"emY-gY-ttd.segmentTitles[1]" = "锁闭力";
+
+/* Class = "UIButton"; normalTitle = "X2"; ObjectID = "fqb-hR-pCb"; */
+"fqb-hR-pCb.normalTitle" = "X2";
+
+/* Class = "UILabel"; text = "开始日期:"; ObjectID = "hrq-Li-SYl"; */
+"hrq-Li-SYl.text" = "开始日期:";
+
+/* Class = "UIButton"; normalTitle = "J6"; ObjectID = "i1p-83-zAw"; */
+"i1p-83-zAw.normalTitle" = "J6";
+
+/* Class = "UIButton"; normalTitle = "X1"; ObjectID = "jb2-rU-ACp"; */
+"jb2-rU-ACp.normalTitle" = "X1";
+
+/* Class = "UIButton"; normalTitle = "Button"; ObjectID = "jgj-s3-Z8D"; */
+"jgj-s3-Z8D.normalTitle" = "Button";
+
+/* Class = "UIButton"; normalTitle = "确认"; ObjectID = "mUy-0w-maJ"; */
+"mUy-0w-maJ.normalTitle" = "确认";
+
+/* Class = "UIButton"; normalTitle = "清空"; ObjectID = "o5o-YX-DxP"; */
+"o5o-YX-DxP.normalTitle" = "清空";
+
+/* Class = "UILabel"; text = "历史记录"; ObjectID = "oOX-Ul-VFg"; */
+"oOX-Ul-VFg.text" = "历史记录";
+
+/* Class = "UIButton"; normalTitle = "J3"; ObjectID = "onD-16-trT"; */
+"onD-16-trT.normalTitle" = "J3";
+
+/* Class = "UILabel"; text = "请勾选本次测试设备"; ObjectID = "pds-he-cdY"; */
+"pds-he-cdY.text" = "请勾选本次测试设备";
+
+/* Class = "UIButton"; normalTitle = "J2"; ObjectID = "pyM-db-j8L"; */
+"pyM-db-j8L.normalTitle" = "J2";
+
+/* Class = "UIButton"; normalTitle = "结束"; ObjectID = "q6H-6l-g5c"; */
+"q6H-6l-g5c.normalTitle" = "结束";
+
+/* Class = "UILabel"; text = "请输入监测道岔号"; ObjectID = "qsM-ll-s3r"; */
+"qsM-ll-s3r.text" = "请输入监测道岔号";
+
+/* Class = "UIBarButtonItem"; title = "报表"; ObjectID = "sb0-cQ-nul"; */
+"sb0-cQ-nul.title" = "报表";
+
+/* Class = "UIBarButtonItem"; title = "存档"; ObjectID = "tEo-OA-P3J"; */
+"tEo-OA-P3J.title" = "存档";
+
+/* Class = "UILabel"; text = "2021-02-03 18:00:00"; ObjectID = "thE-Ul-pTf"; */
+"thE-Ul-pTf.text" = "2021-02-03 18:00:00";
+
+/* Class = "UIButton"; normalTitle = "J2"; ObjectID = "v8k-PQ-886"; */
+"v8k-PQ-886.normalTitle" = "J2";
+
+/* Class = "UILabel"; text = "请勾选测试轨道类型"; ObjectID = "vwM-VB-Aqd"; */
+"vwM-VB-Aqd.text" = "请勾选测试轨道类型";
+
+/* Class = "UILabel"; text = "锁闭力测试设备"; ObjectID = "x2p-dH-2hk"; */
+"x2p-dH-2hk.text" = "锁闭力测试设备";
+
+/* Class = "UIButton"; normalTitle = "J5"; ObjectID = "y97-mS-4TJ"; */
+"y97-mS-4TJ.normalTitle" = "J5";
+
+/* Class = "UILabel"; text = "请选择测试最长时间"; ObjectID = "yeM-6w-xiW"; */
+"yeM-6w-xiW.text" = "请选择测试最长时间";
+
+/* Class = "UIButton"; normalTitle = "尖轨"; ObjectID = "zfi-Sl-04b"; */
+"zfi-Sl-04b.normalTitle" = "尖轨";

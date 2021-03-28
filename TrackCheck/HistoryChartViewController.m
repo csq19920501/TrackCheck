@@ -92,16 +92,26 @@
     NSDictionary *visualMapD = @{@"show":@(NO),@"dimension":@(0),@"pieces":@[@{@"lte":@(1614835094000),@"color":blueColor},@{@"gt":@(1614835095000),@"color":blueColor}]};
         if(_dataModel.colorArr.count != 0){
             NSMutableArray *pieces = [NSMutableArray array];
+            
             NSNumber* saveCount = @(0);
             for (int a = 0; a<_dataModel.colorArr.count; a++) {
                 NSArray *piece = _dataModel.colorArr[a];
+                NSString *colorStr = redColor;
+                if(piece.count > 2){
+                    NSNumber *railType = piece[2];
+                    if(railType.intValue == 1){
+                        colorStr = organiColor;
+                    }else if (railType.intValue ==2){
+                        colorStr = realRedColor;
+                    }
+                }
                 if(a==0){
                     [pieces addObject:@{@"lte":piece[0],@"color":blueColor}];
-                    [pieces addObject:@{@"gt":piece[0],@"lte":piece[1],@"color":redColor}];
+                    [pieces addObject:@{@"gt":piece[0],@"lte":piece[1],@"color":colorStr}];
                     saveCount = piece[1];
                 }else{
                     [pieces addObject:@{@"gt":saveCount,@"lte":piece[0],@"color":blueColor}];
-                    [pieces addObject:@{@"gt":piece[0],@"lte":piece[1],@"color":redColor}];
+                    [pieces addObject:@{@"gt":piece[0],@"lte":piece[1],@"color":colorStr}];
                     saveCount = piece[1];
                 }
                 if(a == _dataModel.colorArr.count-1){
@@ -205,13 +215,22 @@
             NSNumber* saveCount = @(0);
             for (int a = 0; a<_dataModel.colorArr.count; a++) {
                 NSArray *piece = _dataModel.colorArr[a];
+                NSString *colorStr = fanColor;
+                if(piece.count > 2){
+                    NSNumber *railType = piece[2];
+                    if(railType.intValue == 1){
+                        colorStr = organiColor;
+                    }else if (railType.intValue ==2){
+                        colorStr = realRedColor;
+                    }
+                }
                 if(a==0){
                     [pieces addObject:@{@"lte":piece[0],@"color":blueColor}];
-                    [pieces addObject:@{@"gt":piece[0],@"lte":piece[1],@"color":fanColor}];
+                    [pieces addObject:@{@"gt":piece[0],@"lte":piece[1],@"color":colorStr}];
                     saveCount = piece[1];
                 }else{
                     [pieces addObject:@{@"gt":saveCount,@"lte":piece[0],@"color":blueColor}];
-                    [pieces addObject:@{@"gt":piece[0],@"lte":piece[1],@"color":fanColor}];
+                    [pieces addObject:@{@"gt":piece[0],@"lte":piece[1],@"color":colorStr}];
                     saveCount = piece[1];
                 }
                 if(a == _dataModel.colorArr.count-1){
@@ -226,13 +245,22 @@
         NSNumber* saveCount = @(0);
         for (int a = 0; a<_dataModel.fanColorArr.count; a++) {
             NSArray *piece = _dataModel.fanColorArr[a];
+            NSString *colorStr = close_transform_color;
+            if(piece.count > 2){
+                NSNumber *railType = piece[2];
+                if(railType.intValue == 1){
+                    colorStr = organiColor;
+                }else if (railType.intValue ==2){
+                    colorStr = realRedColor;
+                }
+            }
             if(a==0){
                 [pieces addObject:@{@"lte":piece[0],@"color":blueColor}];
-                [pieces addObject:@{@"gt":piece[0],@"lte":piece[1],@"color":close_transform_color}];
+                [pieces addObject:@{@"gt":piece[0],@"lte":piece[1],@"color":colorStr}];
                 saveCount = piece[1];
             }else{
                 [pieces addObject:@{@"gt":saveCount,@"lte":piece[0],@"color":blueColor}];
-                [pieces addObject:@{@"gt":piece[0],@"lte":piece[1],@"color":close_transform_color}];
+                [pieces addObject:@{@"gt":piece[0],@"lte":piece[1],@"color":colorStr}];
                 saveCount = piece[1];
             }
             if(a == _dataModel.fanColorArr.count-1){
@@ -247,13 +275,22 @@
         NSNumber* saveCount = @(0);
         for (int a = 0; a<_dataModel.close_transArr.count; a++) {
             NSArray *piece = _dataModel.close_transArr[a];
+            NSString *colorStr = dinColor;
+            if(piece.count > 2){
+                NSNumber *railType = piece[2];
+                if(railType.intValue == 1){
+                    colorStr = organiColor;
+                }else if (railType.intValue ==2){
+                    colorStr = realRedColor;
+                }
+            }
             if(a==0){
                 [pieces addObject:@{@"lte":piece[0],@"color":blueColor}];
-                [pieces addObject:@{@"gt":piece[0],@"lte":piece[1],@"color":dinColor}];
+                [pieces addObject:@{@"gt":piece[0],@"lte":piece[1],@"color":colorStr}];
                 saveCount = piece[1];
             }else{
                 [pieces addObject:@{@"gt":saveCount,@"lte":piece[0],@"color":blueColor}];
-                [pieces addObject:@{@"gt":piece[0],@"lte":piece[1],@"color":dinColor}];
+                [pieces addObject:@{@"gt":piece[0],@"lte":piece[1],@"color":colorStr}];
                 saveCount = piece[1];
             }
             if(a == _dataModel.close_transArr.count-1){

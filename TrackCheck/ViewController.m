@@ -811,13 +811,23 @@
         NSNumber* saveCount = @(0);
         for (int a = 0; a<device.colorArr.count; a++) {
             NSArray *piece = device.colorArr[a];
+            NSString *colorStr = redColor;
+            if(piece.count > 2){
+                NSNumber *railType = piece[2];
+                if(railType.intValue == 1){
+                    colorStr = organiColor;
+                }else if (railType.intValue ==2){
+                    colorStr = realRedColor;
+                }
+            }
+            
             if(a==0){
                 [pieces addObject:@{@"lte":piece[0],@"color":blueColor}];
-                [pieces addObject:@{@"gt":piece[0],@"lte":piece[1],@"color":redColor}];
+                [pieces addObject:@{@"gt":piece[0],@"lte":piece[1],@"color":colorStr}];
                 saveCount = piece[1];
             }else{
                 [pieces addObject:@{@"gt":saveCount,@"lte":piece[0],@"color":blueColor}];
-                [pieces addObject:@{@"gt":piece[0],@"lte":piece[1],@"color":redColor}];
+                [pieces addObject:@{@"gt":piece[0],@"lte":piece[1],@"color":colorStr}];
                 saveCount = piece[1];
             }
             if(a == device.colorArr.count-1){
@@ -995,13 +1005,23 @@
             NSNumber* saveCount = @(0);
             for (int a = 0; a<deviceChange.colorArr.count; a++) {
                 NSArray *piece = deviceChange.colorArr[a];
+                
+                NSString *colorStr = dinColor;
+                if(piece.count > 2){
+                    NSNumber *railType = piece[2];
+                    if(railType.intValue == 1){
+                        colorStr = organiColor;
+                    }else if (railType.intValue ==2){
+                        colorStr = realRedColor;
+                    }
+                }
                 if(a==0){
                     [pieces addObject:@{@"lte":piece[0],@"color":blueColor}];
-                    [pieces addObject:@{@"gt":piece[0],@"lte":piece[1],@"color":dinColor}];
+                    [pieces addObject:@{@"gt":piece[0],@"lte":piece[1],@"color":colorStr}];
                     saveCount = piece[1];
                 }else{
                     [pieces addObject:@{@"gt":saveCount,@"lte":piece[0],@"color":blueColor}];
-                    [pieces addObject:@{@"gt":piece[0],@"lte":piece[1],@"color":dinColor}];
+                    [pieces addObject:@{@"gt":piece[0],@"lte":piece[1],@"color":colorStr}];
                     saveCount = piece[1];
                 }
                 if(a == deviceChange.colorArr.count-1){
@@ -1016,13 +1036,22 @@
         NSNumber* saveCount = @(0);
         for (int a = 0; a<deviceCLose1.colorArr.count; a++) {
             NSArray *piece = deviceCLose1.colorArr[a];
+            NSString *colorStr = fanColor;
+            if(piece.count > 2){
+                NSNumber *railType = piece[2];
+                if(railType.intValue == 1){
+                    colorStr = organiColor;
+                }else if (railType.intValue ==2){
+                    colorStr = realRedColor;
+                }
+            }
             if(a==0){
                 [pieces addObject:@{@"lte":piece[0],@"color":blueColor}];
-                [pieces addObject:@{@"gt":piece[0],@"lte":piece[1],@"color":fanColor}];
+                [pieces addObject:@{@"gt":piece[0],@"lte":piece[1],@"color":colorStr}];
                 saveCount = piece[1];
             }else{
                 [pieces addObject:@{@"gt":saveCount,@"lte":piece[0],@"color":blueColor}];
-                [pieces addObject:@{@"gt":piece[0],@"lte":piece[1],@"color":fanColor}];
+                [pieces addObject:@{@"gt":piece[0],@"lte":piece[1],@"color":colorStr}];
                 saveCount = piece[1];
             }
             if(a == deviceCLose1.colorArr.count-1){
@@ -1037,13 +1066,22 @@
         NSNumber* saveCount = @(0);
         for (int a = 0; a<deviceCLose1.fanColorArr.count; a++) {
             NSArray *piece = deviceCLose1.fanColorArr[a];
+            NSString *colorStr = close_transform_color;
+            if(piece.count > 2){
+                NSNumber *railType = piece[2];
+                if(railType.intValue == 1){
+                    colorStr = organiColor;
+                }else if (railType.intValue ==2){
+                    colorStr = realRedColor;
+                }
+            }
             if(a==0){
                 [pieces addObject:@{@"lte":piece[0],@"color":blueColor}];
-                [pieces addObject:@{@"gt":piece[0],@"lte":piece[1],@"color":close_transform_color}];
+                [pieces addObject:@{@"gt":piece[0],@"lte":piece[1],@"color":colorStr}];
                 saveCount = piece[1];
             }else{
                 [pieces addObject:@{@"gt":saveCount,@"lte":piece[0],@"color":blueColor}];
-                [pieces addObject:@{@"gt":piece[0],@"lte":piece[1],@"color":close_transform_color}];
+                [pieces addObject:@{@"gt":piece[0],@"lte":piece[1],@"color":colorStr}];
                 saveCount = piece[1];
             }
             if(a == deviceCLose1.fanColorArr.count-1){

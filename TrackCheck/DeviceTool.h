@@ -30,11 +30,14 @@ typedef enum:NSInteger{
 }CSQShenSuo;
 NS_ASSUME_NONNULL_BEGIN
 static NSString *blueColor = @"black";   // 其他曲线   蓝色  #4B8CF5 红色 #E71D1C
-static NSString *redColor = @"#4B8CF5";   //报告曲线
-static NSString *realRedColor = @"#E71D1C";   //报告曲线2
+static NSString *redColor = @"#4B8CF5";   //报告曲线   黑色
+//static NSString *realRedColor = @"#E71D1C";   //报告曲线2   红色
 static NSString *dinColor = @"#5470C6";   //报告曲线
 static NSString *fanColor = @"#91CC75";   //报告曲线
 static NSString *close_transform_color = @"#FAC858";   //报告曲线
+
+static NSString *organiColor = @"#FFA500";   //报警颜色  橙色
+static NSString *realRedColor = @"#E71D1C";   //报警颜色  红色
 @interface DeviceTool : NSObject
 +(DeviceTool*)shareInstance;
 @property(nonatomic,strong)NSMutableArray *deviceArr;

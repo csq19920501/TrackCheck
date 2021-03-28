@@ -624,7 +624,8 @@
 		B556CB7725A885A900523758 /* DeviceTool.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DeviceTool.m; sourceTree = "<group>"; };
 		B55829CE25EF544A000AD684 /* UKNavigationViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UKNavigationViewController.m; sourceTree = "<group>"; };
 		B55829CF25EF544B000AD684 /* UKNavigationViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UKNavigationViewController.h; sourceTree = "<group>"; };
-		B58588222602E82100AC296B /* TrackCheck.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = TrackCheck.entitlements; sourceTree = "<group>"; };
+		B5682BC72609898800AC50D4 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/Main.strings"; sourceTree = "<group>"; };
+		B5682BC82609898800AC50D4 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/LaunchScreen.strings"; sourceTree = "<group>"; };
 		B58588232602E82700AC296B /* CloudKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CloudKit.framework; path = System/Library/Frameworks/CloudKit.framework; sourceTree = SDKROOT; };
 		B591261D25F624B600DEC727 /* CSQVisualMap.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CSQVisualMap.h; sourceTree = "<group>"; };
 		B591261E25F624B600DEC727 /* CSQVisualMap.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CSQVisualMap.m; sourceTree = "<group>"; };
@@ -1066,7 +1067,6 @@
 		B556CA1325A55A2400523758 /* TrackCheck */ = {
 			isa = PBXGroup;
 			children = (
-				B58588222602E82100AC296B /* TrackCheck.entitlements */,
 				B5362C9D25BBC46C00AE189A /* TYAlertController */,
 				B556518B25B166CD00CB61D7 /* Alert */,
 				B556515125B160F900CB61D7 /* Tools */,
@@ -1486,6 +1486,7 @@
 			knownRegions = (
 				en,
 				Base,
+				"zh-Hans",
 			);
 			mainGroup = B556CA0825A55A2400523758;
 			productRefGroup = B556CA1225A55A2400523758 /* Products */;
@@ -1806,6 +1807,7 @@
 			isa = PBXVariantGroup;
 			children = (
 				B556CA1E25A55A2400523758 /* Base */,
+				B5682BC72609898800AC50D4 /* zh-Hans */,
 			);
 			name = Main.storyboard;
 			sourceTree = "<group>";
@@ -1814,6 +1816,7 @@
 			isa = PBXVariantGroup;
 			children = (
 				B556CA2325A55A2700523758 /* Base */,
+				B5682BC82609898800AC50D4 /* zh-Hans */,
 			);
 			name = LaunchScreen.storyboard;
 			sourceTree = "<group>";
@@ -1825,6 +1828,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
@@ -1883,6 +1887,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
@@ -1944,7 +1949,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "TrackCheck/TrackCheck-PrefixHeader.pch";
 				INFOPLIST_FILE = TrackCheck/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -1955,7 +1960,7 @@
 					"\"$PODS_CONFIGURATION_BUILD_DIR\"",
 				);
 				ONLY_ACTIVE_ARCH = YES;
-				PRODUCT_BUNDLE_IDENTIFIER = com.ethome.ipad.TrackCheck2;
+				PRODUCT_BUNDLE_IDENTIFIER = com.ethome.ipad.TrackCheck;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TARGETED_DEVICE_FAMILY = "1,2";
 				USER_HEADER_SEARCH_PATHS = "${SRCROOT}/**";
@@ -1974,7 +1979,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "TrackCheck/TrackCheck-PrefixHeader.pch";
 				INFOPLIST_FILE = TrackCheck/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -1987,7 +1992,7 @@
 					"/**",
 				);
 				ONLY_ACTIVE_ARCH = YES;
-				PRODUCT_BUNDLE_IDENTIFIER = com.ethome.ipad.TrackCheck2;
+				PRODUCT_BUNDLE_IDENTIFIER = com.ethome.ipad.TrackCheck;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TARGETED_DEVICE_FAMILY = "1,2";
 				USER_HEADER_SEARCH_PATHS = "${SRCROOT}/**";

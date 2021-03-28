@@ -155,9 +155,9 @@
                        
                        case 5:
                        {
-                           text = [NSString stringWithFormat:@"%@%d:定扳反\n",text,i];
-                           text = [NSString stringWithFormat:@"%@定位锁闭力%ld 定位保持力%ld\n",text,rep.close_ding,rep.keep_ding];
-                           text = [NSString stringWithFormat:@"%@反位锁闭力%ld 反位保持力%ld\n",text,rep.close_fan,rep.keep_fan];
+                           text = [NSString stringWithFormat:@"%@%d:定扳反 反位锁闭力净值%ld\n",text,i,rep.close_fan - rep.keep_fan];
+//                           text = [NSString stringWithFormat:@"%@定位锁闭力%ld 定位保持力%ld\n",text,rep.close_ding,rep.keep_ding];
+//                           text = [NSString stringWithFormat:@"%@反位锁闭力%ld 反位保持力%ld\n",text,rep.close_fan,rep.keep_fan];
                        }
                                           break;
                        case 6:
@@ -169,9 +169,9 @@
                                           break;
                        case 7:
                        {
-                           text = [NSString stringWithFormat:@"%@%d:反扳定\n",text,i];
-                           text = [NSString stringWithFormat:@"%@定位锁闭力%ld 定位保持力%ld\n",text,rep.close_ding,rep.keep_ding];
-                           text = [NSString stringWithFormat:@"%@反位锁闭力%ld 反位保持力%ld\n",text,rep.close_fan,rep.keep_fan];
+                           text = [NSString stringWithFormat:@"%@%d:反扳定 定位锁闭力净值%ld\n",text,i,rep.close_ding-rep.keep_ding];
+//                           text = [NSString stringWithFormat:@"%@定位锁闭力%ld 定位保持力%ld\n",text,rep.close_ding,rep.keep_ding];
+//                           text = [NSString stringWithFormat:@"%@反位锁闭力%ld 反位保持力%ld\n",text,rep.close_fan,rep.keep_fan];
                        }
                                           break;
                        case 8:
@@ -255,9 +255,11 @@
                        
                        case 5:
                        {
-                           text = [NSString stringWithFormat:@"%@%d:定扳反\n",text,i];
-                           text = [NSString stringWithFormat:@"%@定位锁闭力%ld 定位保持力%ld\n",text,rep.close_ding,rep.keep_ding];
-                           text = [NSString stringWithFormat:@"%@反位锁闭力%ld 反位保持力%ld\n",text,rep.close_fan,rep.keep_fan];
+//                           text = [NSString stringWithFormat:@"%@%d:定扳反\n",text,i];
+//                           text = [NSString stringWithFormat:@"%@定位锁闭力%ld 定位保持力%ld\n",text,rep.close_ding,rep.keep_ding];
+//                           text = [NSString stringWithFormat:@"%@反位锁闭力%ld 反位保持力%ld\n",text,rep.close_fan,rep.keep_fan];
+                           text = [NSString stringWithFormat:@"%@%d:定扳反 反位锁闭力净值%ld\n",text,i,rep.close_fan - rep.keep_fan];
+                 
                        }
                                           break;
                        case 6:
@@ -269,9 +271,9 @@
                                           break;
                        case 7:
                        {
-                           text = [NSString stringWithFormat:@"%@%d:反扳定\n",text,i];
-                           text = [NSString stringWithFormat:@"%@定位锁闭力%ld 定位保持力%ld\n",text,rep.close_ding,rep.keep_ding];
-                           text = [NSString stringWithFormat:@"%@反位锁闭力%ld 反位保持力%ld\n",text,rep.close_fan,rep.keep_fan];
+                           text = [NSString stringWithFormat:@"%@%d:反扳定 定位锁闭力净值%ld\n",text,i,rep.close_ding-rep.keep_ding];
+//                           text = [NSString stringWithFormat:@"%@定位锁闭力%ld 定位保持力%ld\n",text,rep.close_ding,rep.keep_ding];
+//                           text = [NSString stringWithFormat:@"%@反位锁闭力%ld 反位保持力%ld\n",text,rep.close_fan,rep.keep_fan];
                        }
                                           break;
                        case 8:

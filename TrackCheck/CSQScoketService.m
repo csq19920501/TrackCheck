@@ -1030,7 +1030,42 @@ static dispatch_once_t onceToken;
         long average = meanSum/(int)dataArr.count;
         NSLog(@"average = %ld",average);
         if(average > 15){
+            
+            if(!model.blockedStable3_OK){
+                [model.dataArr addObjectsFromArray:dataArr];
+                [model.timeArr addObjectsFromArray:timeArr];
+            }
+            else if(model.blockedStable3_OK){
+                //受阻空转生成
+                
+                long meanAll = 0;
+                for(NSNumber *num in model.dataBlockArr){
+                    meanAll += num.longValue;
+                }
+                meanAll = meanAll/(int)model.dataBlockArr.count;
+                
+                if(meanAll>=model.startValue){
+                    for(int a = 0;a<dataArr.count;a++){
+                        NSNumber *num = dataArr[a];
+                        if(num.longValue >0){
+                            [model.dataArr addObject:dataArr[a]];
+                            [model.timeArr addObject:timeArr[a]];
+                        }
+                    }
+                }else{
+                    for(int a = 0;a<dataArr.count;a++){
+                        NSNumber *num = dataArr[a];
+                        if(num.longValue <0){
+                            [model.dataArr addObject:dataArr[a]];
+                            [model.timeArr addObject:timeArr[a]];
+                        }
+                    }
+                }
+            }
+           
+            
             if(average > 400){
+
                 if(!model.step2_OK){
                     //小变化没两秒就急速升高则是受阻空转后错误曲线
                     model.blockedError = YES;
@@ -1038,19 +1073,68 @@ static dispatch_once_t onceToken;
                         model.blockedErrorTypeUp = YES;
                     }
                      NSLog(@"average > 400  model.blockedError = YES");
+                    
+                    
                 }else{
                     if(!model.blockedChange1_OK){
                         model.blockedChange1_OK = YES;
                         NSLog(@"average > 400  model.blockedChange_OK = YES");
+                        
                     }else{
                         if(model.blockedStable2_OK){
                             model.blockedChange2_OK = YES;
                              NSLog(@"average > 400  model.blockedChange2_OK = YES");
                         }
+                       
+                    }
+                    if(model.blockedStable3_OK){
+                        //受阻空转生成
+                        
+                        long meanAll = 0;
+                        for(NSNumber *num in model.dataBlockArr){
+                            meanAll += num.longValue;
+                        }
+                        meanAll = meanAll/(int)model.dataBlockArr.count;
+                        
+                        
+                        
+                        
+                        ReportModel *dataModel = [[ReportModel alloc]init];
+                        dataModel.station = DEVICETOOL.stationStr;
+                        dataModel.roadSwitch = DEVICETOOL.roadSwitchNo;
+                        dataModel.idStr = [NSString stringWithFormat:@"%lld%@",DEVICETOOL.startTime,typeStr];
+                        dataModel.deviceType = typeStr;
+                        long long currentTime = [[NSDate date] timeIntervalSince1970] ;
+                        dataModel.timeLong = currentTime;
+                        dataModel.timeLongStr = [NSString stringWithFormat:@"%lld转换阻力",currentTime];
+                        if(meanAll < model.startValue){
+                            model.blocked_max = min;
+                            if(DEVICETOOL.shenSuo == Shen_Ding){
+                                  dataModel.reportType = 2;
+                            }else if(DEVICETOOL.shenSuo == Shen_Fan){
+                                  dataModel.reportType = 4;
+                            }
+                            dataModel.blocked_Top = model.min + model.startValue;
+                             NSLog(@"average < 70  model.blockedStable2_OK = YES 定扳反受阻空转生成");
+                        }else{
+                             model.blocked_max = max;
+                           if(DEVICETOOL.shenSuo == Shen_Ding){
+                                  dataModel.reportType = 4;
+                            }else if(DEVICETOOL.shenSuo == Shen_Fan){
+                                  dataModel.reportType = 2;
+                            }
+                            dataModel.blocked_Top = model.max + model.startValue;
+                            NSLog(@"average < 70  model.blockedStable2_OK = YES 反扳定受阻空转生成");
+                        }
+                        dataModel.blocked_stable = meanAll + model.startValue;
+    //                    [[LPDBManager defaultManager] saveModels: @[dataModel]];
+                        [self device:id addReport:dataModel withModel:model];
+                        
                     }
                 }
                 
             }else{
+          
                 if(!model.step1_OK){
                                //波动开始
                                model.step1_OK = YES;
@@ -1072,9 +1156,8 @@ static dispatch_once_t onceToken;
                                NSLog(@"average > 70  model.step4_OK = YES");
                            }
             }
-      
-            [model.dataArr addObjectsFromArray:dataArr];
-            [model.timeArr addObjectsFromArray:timeArr];
+            
+            
 //            NSLog(@"分段 dataArr.count = %ld ",model.dataArr.count);
         }else{
             if(mean  > 2000 || mean  < -2000){
@@ -1104,46 +1187,48 @@ static dispatch_once_t onceToken;
                 else if(!model.blockedStable5_OK){
                    
                     model.blockedStable5_OK = YES;
-                     [model.dataBlockArr addObject:[NSNumber numberWithLong:mean]];
+                    [model.dataBlockArr addObject:[NSNumber numberWithLong:mean]];
                     //受阻空转生成
-                    ReportModel *dataModel = [[ReportModel alloc]init];
-                    dataModel.station = DEVICETOOL.stationStr;
-                    dataModel.roadSwitch = DEVICETOOL.roadSwitchNo;
-                    dataModel.idStr = [NSString stringWithFormat:@"%lld%@",DEVICETOOL.startTime,typeStr];
-                    dataModel.deviceType = typeStr;
-                    long long currentTime = [[NSDate date] timeIntervalSince1970] ;
-                    dataModel.timeLong = currentTime;
-                   dataModel.timeLongStr = [NSString stringWithFormat:@"%lld转换阻力",currentTime];
-                    if(mean < model.startValue){
-                        model.blocked_max = min;
-                        if(DEVICETOOL.shenSuo == Shen_Ding){
-                              dataModel.reportType = 2;
-                        }else if(DEVICETOOL.shenSuo == Shen_Fan){
-                              dataModel.reportType = 4;
-                        }
-                        dataModel.blocked_Top = model.min + model.startValue;
-                         NSLog(@"average < 70  model.blockedStable2_OK = YES 定扳反受阻空转生成");
-                    }else{
-                         model.blocked_max = max;
-                       if(DEVICETOOL.shenSuo == Shen_Ding){
-                              dataModel.reportType = 4;
-                        }else if(DEVICETOOL.shenSuo == Shen_Fan){
-                              dataModel.reportType = 2;
-                        }
-                        dataModel.blocked_Top = model.max + model.startValue;
-                        NSLog(@"average < 70  model.blockedStable2_OK = YES 反扳定受阻空转生成");
-                    }
-                    long meanAll = 0;
-                    for(NSNumber *num in model.dataBlockArr){
-                        meanAll += num.longValue;
-                    }
-                    meanAll = meanAll/(int)model.dataBlockArr.count;
-                    
-                    dataModel.blocked_stable = mean;//meanAll + model.startValue;
-//                    [[LPDBManager defaultManager] saveModels: @[dataModel]];
-                    [self device:id addReport:dataModel withModel:model];
-//                    [self setCheckNilWith:id];
-                    return;
+//                    ReportModel *dataModel = [[ReportModel alloc]init];
+//                    dataModel.station = DEVICETOOL.stationStr;
+//                    dataModel.roadSwitch = DEVICETOOL.roadSwitchNo;
+//                    dataModel.idStr = [NSString stringWithFormat:@"%lld%@",DEVICETOOL.startTime,typeStr];
+//                    dataModel.deviceType = typeStr;
+//                    long long currentTime = [[NSDate date] timeIntervalSince1970] ;
+//                    dataModel.timeLong = currentTime;
+//                    dataModel.timeLongStr = [NSString stringWithFormat:@"%lld转换阻力",currentTime];
+//                    if(mean < model.startValue){
+//                        model.blocked_max = min;
+//                        if(DEVICETOOL.shenSuo == Shen_Ding){
+//                              dataModel.reportType = 2;
+//                        }else if(DEVICETOOL.shenSuo == Shen_Fan){
+//                              dataModel.reportType = 4;
+//                        }
+//                        dataModel.blocked_Top = model.min + model.startValue;
+//                         NSLog(@"average < 70  model.blockedStable2_OK = YES 定扳反受阻空转生成");
+//                    }else{
+//                         model.blocked_max = max;
+//                       if(DEVICETOOL.shenSuo == Shen_Ding){
+//                              dataModel.reportType = 4;
+//                        }else if(DEVICETOOL.shenSuo == Shen_Fan){
+//                              dataModel.reportType = 2;
+//                        }
+//                        dataModel.blocked_Top = model.max + model.startValue;
+//                        NSLog(@"average < 70  model.blockedStable2_OK = YES 反扳定受阻空转生成");
+//                    }
+//                    long meanAll = 0;
+//                    for(NSNumber *num in model.dataBlockArr){
+//                        meanAll += num.longValue;
+//                    }
+//                    meanAll = meanAll/(int)model.dataBlockArr.count;
+//
+//                    dataModel.blocked_stable = mean;//meanAll + model.startValue;
+////                    [[LPDBManager defaultManager] saveModels: @[dataModel]];
+//                    [self device:id addReport:dataModel withModel:model];
+////                    [self setCheckNilWith:id];
+//                    return;
+                }else{
+                    [model.dataBlockArr addObject:[NSNumber numberWithLong:mean]];
                 }
                 
             }else{
@@ -1178,6 +1263,55 @@ static dispatch_once_t onceToken;
                                             long openInt = (long)(model.dataArr.count * (1./5.5));
                                             long transformInt = (long)(model.dataArr.count * (3.5/5.5));
                                             long closeInt = model.dataArr.count - openInt - transformInt;
+                        
+                        if([typeStr isEqualToString:@"J1"]){
+                            if(model.dataArr.count < 5.2*50){
+                                [self setCheckNilWith:id];
+                                return;;
+                            }else{
+                                openInt = (long)(2*50);
+                                transformInt = (long)(2.4*50);
+                                closeInt = model.dataArr.count - openInt - transformInt;
+                            }
+                        }else if([typeStr isEqualToString:@"J2"]){
+                            if(model.dataArr.count < 5.2*50){
+                                [self setCheckNilWith:id];
+                                return;;
+                            }else{
+                                openInt = (long)(2.92*50);
+                                transformInt = (long)(1.48*50);
+                                closeInt = model.dataArr.count - openInt - transformInt;
+                            }
+                        }
+                        else if([typeStr isEqualToString:@"J3"]){
+                            if(model.dataArr.count < 5.15*50){
+                                [self setCheckNilWith:id];
+                                return;;
+                            }else{
+                                openInt = (long)(2.92*50);
+                                transformInt = (long)(1.43*50);
+                                closeInt = model.dataArr.count - openInt - transformInt;
+                            }
+                        }else if([typeStr isEqualToString:@"X1"]){
+                            if(model.dataArr.count < 5.2*50){
+                                [self setCheckNilWith:id];
+                                return;;
+                            }else{
+                                openInt = (long)(2.1*50);
+                                transformInt = (long)(2.2*50);
+                                closeInt = model.dataArr.count - openInt - transformInt;
+                            }
+                        }else if([typeStr isEqualToString:@"X2"]){
+                            if(model.dataArr.count < 5.2*50){
+                                [self setCheckNilWith:id];
+                                return;;
+                            }else{
+                                openInt = (long)(2.9*50);
+                                transformInt = (long)(1.4*50);
+                                closeInt = model.dataArr.count - openInt - transformInt;
+                            }
+                        }
+                        
                         
                         NSLog(@"分段 dataArr.count = %ld openInt = %ld transformInt=%ld",dataArr.count,openInt,transformInt);
                         NSLog(@"检测到扳动 allMean = %ld allMin = %ld allMax=%ld",allMean,allMin,allMax);
@@ -1417,6 +1551,8 @@ static dispatch_once_t onceToken;
     }
     if(dev){
         [dev.reportArr addObject:report];
+        NSNumber *railType = @(0);
+        NSNumber *railType_fan = @(0);
         if(id == 12 || id == 11){
             NSNumber *startT = checkModel.fanTimeArr[0];
             startT = [NSNumber numberWithLongLong:(startT.longLongValue-800)];
@@ -1424,7 +1560,14 @@ static dispatch_once_t onceToken;
             NSNumber *endT = checkModel.fanTimeArr.lastObject;
             endT = [NSNumber numberWithLongLong:(endT.longLongValue+500)];
             
-            [dev.fanColorArr addObject:@[startT,endT]];
+            
+            if(report.close_fan - report.keep_fan > 3000 || report.close_fan - report.keep_fan < 500){
+                railType_fan = @(1);
+            }
+            if(report.close_fan - report.keep_fan > 3800 || report.close_fan - report.keep_fan < 300){
+                railType_fan = @(2);
+            }
+            [dev.fanColorArr addObject:@[startT,endT,railType_fan]];
             
             NSNumber *startT_Ding = checkModel.timeArr[0];
             startT = [NSNumber numberWithLongLong:(startT_Ding.longLongValue-800)];
@@ -1432,15 +1575,113 @@ static dispatch_once_t onceToken;
             NSNumber *endT_Ding = checkModel.timeArr.lastObject;
             endT = [NSNumber numberWithLongLong:(endT_Ding.longLongValue+500)];
             
-            [dev.colorArr addObject:@[startT,endT]];
+            
+            if(report.close_ding - report.keep_ding > 3000 || report.close_ding - report.keep_ding < 500){
+                railType = @(1);
+            }
+            if(report.close_ding - report.keep_ding > 3800 || report.close_ding - report.keep_ding < 300){
+                railType = @(2);
+            }
+
+            [dev.colorArr addObject:@[startT,endT,railType]];
         }else{
+            if([dev.typeStr isEqualToString:@"J1"]){
+                if(report.reportType == 1 || report.reportType == 3){
+                    if(report.all_Top > 1400 || report.all_Top < -1400){
+                        railType = @(1);
+                    }
+                    if(report.all_Top > 1800 || report.all_Top < -1800){
+                        railType = @(2);
+                    }
+                }
+                else if(report.reportType == 2 || report.reportType == 4){
+                    if(report.blocked_stable < 3500 && report.blocked_stable > -3500){
+                        railType = @(1);
+                    }
+                    if(report.blocked_stable < 3000 && report.blocked_stable > -3000){
+                        railType = @(2);
+                    }
+                }
+            }else if([dev.typeStr isEqualToString:@"J2"]){
+                if(report.reportType == 1 || report.reportType == 3){
+                    if(report.all_Top > 1500 || report.all_Top < -1500){
+                        railType = @(1);
+                    }
+                    if(report.all_Top > 1900 || report.all_Top < -1900){
+                        railType = @(2);
+                    }
+                }
+                else if(report.reportType == 2 || report.reportType == 4){
+                    if(report.blocked_stable < 3500 && report.blocked_stable > -3500){
+                        railType = @(1);
+                    }
+                    if(report.blocked_stable < 3000 && report.blocked_stable > -3000){
+                        railType = @(2);
+                    }
+                }
+            }else if([dev.typeStr isEqualToString:@"J3"]){
+                if(report.reportType == 1 || report.reportType == 3){
+                    if(report.all_Top > 2100 || report.all_Top < -2100){
+                        railType = @(1);
+                    }
+                    if(report.all_Top > 2450 || report.all_Top < -2450){
+                        railType = @(2);
+                    }
+                }
+                else if(report.reportType == 2 || report.reportType == 4){
+                    if(report.blocked_stable < 5000 && report.blocked_stable > -5000){
+                        railType = @(1);
+                    }
+                    if(report.blocked_stable < 4400 && report.blocked_stable > -4400){
+                        railType = @(2);
+                    }
+                }
+            }else if([dev.typeStr isEqualToString:@"X1"]){
+                if(report.reportType == 1 || report.reportType == 3){
+                    if(report.all_Top > 1300 || report.all_Top < -1300){
+                        railType = @(1);
+                    }
+                    if(report.all_Top > 1500 || report.all_Top < -1500){
+                        railType = @(2);
+                    }
+                }
+                else if(report.reportType == 2 || report.reportType == 4){
+                    if(report.blocked_stable < 2800 && report.blocked_stable > -2800){
+                        railType = @(1);
+                    }
+                    if(report.blocked_stable < 2500 && report.blocked_stable > -2500){
+                        railType = @(2);
+                    }
+                }
+            }else if([dev.typeStr isEqualToString:@"X2"]){
+                if(report.reportType == 1 || report.reportType == 3){
+                    if(report.all_Top > 3100 || report.all_Top < -3100){
+                        railType = @(1);
+                    }
+                    if(report.all_Top > 3600 || report.all_Top < -3600){
+                        railType = @(2);
+                    }
+                }
+                else if(report.reportType == 2 || report.reportType == 4){
+                    if(report.blocked_stable < 6800 && report.blocked_stable > -6800){
+                        railType = @(1);
+                    }
+                    if(report.blocked_stable < 6100 && report.blocked_stable > -6100){
+                        railType = @(2);
+                    }
+                }
+            }
             NSNumber *startT = checkModel.timeArr[0];
-            startT = [NSNumber numberWithLongLong:(startT.longLongValue-800)];
+            startT = [NSNumber numberWithLongLong:(startT.longLongValue-200)];
             
             NSNumber *endT = checkModel.timeArr.lastObject;
-            endT = [NSNumber numberWithLongLong:(endT.longLongValue+500)];
+            long endDelay = 200;
+            if(report.reportType == 2 || report.reportType == 4){
+                endDelay = 0;
+            }
+            endT = [NSNumber numberWithLongLong:(endT.longLongValue+endDelay)];
             
-            [dev.colorArr addObject:@[startT,endT]];
+            [dev.colorArr addObject:@[startT,endT,railType]];
         }
     }
 }
