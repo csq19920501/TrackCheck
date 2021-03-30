@@ -44,6 +44,8 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic,assign)NSInteger keep_fan;
 @property (nonatomic,assign)BOOL isSelected;
 
+@property (nonatomic,assign)NSInteger warnType;
+@property (nonatomic,assign)NSInteger warnType_fan;
 +(ReportModel *)initWithReport:(ReportModel *)model;
 @end
 

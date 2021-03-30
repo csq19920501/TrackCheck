@@ -25,3 +25,6 @@
 //typeof(weakSelf) self = weakSelf; \
 //{x} \
 //});
+
+//  viewcontroller changeView  smooth lttb max
+//  reportviewcontroller viewdidload  smooth lttb max

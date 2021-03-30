@@ -453,14 +453,20 @@ typedef enum:NSInteger{
 //        }else if([DEVICETOOL.closeLinkDevice isEqualToString:@"J3"] || [DEVICETOOL.closeLinkDevice isEqualToString:@"X3"] || [DEVICETOOL.closeLinkDevice isEqualToString:@"J6"]){
 //            idStr = @"3";
 //        }
+        BOOL EXIT = NO;
         for (int i =0; i < DEVICETOOL.deviceArr.count; i++) {
             Device *device = DEVICETOOL.deviceArr[i];
             if([device.id isEqualToString: @"11"] || [device.id isEqualToString:@"12"]){
                 device.selected = YES;
+                EXIT = YES;
             }else if( [device.id isEqualToString:idStr]){
                 device.selected = YES;
                 device.typeStr = DEVICETOOL.closeLinkDevice;
             }
+        }
+        if(!EXIT){
+            [HUD showAlertWithText:@"锁闭力设备还未完成链接"];
+            return;
         }
     }
     ViewController *setDeviceVC = [[UIStoryboard storyboardWithName:@"Main" bundle:[NSBundle mainBundle]] instantiateViewControllerWithIdentifier:@"ViewController"];

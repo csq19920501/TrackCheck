@@ -172,7 +172,7 @@
 //        series.symbolSizeEqual(@(0)).showAllSymbolEqual(YES).nameEqual(@"反位锁闭力").typeEqual(PYSeriesTypeLine).dataEqual(saveDataArr2);
 //        }]);
     }];
-    [DEVICETOOL changeReport:option reportArr:_results maxCount:14];
+    [DEVICETOOL changeReport:option reportArr:_results maxCount:30];
     option.visualMap = visualMapD;
     return option;
 }
@@ -225,16 +225,16 @@
                     }
                 }
                 if(a==0){
-                    [pieces addObject:@{@"lte":piece[0],@"color":blueColor}];
+                    [pieces addObject:@{@"lte":piece[0],@"color":fanColor}];
                     [pieces addObject:@{@"gt":piece[0],@"lte":piece[1],@"color":colorStr}];
                     saveCount = piece[1];
                 }else{
-                    [pieces addObject:@{@"gt":saveCount,@"lte":piece[0],@"color":blueColor}];
+                    [pieces addObject:@{@"gt":saveCount,@"lte":piece[0],@"color":fanColor}];
                     [pieces addObject:@{@"gt":piece[0],@"lte":piece[1],@"color":colorStr}];
                     saveCount = piece[1];
                 }
                 if(a == _dataModel.colorArr.count-1){
-                     [pieces addObject:@{@"gt":saveCount,@"color":blueColor}];
+                     [pieces addObject:@{@"gt":saveCount,@"color":fanColor}];
                 }
             }
             visualMapDClose1 =  @{@"show":@(NO),@"seriesIndex":@(1),@"dimension":@(0),@"pieces":pieces};
@@ -255,16 +255,16 @@
                 }
             }
             if(a==0){
-                [pieces addObject:@{@"lte":piece[0],@"color":blueColor}];
+                [pieces addObject:@{@"lte":piece[0],@"color":close_transform_color}];
                 [pieces addObject:@{@"gt":piece[0],@"lte":piece[1],@"color":colorStr}];
                 saveCount = piece[1];
             }else{
-                [pieces addObject:@{@"gt":saveCount,@"lte":piece[0],@"color":blueColor}];
+                [pieces addObject:@{@"gt":saveCount,@"lte":piece[0],@"color":close_transform_color}];
                 [pieces addObject:@{@"gt":piece[0],@"lte":piece[1],@"color":colorStr}];
                 saveCount = piece[1];
             }
             if(a == _dataModel.fanColorArr.count-1){
-                 [pieces addObject:@{@"gt":saveCount,@"color":blueColor}];
+                 [pieces addObject:@{@"gt":saveCount,@"color":close_transform_color}];
             }
         }
         visualMapDClose2 =  @{@"show":@(NO),@"seriesIndex":@(2),@"dimension":@(0),@"pieces":pieces};
@@ -285,16 +285,16 @@
                 }
             }
             if(a==0){
-                [pieces addObject:@{@"lte":piece[0],@"color":blueColor}];
+                [pieces addObject:@{@"lte":piece[0],@"color":dinColor}];
                 [pieces addObject:@{@"gt":piece[0],@"lte":piece[1],@"color":colorStr}];
                 saveCount = piece[1];
             }else{
-                [pieces addObject:@{@"gt":saveCount,@"lte":piece[0],@"color":blueColor}];
+                [pieces addObject:@{@"gt":saveCount,@"lte":piece[0],@"color":dinColor}];
                 [pieces addObject:@{@"gt":piece[0],@"lte":piece[1],@"color":colorStr}];
                 saveCount = piece[1];
             }
             if(a == _dataModel.close_transArr.count-1){
-                 [pieces addObject:@{@"gt":saveCount,@"color":blueColor}];
+                 [pieces addObject:@{@"gt":saveCount,@"color":dinColor}];
             }
         }
         visualMapDCHange =  @{@"show":@(NO),@"seriesIndex":@(0),@"dimension":@(0),@"pieces":pieces};
@@ -361,7 +361,7 @@
 
         
     }];
-    [DEVICETOOL changeReport:option reportArr:_results maxCount:14];
+    [DEVICETOOL changeReport:option reportArr:_results maxCount:30];
     option.visualMap = @[visualMapDClose1,visualMapDClose2,visualMapDCHange];
     return option;
 }

@@ -26,6 +26,7 @@
 //@property (nonatomic,assign)NSInteger keep_ding;
 //@property (nonatomic,assign)NSInteger keep_fan;
 +(ReportModel *)initWithReport:(ReportModel *)model{
+    
     ReportModel *report = [[ReportModel alloc]init];
     report.idStr = model.idStr;
     report.station = model.station;
@@ -38,9 +39,11 @@
     report.close_fan = model.close_fan;
     
     report.keep_ding = model.keep_ding;
-    
+
     report.keep_fan = model.keep_fan;
     report.reportType = model.reportType;
+    report.warnType = model.warnType;
+    report.warnType_fan = model.warnType_fan;
     return report;
 }
 @end

@@ -14,7 +14,7 @@
 #import "DLCustomAlertController.h"
 #import "DLDateSelectController.h"
 #import "DLDateAnimation.h"
-
+#import "PYSearch.h"
 @interface ReportViewController ()<FCChartViewDataSource,UITextViewDelegate,UIDocumentPickerDelegate>
 @property (weak, nonatomic) IBOutlet UIView *safeView;
 @property (nonatomic,strong)FCChartView *chartV;
@@ -432,6 +432,7 @@ static int width = 15;
             }
             cell.textColor = [UIColor blackColor];
         }else{
+            cell.textColor = [UIColor blackColor];
 //            if (indexPath.section%2) {
 //                cell.textColor = [UIColor redColor];
 //            }else{
@@ -492,6 +493,12 @@ static int width = 15;
                     
                             if(report.reportType == 5 || report.reportType == 6){
                                 cell.text = report.close_fan!=0?[NSString stringWithFormat:@"%.3f",report.close_fan/1000.0]:@"";
+                                
+                                if(report.warnType == 1){
+                                    cell.textColor =  [UIColor py_colorWithHexString:[organiColor substringFromIndex:1] ];
+                                }else if(report.warnType == 2){
+                                    cell.textColor =  [UIColor py_colorWithHexString:[realRedColor substringFromIndex:1] ];
+                                }
                             }
                         }
                         break;
@@ -507,6 +514,12 @@ static int width = 15;
                                            {
                                              if(report.reportType == 5 || report.reportType == 6){
                                                                                                cell.text = report.keep_fan!=0?[NSString stringWithFormat:@"%.3f",report.keep_fan/1000.0]:@"";
+                                                 
+                                                 if(report.warnType == 1){
+                                                     cell.textColor =  [UIColor py_colorWithHexString:[organiColor substringFromIndex:1] ];
+                                                 }else if(report.warnType == 2){
+                                                     cell.textColor =  [UIColor py_colorWithHexString:[realRedColor substringFromIndex:1] ];
+                                                 }
                                                                                            }
                                            }
                                            break;
@@ -515,6 +528,12 @@ static int width = 15;
                              
                                             if(report.reportType == 5 || report.reportType == 6){
                                                 cell.text = report.keep_ding!=0?[NSString stringWithFormat:@"%.3f",(report.close_fan - report.keep_fan)/1000.0]:@"";
+                                                
+                                                if(report.warnType == 1){
+                                                    cell.textColor =  [UIColor py_colorWithHexString:[organiColor substringFromIndex:1] ];
+                                                }else if(report.warnType == 2){
+                                                    cell.textColor =  [UIColor py_colorWithHexString:[realRedColor substringFromIndex:1] ];
+                                                }
                                             }
                                        }
                         break;
@@ -523,6 +542,12 @@ static int width = 15;
                      
                             if(report.reportType == 7 || report.reportType == 8){
                                  cell.text = report.close_ding!=0?[NSString stringWithFormat:@"%.3f",report.close_ding/1000.0]:@"";
+                                
+                                if(report.warnType == 1){
+                                    cell.textColor =  [UIColor py_colorWithHexString:[organiColor substringFromIndex:1] ];
+                                }else if(report.warnType == 2){
+                                    cell.textColor =  [UIColor py_colorWithHexString:[realRedColor substringFromIndex:1] ];
+                                }
                              }
                         }
                         break;
@@ -539,6 +564,12 @@ static int width = 15;
                            
                              if(report.reportType == 7 || report.reportType == 8){
                                  cell.text = report.keep_ding!=0?[NSString stringWithFormat:@"%.3f",report.keep_ding/1000.0]:@"";
+                                 
+                                 if(report.warnType == 1){
+                                     cell.textColor =  [UIColor py_colorWithHexString:[organiColor substringFromIndex:1] ];
+                                 }else if(report.warnType == 2){
+                                     cell.textColor =  [UIColor py_colorWithHexString:[realRedColor substringFromIndex:1] ];
+                                 }
                              }
                         }
                         break;
@@ -553,8 +584,14 @@ static int width = 15;
                     case 11:
                                        {
                              
-                                            if(report.reportType == 7 || report.reportType == 68){
+                                            if(report.reportType == 7 || report.reportType == 8){
                                                 cell.text = report.keep_fan!=0?[NSString stringWithFormat:@"%.3f",(report.close_ding - report.keep_ding)/1000.0]:@"";
+                                                
+                                                if(report.warnType == 1){
+                                                    cell.textColor =  [UIColor py_colorWithHexString:[organiColor substringFromIndex:1] ];
+                                                }else if(report.warnType == 2){
+                                                    cell.textColor =  [UIColor py_colorWithHexString:[realRedColor substringFromIndex:1] ];
+                                                }
                                             }
                                        }
                         break;
@@ -563,7 +600,7 @@ static int width = 15;
                 }
             
         }
-        
+            
         }
         return cell;
     }
@@ -676,7 +713,7 @@ static int width = 15;
 //            }else{
 //                cell.textColor = [UIColor blackColor];
 //            }
-            
+        cell.textColor = [UIColor blackColor];
         
             if(chartView == _chartV || chartView == _chartV2){
             ReportModel *report;
@@ -732,6 +769,15 @@ static int width = 15;
                         case 3:
                         {
                             cell.text = report.open_Top!=0?[NSString stringWithFormat:@"%.3f",report.open_Top/1000.0]:@"";
+                            
+                            if(report.open_Top == report.all_Top){
+                                if(report.warnType == 1){
+                                    cell.textColor =  [UIColor py_colorWithHexString:[organiColor substringFromIndex:1] ];
+                                }else if(report.warnType == 2){
+                                    cell.textColor =  [UIColor py_colorWithHexString:[realRedColor substringFromIndex:1] ];
+                                }
+                            }
+                            
                         }
                         break;
                         case 4:
@@ -744,6 +790,13 @@ static int width = 15;
                                            {
                                  
                                                 cell.text = report.transform_Top!=0?[NSString stringWithFormat:@"%.3f",report.transform_Top/1000.0]:@"";
+                                               if(report.transform_Top == report.all_Top){
+                                                   if(report.warnType == 1){
+                                                       cell.textColor =  [UIColor py_colorWithHexString:[organiColor substringFromIndex:1] ];
+                                                   }else if(report.warnType == 2){
+                                                       cell.textColor =  [UIColor py_colorWithHexString:[realRedColor substringFromIndex:1] ];
+                                                   }
+                                               }
                                            }
                                            break;
                                            case 6:
@@ -756,6 +809,14 @@ static int width = 15;
                         {
                      
                              cell.text = report.close_Top!=0?[NSString stringWithFormat:@"%.3f",report.close_Top/1000.0]:@"";
+                            
+                            if(report.close_Top == report.all_Top){
+                                if(report.warnType == 1){
+                                    cell.textColor =  [UIColor py_colorWithHexString:[organiColor substringFromIndex:1] ];
+                                }else if(report.warnType == 2){
+                                    cell.textColor =  [UIColor py_colorWithHexString:[realRedColor substringFromIndex:1] ];
+                                }
+                            }
                         }
                         break;
                         case 8:
@@ -768,6 +829,12 @@ static int width = 15;
                         {
                            
                              cell.text = report.all_Top!=0?[NSString stringWithFormat:@"%.3f",report.all_Top/1000.0]:@"";
+                            
+                            if(report.warnType == 1){
+                                cell.textColor =  [UIColor py_colorWithHexString:[organiColor substringFromIndex:1] ];
+                            }else if(report.warnType == 2){
+                                cell.textColor =  [UIColor py_colorWithHexString:[realRedColor substringFromIndex:1] ];
+                            }
                         }
                         break;
                         case 10:
@@ -785,7 +852,12 @@ static int width = 15;
                         case 12:
                         {
                        
-                             cell.text = report.blocked_stable!=0?[NSString stringWithFormat:@"%.3f",report.blocked_stable/1000.0]:@"";
+                            cell.text = report.blocked_stable!=0?[NSString stringWithFormat:@"%.3f",report.blocked_stable/1000.0]:@"";
+                            if(report.warnType == 1){
+                                cell.textColor =  [UIColor py_colorWithHexString:[organiColor substringFromIndex:1] ];
+                            }else if(report.warnType == 2){
+                                cell.textColor =  [UIColor py_colorWithHexString:[realRedColor substringFromIndex:1] ];
+                            }
                         }
                         break;
                     default:

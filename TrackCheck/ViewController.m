@@ -501,9 +501,7 @@
                 
             }
             if(!self.kEchartView3.hidden){
-
                     [_kEchartView3 refreshEchartsWithOption:[self irregularLine2Option:2 withSample:@""]];
-                
             }
     }else{
             [_kEchartView4 refreshEchartsWithOption:[self getOptionWith:@""]];
@@ -664,25 +662,24 @@
 }
 -(void)changeView{
     if(DEVICETOOL.testStatus == TestStarted){
-//        _textCount++;
         
         if(self.chartViewBackV.hidden){
                 if(!self.kEchartView1.hidden ){
 
-                        [_kEchartView1 refreshEchartsWithOption:[self irregularLine2Option:0 withSample:@"lttb"]];
+                        [_kEchartView1 refreshEchartsWithOption:[self irregularLine2Option:0 withSample:@""]];
                 }
                 if(!self.kEchartView2.hidden ){
 
-                        [_kEchartView2 refreshEchartsWithOption:[self irregularLine2Option:1 withSample:@"lttb"]];
+                        [_kEchartView2 refreshEchartsWithOption:[self irregularLine2Option:1 withSample:@""]];
                     
                 }
                 if(!self.kEchartView3.hidden){
 
-                        [_kEchartView3 refreshEchartsWithOption:[self irregularLine2Option:2 withSample:@"lttb"]];
+                        [_kEchartView3 refreshEchartsWithOption:[self irregularLine2Option:2 withSample:@""]];
                     
                 }
         }else{
-                [_kEchartView4 refreshEchartsWithOption:[self getOptionWith:@"lttb"]];
+                [_kEchartView4 refreshEchartsWithOption:[self getOptionWith:@""]];
         }
         
         long long currentTime = [[NSDate date] timeIntervalSince1970];
@@ -703,7 +700,6 @@
     }else if(DEVICETOOL.testStatus == TestStoped){
         _textCount++;
     }
-    
     
     for (int i = 0 ; i < _seleJJJArr.count; i++) {
         Device *device = _seleJJJArr[i];
@@ -1016,16 +1012,16 @@
                     }
                 }
                 if(a==0){
-                    [pieces addObject:@{@"lte":piece[0],@"color":blueColor}];
+                    [pieces addObject:@{@"lte":piece[0],@"color":dinColor}];
                     [pieces addObject:@{@"gt":piece[0],@"lte":piece[1],@"color":colorStr}];
                     saveCount = piece[1];
                 }else{
-                    [pieces addObject:@{@"gt":saveCount,@"lte":piece[0],@"color":blueColor}];
+                    [pieces addObject:@{@"gt":saveCount,@"lte":piece[0],@"color":dinColor}];
                     [pieces addObject:@{@"gt":piece[0],@"lte":piece[1],@"color":colorStr}];
                     saveCount = piece[1];
                 }
                 if(a == deviceChange.colorArr.count-1){
-                     [pieces addObject:@{@"gt":saveCount,@"color":blueColor}];
+                     [pieces addObject:@{@"gt":saveCount,@"color":dinColor}];
                 }
             }
             visualMapDCHange =  @{@"show":@(NO),@"seriesIndex":@(0),@"dimension":@(0),@"pieces":pieces};
@@ -1046,16 +1042,16 @@
                 }
             }
             if(a==0){
-                [pieces addObject:@{@"lte":piece[0],@"color":blueColor}];
+                [pieces addObject:@{@"lte":piece[0],@"color":fanColor}];
                 [pieces addObject:@{@"gt":piece[0],@"lte":piece[1],@"color":colorStr}];
                 saveCount = piece[1];
             }else{
-                [pieces addObject:@{@"gt":saveCount,@"lte":piece[0],@"color":blueColor}];
+                [pieces addObject:@{@"gt":saveCount,@"lte":piece[0],@"color":fanColor}];
                 [pieces addObject:@{@"gt":piece[0],@"lte":piece[1],@"color":colorStr}];
                 saveCount = piece[1];
             }
             if(a == deviceCLose1.colorArr.count-1){
-                 [pieces addObject:@{@"gt":saveCount,@"color":blueColor}];
+                 [pieces addObject:@{@"gt":saveCount,@"color":fanColor}];
             }
         }
         visualMapDClose1 =  @{@"show":@(NO),@"seriesIndex":@(1),@"dimension":@(0),@"pieces":pieces};
@@ -1076,16 +1072,16 @@
                 }
             }
             if(a==0){
-                [pieces addObject:@{@"lte":piece[0],@"color":blueColor}];
+                [pieces addObject:@{@"lte":piece[0],@"color":close_transform_color}];
                 [pieces addObject:@{@"gt":piece[0],@"lte":piece[1],@"color":colorStr}];
                 saveCount = piece[1];
             }else{
-                [pieces addObject:@{@"gt":saveCount,@"lte":piece[0],@"color":blueColor}];
+                [pieces addObject:@{@"gt":saveCount,@"lte":piece[0],@"color":close_transform_color}];
                 [pieces addObject:@{@"gt":piece[0],@"lte":piece[1],@"color":colorStr}];
                 saveCount = piece[1];
             }
             if(a == deviceCLose1.fanColorArr.count-1){
-                 [pieces addObject:@{@"gt":saveCount,@"color":blueColor}];
+                 [pieces addObject:@{@"gt":saveCount,@"color":close_transform_color}];
             }
         }
         visualMapDClose2 =  @{@"show":@(NO),@"seriesIndex":@(2),@"dimension":@(0),@"pieces":pieces};

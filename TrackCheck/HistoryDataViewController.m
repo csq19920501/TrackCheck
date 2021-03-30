@@ -165,10 +165,10 @@
         NSArray <TestDataModel *> * results = [[LPDBManager defaultManager] findModels: [TestDataModel class]
         where: @"station = '%@' and timeLong > %@ and timeLong < %@",stationS,@(startTimeInterval),@(endTimeInterval)];
         weakSelf.dataArray = [NSMutableArray arrayWithArray:results];
-        dispatch_async(dispatch_get_main_queue(), ^{
+        dispatch_sync(dispatch_get_main_queue(), ^{
+            [HUD hideUIBlockingIndicator];
             [weakSelf.tabView reloadData];//为什么重复添加reload 下面方法刷新太慢
             [weakSelf.tabView reloadDataWithEmptyView];
-            [HUD hideUIBlockingIndicator];
         });
     });
 }
