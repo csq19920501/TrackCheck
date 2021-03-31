@@ -29,14 +29,16 @@ typedef enum:NSInteger{
     Shen_Fan,
 }CSQShenSuo;
 NS_ASSUME_NONNULL_BEGIN
-static NSString *blueColor = @"black";   // 其他曲线   蓝色  #4B8CF5 红色 #E71D1C
+static NSString *blueColor = @"black";   // 其他曲线     #4B8CF5 红色 #E71D1C  黑色
 static NSString *redColor = @"#4B8CF5";   //报告曲线   黑色
 //static NSString *realRedColor = @"#E71D1C";   //报告曲线2   红色
-static NSString *dinColor = @"#5470C6";   //报告曲线
-static NSString *fanColor = @"#91CC75";   //报告曲线
-static NSString *close_transform_color = @"#FAC858";   //报告曲线
+static NSString *dinColor = @"#5470C6";   //报告曲线                    转换阻力
+static NSString *fanColor = @"#91CC75";   //报告曲线    91CC75  B2A741  锁闭力定位
+static NSString *close_transform_color = @"#FFFF00";   //报告曲线       锁闭力反位  FFFF00  FAC858
 
-static NSString *organiColor = @"#FFA500";   //报警颜色  橙色
+static NSString *organiColor = @"#FF8C00";   //报警颜色  橙色    FFA500  9C3A17
+
+//static NSString *fan_organiColor = @"#AF6A32";   //报警颜色  橙色
 static NSString *realRedColor = @"#E71D1C";   //报警颜色  红色
 @interface DeviceTool : NSObject
 +(DeviceTool*)shareInstance;

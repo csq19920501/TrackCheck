@@ -44,7 +44,7 @@ typedef enum:NSInteger{
 
 @implementation SetDeviceViewController
 - (IBAction)switchDebug:(id)sender {
-    return;
+//    return;
     UISwitch *swi = (UISwitch *)sender;
     if(swi.on){
         DEVICETOOL.isDebug = YES;

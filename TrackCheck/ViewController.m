@@ -235,6 +235,16 @@
                 [_seleJJJArr addObject:device];
             }
         }
+//        NSArray *arr = [_seleJJJArr sortedArrayUsingComparator:^NSComparisonResult(id _Nonnull obj1, id _Nonnull obj2) {
+//                NSLog(@"%@~%@",obj1,obj2); // 3~4 2~1 3~1 3~2
+//            Device* device1 = (Device*)obj1;
+//            Device* device2 = (Device*)obj2;
+//            NSNumber* dev1Id = [NSNumber numberWithInteger:device1.id.integerValue];
+//            NSNumber* dev2Id = [NSNumber numberWithInteger:device2.id.integerValue];
+//                return [dev1Id compare:dev2Id]; // 升序
+//            }];
+//        _seleJJJArr = [NSMutableArray arrayWithArray:arr];
+        
         for (int i = 0 ; i < _seleJJJArr.count; i++) {
             Device *device = _seleJJJArr[i];
             UIButton * but ;
@@ -1026,6 +1036,7 @@
             }
             visualMapDCHange =  @{@"show":@(NO),@"seriesIndex":@(0),@"dimension":@(0),@"pieces":pieces};
         }
+    //定位
     NSDictionary *visualMapDClose1 = @{@"show":@(NO),@"dimension":@(0),@"seriesIndex":@(1),@"pieces":@[@{@"lte":@(1614835094000),@"color":fanColor},@{@"gt":@(1614835095000),@"color":fanColor}]};
     if(deviceCLose1.colorArr.count != 0){
         NSMutableArray *pieces = [NSMutableArray array];
@@ -1056,6 +1067,7 @@
         }
         visualMapDClose1 =  @{@"show":@(NO),@"seriesIndex":@(1),@"dimension":@(0),@"pieces":pieces};
     }
+    //反位
     NSDictionary *visualMapDClose2 = @{@"show":@(NO),@"dimension":@(0),@"seriesIndex":@(2),@"pieces":@[@{@"lte":@(1614835094000),@"color":close_transform_color},@{@"gt":@(1614835095000),@"color":close_transform_color}]};
     if(deviceCLose1.fanColorArr.count != 0){
         NSMutableArray *pieces = [NSMutableArray array];
@@ -1190,7 +1202,12 @@
         .addSeries([PYCartesianSeries initPYCartesianSeriesWithBlock:^(PYCartesianSeries *series) {
             series.symbolEqual(@"none")
             .smoothEqual(YES)
-            .nameEqual(@"反位锁闭力").typeEqual(PYSeriesTypeLine).dataEqual(saveDataArr2).samplingEqual(sample);
+            .nameEqual(@"反位锁闭力").typeEqual(PYSeriesTypeLine).dataEqual(saveDataArr2).samplingEqual(sample)
+            .itemStyleEqual([PYItemStyle initPYItemStyleWithBlock:^(PYItemStyle *itemStyle) {
+                itemStyle.normalEqual([PYItemStyleProp initPYItemStylePropWithBlock:^(PYItemStyleProp *itemStyleProp) {
+                    itemStyleProp.colorEqual(close_transform_color).borderWidthEqual(@(0.25));
+                }]);
+            }]);
         }])
         ;
     }];

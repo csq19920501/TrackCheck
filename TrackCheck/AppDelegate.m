@@ -44,8 +44,8 @@
           [self.window makeKeyAndVisible];
       }
     [self preSocke];
-    long revData = (long)strtoul([@"8000" UTF8String],0,16);  //16进制字符串转换成long
-    NSLog(@"%ld",revData);
+//    long revData = (long)strtoul([@"8000" UTF8String],0,16);  //16进制字符串转换成long
+//    NSLog(@"%ld",revData);
 
     [[UIApplication sharedApplication] setIdleTimerDisabled:YES];
     return YES;

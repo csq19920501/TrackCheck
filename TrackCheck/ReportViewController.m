@@ -210,39 +210,47 @@ static int width = 15;
     [_dataArray1 removeAllObjects];
     [_dataArray2 removeAllObjects];
     [_dataArray3 removeAllObjects];
+    __weak typeof(self) weakSelf = self;
     dispatch_queue_t queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
     // 异步执行任务创建方法
     dispatch_async(queue, ^{
         NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
         dateFormatter.dateFormat = @"yyyy-MM-dd HH:mm:ss";
-        NSString *startTimeStr = [NSString stringWithFormat:@"%@ %@",_timeStr,@"00:00:00"];
+        NSString *startTimeStr = [NSString stringWithFormat:@"%@ %@",weakSelf.timeStr,@"00:00:00"];
         NSDate *startDate = [dateFormatter dateFromString:startTimeStr];
         NSTimeInterval startTimeInterval = [startDate timeIntervalSince1970];
         
-        NSString *endTimeStr = [NSString stringWithFormat:@"%@ %@",_timeStr,@"23:59:59"];
+        NSString *endTimeStr = [NSString stringWithFormat:@"%@ %@",weakSelf.timeStr,@"23:59:59"];
         NSDate *endDate = [dateFormatter dateFromString:endTimeStr];
         NSTimeInterval endTimeInterval = [endDate timeIntervalSince1970];
 
         NSArray <ReportModel *> * results = [[LPDBManager defaultManager] findModels: [ReportModel class]
-        where: @"station = '%@' and timeLong > %@ and timeLong < %@",_stationStr,@(startTimeInterval),@(endTimeInterval)];
+        where: @"station = '%@' and timeLong > %@ and timeLong < %@",weakSelf.stationStr,@(startTimeInterval),@(endTimeInterval)];
 //        _dataArray = [NSMutableArray arrayWithArray:results];
+        
+        results = [results sortedArrayUsingComparator:^NSComparisonResult(ReportModel* obj1, ReportModel* obj2) {
+            NSNumber *obj1Num = [NSNumber numberWithLongLong:obj1.timeLong];
+            NSNumber *obj2Num = [NSNumber numberWithLongLong:obj2.timeLong];
+                return [obj1Num compare:obj2Num]; // 升序
+            }];
+     
+        
         for(ReportModel *report in results){
             if(report.reportType == 1 || report.reportType == 2){
-                [_dataArray1 addObject:report];
+                [weakSelf.dataArray1 addObject:report];
             }else  if(report.reportType == 3 || report.reportType == 4){
-                [_dataArray2 addObject:report];
+                [weakSelf.dataArray2 addObject:report];
             }else{
-                [_dataArray3 addObject:report];
+                [weakSelf.dataArray3 addObject:report];
             }
         }
-        
-        
-        dispatch_async(dispatch_get_main_queue(), ^{
+
+        dispatch_sync(dispatch_get_main_queue(), ^{
 
             [HUD hideUIBlockingIndicator];
-            [_chartV2 reload];
-            [_chartV reload];
-            [_chartV3 reload];
+            [weakSelf.chartV2 reload];
+            [weakSelf.chartV reload];
+            [weakSelf.chartV3 reload];
             
         });
     });

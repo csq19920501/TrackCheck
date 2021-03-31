@@ -124,16 +124,18 @@ static dispatch_once_t onceToken;
 }
 
 -(void)addDebugDevice{
-    NSDictionary *deviceDict = @{
-        @"id":@"1",
-        @"version":@"sss"
-    };
-    [self changeDevice:deviceDict];
     NSDictionary *deviceDict22 = @{
         @"id":@"2",
         @"version":@"sss"
     };
     [self changeDevice:deviceDict22];
+    
+    NSDictionary *deviceDict = @{
+        @"id":@"1",
+        @"version":@"sss"
+    };
+    [self changeDevice:deviceDict];
+    
     NSDictionary *deviceDict33 = @{
         @"id":@"3",
         @"version":@"sss"
@@ -764,7 +766,7 @@ static dispatch_once_t onceToken;
                             [model.dataArr addObjectsFromArray:dataArr];
                             [model.timeArr addObjectsFromArray:timeArr];
                         }else{
-                            if(mean  > 60 || mean  < -60){
+                            if(mean  > 30 || mean  < -30){
                                 if(!model.reportEdDing){
                                     [model.dataArr addObjectsFromArray:dataArr];
                                     [model.timeArr addObjectsFromArray:timeArr];
@@ -782,7 +784,7 @@ static dispatch_once_t onceToken;
                                     model.blockedStable3_OK = YES;
                                 }
                                 //判断正反锁闭力 是否生成受阻锁闭力报告
-                                if(!model.reportEdDing && model.blockedStable2_OK){
+                                if(!model.reportEdDing && model.blockedStable3_OK){
                                     model.reportEdDing = YES;
                                     model.reportBlockDing = YES;
                                     model.dataModel.station = DEVICETOOL.stationStr;
@@ -888,7 +890,7 @@ static dispatch_once_t onceToken;
                         }
                         long average = meanSum/(int)dataArr.count;
                         NSLog(@"_Fan average = %ld",average);
-                        if(average > 20){
+                        if(average > 12){
                             
                             if(!model.closeFanChange2_OK &&  average > 100){
                                 model.closeFanChange2_OK = YES;
@@ -901,7 +903,7 @@ static dispatch_once_t onceToken;
                             [model.dataArr_Fan addObjectsFromArray:dataArr];
                             [model.fanTimeArr addObjectsFromArray:timeArr];
                         }else{
-                            if(mean  > 150 || mean  < -150){
+                            if(mean  > 30 || mean  < -30){
                                 if(!model.reportEdFan){
                                     [model.dataArr_Fan addObjectsFromArray:dataArr];
                                     [model.fanTimeArr addObjectsFromArray:timeArr];
@@ -919,7 +921,7 @@ static dispatch_once_t onceToken;
                                     model.blockedStable3_OK_Fan = YES;
                                 }
                                 //判断正反锁闭力 是否生成受阻锁闭力报告
-                                if(!model.reportEdFan && model.blockedStable2_OK_Fan){
+                                if(!model.reportEdFan && model.blockedStable3_OK_Fan){
                                     model.reportEdFan = YES;
                                     model.reportBlockFan = YES;
                                     model.dataModel.station = DEVICETOOL.stationStr;
@@ -1106,7 +1108,7 @@ static dispatch_once_t onceToken;
                             dataModel.deviceType = typeStr;
                             long long currentTime = [[NSDate date] timeIntervalSince1970] ;
                             dataModel.timeLong = currentTime;
-                            dataModel.timeLongStr = [NSString stringWithFormat:@"%lld转换阻力",currentTime];
+                            dataModel.timeLongStr = [NSString stringWithFormat:@"%lld%@转换阻力",currentTime,typeStr];
                             if(meanAll < model.startValue){
                                 model.blocked_max = min;
                                 if(DEVICETOOL.shenSuo == Shen_Fan){
@@ -1175,7 +1177,7 @@ static dispatch_once_t onceToken;
                     dataModel.deviceType = typeStr;
                     long long currentTime = [[NSDate date] timeIntervalSince1970] ;
                     dataModel.timeLong = currentTime;
-                    dataModel.timeLongStr = [NSString stringWithFormat:@"%lld转换阻力",currentTime];
+                    dataModel.timeLongStr = [NSString stringWithFormat:@"%lld%@转换阻力",currentTime,typeStr];
                     if(meanAll < model.startValue){
                         model.blocked_max = min;
                         if(DEVICETOOL.shenSuo == Shen_Fan){
@@ -1443,7 +1445,7 @@ static dispatch_once_t onceToken;
                                            dataModel.deviceType = typeStr;
                                            long long currentTime = [[NSDate date] timeIntervalSince1970] ;
                                            dataModel.timeLong = currentTime;
-                       dataModel.timeLongStr = [NSString stringWithFormat:@"%lld转换阻力",currentTime];
+                       dataModel.timeLongStr = [NSString stringWithFormat:@"%lld%@转换阻力",currentTime,typeStr];
                                             
                         long openMin = 100000;
                         long openMax = -100000;
@@ -1657,7 +1659,7 @@ static dispatch_once_t onceToken;
         }else{
             if([dev.typeStr isEqualToString:@"J1"]){
                 if(report.reportType == 1 || report.reportType == 3){
-                    if(report.all_Top > 1400 || report.all_Top < -1400){
+                    if(report.all_Top > 1500 || report.all_Top < -1500){
                         railType = @(1);
                     }
                     if(report.all_Top > 1800 || report.all_Top < -1800){
@@ -1674,7 +1676,7 @@ static dispatch_once_t onceToken;
                 }
             }else if([dev.typeStr isEqualToString:@"J2"]){
                 if(report.reportType == 1 || report.reportType == 3){
-                    if(report.all_Top > 1500 || report.all_Top < -1500){
+                    if(report.all_Top > 1600 || report.all_Top < -1600){
                         railType = @(1);
                     }
                     if(report.all_Top > 1900 || report.all_Top < -1900){
@@ -1742,10 +1744,10 @@ static dispatch_once_t onceToken;
                 }
             }
             NSNumber *startT = checkModel.timeArr[0];
-            startT = [NSNumber numberWithLongLong:(startT.longLongValue-200)];
+            startT = [NSNumber numberWithLongLong:(startT.longLongValue)];
             
             NSNumber *endT = checkModel.timeArr.lastObject;
-            long endDelay = 500;
+            long endDelay = 200;
             if(report.reportType == 2 || report.reportType == 4){
                 endDelay = 0;
             }
@@ -1796,13 +1798,22 @@ static dispatch_once_t onceToken;
                         break;
                 }
                 [delegate.deviceArr addObject:newDevice];
-                [delegate.deviceArr sortedArrayUsingComparator:^(Device *obj1,Device*obj2){
-                               if([obj1.id integerValue] < [obj2.id integerValue]){
-                                   return NSOrderedAscending;
-                               }else{
-                                   return NSOrderedAscending;
-                               }
-                }];
+//                [delegate.deviceArr sortedArrayUsingComparator:^(Device *obj1,Device*obj2){
+//                               if([obj1.id integerValue] < [obj2.id integerValue]){
+//                                   return NSOrderedAscending;
+//                               }else{
+//                                   return NSOrderedAscending;
+//                               }
+//                }];
+                NSArray *arr = [delegate.deviceArr sortedArrayUsingComparator:^NSComparisonResult(id _Nonnull obj1, id _Nonnull obj2) {
+                        NSLog(@"%@~%@",obj1,obj2); // 3~4 2~1 3~1 3~2
+                    Device* device1 = (Device*)obj1;
+                    Device* device2 = (Device*)obj2;
+                    NSNumber* dev1Id = [NSNumber numberWithInteger:device1.id.integerValue];
+                    NSNumber* dev2Id = [NSNumber numberWithInteger:device2.id.integerValue];
+                        return [dev1Id compare:dev2Id]; // 升序
+                    }];
+                delegate.deviceArr = [NSMutableArray arrayWithArray:arr];
             }
 }
 -(void)dealloc{
