@@ -608,8 +608,8 @@ static dispatch_once_t onceToken;
         [self.timer invalidate];
         self.timer = nil;
     }
-    [self checkData:testArr withModel:DEVICETOOL.checkModel1 withTypeStr:@"J1" withId:1 withTimeArr:timeArr];
-    [self checkData:testArr withModel:DEVICETOOL.checkModel2 withTypeStr:@"J2" withId:2 withTimeArr:timeArr];
+//    [self checkData:testArr withModel:DEVICETOOL.checkModel1 withTypeStr:@"J1" withId:1 withTimeArr:timeArr];
+//    [self checkData:testArr withModel:DEVICETOOL.checkModel2 withTypeStr:@"J2" withId:2 withTimeArr:timeArr];
     [self checkData:testArr withModel:DEVICETOOL.checkModel3 withTypeStr:@"J3" withId:3 withTimeArr:timeArr];
     _testCount = _testCount + 50;
     
@@ -1036,8 +1036,18 @@ static dispatch_once_t onceToken;
             model.stable_2 = NO;
             model.stable_3 = NO;
             if(!model.blockedStable3_OK){
-                [model.dataArr addObjectsFromArray:dataArr];
-                [model.timeArr addObjectsFromArray:timeArr];
+                if(model.dataArr.count == 0){
+                    for(int a = 0;a<dataArr.count;a++){
+                        NSNumber *num = dataArr[a];
+                        if(num.longValue - model.startValue < -2 || num.longValue - model.startValue > 2){
+                            [model.dataArr addObject:dataArr[a]];
+                            [model.timeArr addObject:timeArr[a]];
+                        }
+                    }
+                }else{
+                    [model.dataArr addObjectsFromArray:dataArr];
+                    [model.timeArr addObjectsFromArray:timeArr];
+                }
             }
             else if(model.blockedStable3_OK){
                 //受阻空转生成
@@ -1349,6 +1359,8 @@ static dispatch_once_t onceToken;
                                 openInt = (long)(2.92*50);
                                 transformInt = (long)(1.43*50);
                                 closeInt = model.dataArr.count - openInt - transformInt;
+                                
+                                NSLog(@"J3 openInt = %ld,transformInt = %ld,closeInt = %ld",openInt,transformInt,closeInt);
                             }
                         }else if([typeStr isEqualToString:@"X1"]){
                             if(model.dataArr.count < 5.2*50){
@@ -1538,7 +1550,7 @@ static dispatch_once_t onceToken;
                                            }
                                             
                                             NSLog(@"average < 100  波动结束 !model.blockedStable2_OK  正常阻力转换生");
-                                         
+                        NSLog(@"J3 dataModel.close_Top = %ld,dataModel.close_mean = %ld",dataModel.close_Top,dataModel.close_mean);
 //                                           [[LPDBManager defaultManager] saveModels: @[dataModel]];
                                            [self device:id addReport:dataModel withModel:model];
                         [self setCheckNilWith:id];
@@ -1747,11 +1759,14 @@ static dispatch_once_t onceToken;
             startT = [NSNumber numberWithLongLong:(startT.longLongValue)];
             
             NSNumber *endT = checkModel.timeArr.lastObject;
+            
+            report.transformTime = endT.longLongValue - startT.longLongValue;
+            
             long endDelay = 200;
             if(report.reportType == 2 || report.reportType == 4){
                 endDelay = 0;
             }
-            endT = [NSNumber numberWithLongLong:(endT.longLongValue+endDelay)];
+            endT = [NSNumber numberWithLongLong:(endT.longLongValue)];
             [dev.colorArr addObject:@[startT,endT,railType]];
             report.warnType = railType.integerValue;
         }

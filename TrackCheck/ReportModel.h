@@ -19,6 +19,9 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic,strong)NSString *deviceType;
 @property (nonatomic,assign)long long timeLong ;
 @property (nonatomic,strong)NSString * timeLongStr ;
+
+
+@property (nonatomic,assign)long long transformTime ;
 //事件类型  1 定扳反 2定扳反受阻 3反扳定 4反扳定受阻空转 5锁闭力定扳反  6锁闭力定扳反受阻  7闭锁力反扳定  8闭锁力反扳定受阻
 @property (nonatomic,assign)NSInteger reportType;
 
