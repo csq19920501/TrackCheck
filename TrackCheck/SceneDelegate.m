@@ -82,6 +82,4 @@
     NSLog(@"sceneDidEnterBackground");
     
 }
-
-
 @end

@@ -20,12 +20,13 @@
 @property (nonatomic,strong)FCChartView *chartV;
 @property (nonatomic,strong)FCChartView *chartV2;
 @property (nonatomic,strong)FCChartView *chartV3;
+@property (weak, nonatomic) IBOutlet UISegmentedControl *segment;
 
 @property (nonatomic,assign)NSInteger itemWidth;
 @property (nonatomic,assign)NSInteger itemNmuber;
 
 @property (nonatomic ,strong)NSString *stationStr ;
-@property (nonatomic ,strong)NSString *timeStr;
+//@property (nonatomic ,strong)NSString *timeStr;
 @property (nonatomic ,strong) NSMutableArray *dataArray;
 @property (nonatomic ,strong) NSMutableArray *dataArray1;
 @property (nonatomic ,strong) NSMutableArray *dataArray2;
@@ -43,6 +44,7 @@
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *getAllBar;
 @property (nonatomic,assign)BOOL isEdit;
 @property (nonatomic,assign)BOOL isShowEdit;
+@property (nonatomic,assign)BOOL firstLoad;
 // 已加载到的行数
 @property (nonatomic, assign) int rowNum;
 @property (nonatomic, strong) UIDocumentPickerViewController *documentPickerVC;
@@ -72,12 +74,15 @@ static int width = 16;
     _dataArray3 = [NSMutableArray array];
     NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
        dateFormatter.dateFormat = @"yyyy-MM-dd";
-    _timeStr = [dateFormatter stringFromDate:[NSDate date]];
+    if([_timeStr isEqual:NULL] || _timeStr.length <=0){
+        _timeStr = [dateFormatter stringFromDate:[NSDate date]];
+    }
     _stationStr = DEVICETOOL.stationStr.length >0?DEVICETOOL.stationStr:@"";
 //    [self setupFormat];
     
 //    UIBarButtonItem *backBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"返回" style:UIBarButtonItemStylePlain target:self action:@selector(backBarButtonItemAction)];
 //    self.navigationItem.leftBarButtonItem = backBarButtonItem;
+    _firstLoad = YES;
     
 }
 - (IBAction)check:(id)sender {
@@ -182,15 +187,22 @@ static int width = 16;
         self.rowNum = 0;
         // 文件保存的路径
         NSString *documentPath = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory,NSUserDomainMask, YES) objectAtIndex:0];
-        NSString *filename = [documentPath stringByAppendingPathComponent:[NSString stringWithFormat:@"report_%@_%@.xlsx",_stationStr,_timeStr]];
+        NSString *filename = [documentPath stringByAppendingPathComponent:[NSString stringWithFormat:@"道岔测力_%@_%@.xlsx",_stationStr,_timeStr]];
         NSLog(@"filename_path:%@",filename);
         workbook  = workbook_new([filename UTF8String]);// 创建新xlsx文件，路径需要转成c字符串
         worksheet = workbook_add_worksheet(workbook, NULL);// 创建sheet
         [self setupFormat];
         
+    if(_dataArray1.count > 0){
         [self creatReport];
+    }
+    if(_dataArray2.count > 0){
         [self creatReport2];
+    }
+    if(_dataArray3.count > 0){
         [self creatReport3];
+    }
+        
         
         workbook_close(workbook);
         
@@ -206,14 +218,14 @@ static int width = 16;
 }
 
 - (void)searchClick:(id)sender {
-    [HUD showBlocking];
+    [MBProgressHUD showHUDAddedTo:self.view animated:NO];
     [_dataArray1 removeAllObjects];
     [_dataArray2 removeAllObjects];
     [_dataArray3 removeAllObjects];
+    
+    
     __weak typeof(self) weakSelf = self;
-    dispatch_queue_t queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
-    // 异步执行任务创建方法
-    dispatch_async(queue, ^{
+
         NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
         dateFormatter.dateFormat = @"yyyy-MM-dd HH:mm:ss";
         NSString *startTimeStr = [NSString stringWithFormat:@"%@ %@",weakSelf.timeStr,@"00:00:00"];
@@ -224,10 +236,12 @@ static int width = 16;
         NSDate *endDate = [dateFormatter dateFromString:endTimeStr];
         NSTimeInterval endTimeInterval = [endDate timeIntervalSince1970];
 
+    
+    dispatch_time_t delayTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.23/*延迟执行时间*/ * NSEC_PER_SEC));
+    dispatch_after(delayTime, dispatch_get_main_queue(), ^{
         NSArray <ReportModel *> * results = [[LPDBManager defaultManager] findModels: [ReportModel class]
         where: @"station = '%@' and timeLong > %@ and timeLong < %@",weakSelf.stationStr,@(startTimeInterval),@(endTimeInterval)];
-//        _dataArray = [NSMutableArray arrayWithArray:results];
-        
+        NSLog(@"数据库检测结束result。cout = %ld",results.count);
         results = [results sortedArrayUsingComparator:^NSComparisonResult(ReportModel* obj1, ReportModel* obj2) {
             NSNumber *obj1Num = [NSNumber numberWithLongLong:obj1.timeLong];
             NSNumber *obj2Num = [NSNumber numberWithLongLong:obj2.timeLong];
@@ -244,29 +258,31 @@ static int width = 16;
                 [weakSelf.dataArray3 addObject:report];
             }
         }
-
-        dispatch_sync(dispatch_get_main_queue(), ^{
-
-            [HUD hideUIBlockingIndicator];
+    
+            [MBProgressHUD hideHUDForView:self.view animated:YES];
             [weakSelf.chartV2 reload];
             [weakSelf.chartV reload];
             [weakSelf.chartV3 reload];
             
-        });
+//        [weakSelf sigmentChange:weakSelf.segment];
     });
 }
 -(void)viewDidAppear:(BOOL)animated{
     [super viewDidAppear:animated];
     [DEVICETOOL getSavedStationArr];
+    
+    [self searchClick:nil];
 }
 -(void)viewDidLayoutSubviews{
-    [self.safeView addSubview:self.chartV];//真的是这个视图 【UIcolor whitecolor】
-    [self.safeView addSubview:self.chartV2];
-    [self.safeView addSubview:self.chartV3];
-    self.chartV3.hidden = YES;
-    self.itemNmuber = 14 ;
-    self.itemWidth = self.chartV.frame.size.width/16 ;  //最小单元1/15
-    [self searchClick:nil];
+    if(_firstLoad){
+        _firstLoad = NO;
+        [self.safeView addSubview:self.chartV];//真的是这个视图 【UIcolor whitecolor】
+        [self.safeView addSubview:self.chartV2];
+        [self.safeView addSubview:self.chartV3];
+        self.chartV3.hidden = YES;
+        self.itemNmuber = 14 ;
+        self.itemWidth = self.chartV.frame.size.width/16 ;  //最小单元1/15
+    }
 }
 
 - (IBAction)sigmentChange:(id)sender {
@@ -466,7 +482,7 @@ static int width = 16;
                     cell.backgroundColor = [UIColor whiteColor];
                 }
                 
-                 NSLog(@"report.reportType = %ld report..close_fan = %ld ,report.close_ding = %ld",report.reportType,report.close_fan,report.close_ding);
+//                 NSLog(@"report.reportType = %ld report..close_fan = %ld ,report.close_ding = %ld",report.reportType,report.close_fan,report.close_ding);
                 switch (indexPath.row) {
                     case 0:
                         {
@@ -1325,7 +1341,19 @@ static int width = 16;
         
     //    worksheet_write_string(worksheet, self.rowNum, 2, "月报销申请表", headerFormat);
         worksheet_merge_range(worksheet, self.rowNum, 0, self.rowNum, 13, [[NSString stringWithFormat:@"%@道岔转换力定扳反测试表",_stationStr] cStringUsingEncoding:NSUTF8StringEncoding], headerFormat);
-        worksheet_merge_range(worksheet, ++self.rowNum, 12, self.rowNum, 13, [_timeStr cStringUsingEncoding:NSUTF8StringEncoding], nameFormat);
+
+    
+    NSString *longStr = [NSString stringWithFormat:@"%@   %@   %@   %@",[NSString stringWithFormat:@"测试员:%@",DEVICETOOL.nameStr],[NSString stringWithFormat:@"天气:%@",DEVICETOOL.tianqiStr],[NSString stringWithFormat:@"温度:%@",DEVICETOOL.wenduStr],_timeStr];
+    
+    worksheet_merge_range(worksheet, ++self.rowNum, 9,self.rowNum, 13, [longStr cStringUsingEncoding:NSUTF8StringEncoding], nameFormat);
+    
+//    worksheet_write_string(worksheet, self.rowNum, 11,  [[NSString stringWithFormat:@"天气:%@",DEVICETOOL.tianqiStr] cStringUsingEncoding:NSUTF8StringEncoding], nameFormat);
+//    worksheet_write_string(worksheet, self.rowNum, 12, [[NSString stringWithFormat:@"温度:%@",DEVICETOOL.wenduStr] cStringUsingEncoding:NSUTF8StringEncoding], nameFormat);
+//    worksheet_write_string(worksheet, self.rowNum, 13, [_timeStr cStringUsingEncoding:NSUTF8StringEncoding], nameFormat);
+    
+    
+    
+    
         worksheet_merge_range(worksheet, ++self.rowNum, 0, self.rowNum+2, 0, "时间(时分秒)", titleformat);
         worksheet_merge_range(worksheet, self.rowNum, 1, self.rowNum+2, 1, "道岔号", titleformat);
         worksheet_merge_range(worksheet, self.rowNum, 2, self.rowNum+2, 2, "牵引号", titleformat);
@@ -1399,7 +1427,19 @@ static int width = 16;
         worksheet_set_column(worksheet, 12, 13, width * 0.8, NULL);// D列宽度
         
         worksheet_merge_range(worksheet, self.rowNum, 0, self.rowNum, 13, [[NSString stringWithFormat:@"%@道岔转换力反扳定测试表",_stationStr] cStringUsingEncoding:NSUTF8StringEncoding], headerFormat);
-        worksheet_merge_range(worksheet, ++self.rowNum, 12, self.rowNum, 13, [_timeStr cStringUsingEncoding:NSUTF8StringEncoding], nameFormat);
+    
+    NSString *longStr = [NSString stringWithFormat:@"%@   %@   %@   %@",[NSString stringWithFormat:@"测试员:%@",DEVICETOOL.nameStr],[NSString stringWithFormat:@"天气:%@",DEVICETOOL.tianqiStr],[NSString stringWithFormat:@"温度:%@",DEVICETOOL.wenduStr],_timeStr];
+    
+    worksheet_merge_range(worksheet, ++self.rowNum, 9, self.rowNum, 13, [longStr cStringUsingEncoding:NSUTF8StringEncoding], nameFormat);
+//    worksheet_write_string(worksheet, self.rowNum, 13, [_timeStr cStringUsingEncoding:NSUTF8StringEncoding], nameFormat);
+//    worksheet_write_string(worksheet, self.rowNum, 12,  [[NSString stringWithFormat:@"温度:%@",DEVICETOOL.wenduStr] cStringUsingEncoding:NSUTF8StringEncoding], nameFormat);
+//    worksheet_write_string(worksheet, self.rowNum, 11, [[NSString stringWithFormat:@"天气:%@",DEVICETOOL.tianqiStr] cStringUsingEncoding:NSUTF8StringEncoding], nameFormat);
+
+    
+
+    
+    
+    
         worksheet_merge_range(worksheet, ++self.rowNum, 0, self.rowNum+2, 0, "时间(时分秒)", titleformat);
         worksheet_merge_range(worksheet, self.rowNum, 1, self.rowNum+2, 1, "道岔号", titleformat);
         worksheet_merge_range(worksheet, self.rowNum, 2, self.rowNum+2, 2, "牵引号", titleformat);
@@ -1473,7 +1513,15 @@ static int width = 16;
       
         
         worksheet_merge_range(worksheet, self.rowNum, 1-a, self.rowNum, 12-a, [[NSString stringWithFormat:@"%@道岔锁闭力测试表",_stationStr] cStringUsingEncoding:NSUTF8StringEncoding], headerFormat);
-        worksheet_merge_range(worksheet, ++self.rowNum, 11-a, self.rowNum, 12-a, [_timeStr cStringUsingEncoding:NSUTF8StringEncoding], nameFormat);
+    
+    NSString *longStr = [NSString stringWithFormat:@"%@   %@   %@   %@",[NSString stringWithFormat:@"测试员:%@",DEVICETOOL.nameStr],[NSString stringWithFormat:@"天气:%@",DEVICETOOL.tianqiStr],[NSString stringWithFormat:@"温度:%@",DEVICETOOL.wenduStr],_timeStr];
+    
+//    worksheet_write_string(worksheet, ++self.rowNum, 12-a,[_timeStr cStringUsingEncoding:NSUTF8StringEncoding], nameFormat);
+//    worksheet_write_string(worksheet, self.rowNum, 10,  [[NSString stringWithFormat:@"温度:%@",DEVICETOOL.wenduStr] cStringUsingEncoding:NSUTF8StringEncoding], nameFormat);
+//    worksheet_write_string(worksheet, self.rowNum, 9, [[NSString stringWithFormat:@"天气:%@",DEVICETOOL.tianqiStr] cStringUsingEncoding:NSUTF8StringEncoding], nameFormat);
+    worksheet_merge_range(worksheet, ++self.rowNum, 7, self.rowNum, 12-a, [longStr cStringUsingEncoding:NSUTF8StringEncoding], nameFormat);
+
+    
         worksheet_merge_range(worksheet, ++self.rowNum, 1-a, self.rowNum+2, 1-a, "时间(时分秒)", titleformat);
         worksheet_merge_range(worksheet, self.rowNum, 2-a, self.rowNum+2, 2-a, "道岔号", titleformat);
 //        worksheet_merge_range(worksheet, self.rowNum, 3-a, self.rowNum+2, 3-a, "牵引号", titleformat);
@@ -1599,6 +1647,7 @@ static int width = 16;
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
 }
+
 /*
 #pragma mark - Navigation
 

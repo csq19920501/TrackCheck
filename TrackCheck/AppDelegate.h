@@ -25,6 +25,8 @@
 //typeof(weakSelf) self = weakSelf; \
 //{x} \
 //});
+//全局线程
+//dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0)
 
 //  viewcontroller changeView  smooth lttb max
 //  reportviewcontroller viewdidload  smooth lttb max

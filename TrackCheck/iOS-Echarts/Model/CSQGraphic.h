@@ -19,7 +19,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, strong) id right;
 @property (nonatomic, strong) id bottom;
 @property (nonatomic, strong) id style;
-
+@property (nonatomic, strong) id children;
 
 PYInitializerTemplate(CSQGraphic, graphic);
 
@@ -28,6 +28,7 @@ PYPropertyEqualTemplate(CSQGraphic, id, top);
 PYPropertyEqualTemplate(CSQGraphic, id, bottom);
 PYPropertyEqualTemplate(CSQGraphic,id, left);
 PYPropertyEqualTemplate(CSQGraphic, id, right);
+PYPropertyEqualTemplate(CSQGraphic, id, children);
 PYPropertyEqualTemplate(CSQGraphic, id, style);
 PYPropertyEqualTemplate(CSQGraphic, NSNumber *, z);
 PYPropertyEqualTemplate(CSQGraphic, id, onclick);

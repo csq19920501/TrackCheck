@@ -10,6 +10,9 @@
 #import "PYSearch.h"
 #import "SetDeviceViewController.h"
 #import "TYAlertController.h"
+#import "DLDateSelectController.h"
+#import "DLDateAnimation.h"
+#import "DLCustomAlertController.h"
 
 #define PYTextColor PYSEARCH_COLOR(113, 113, 113)
 #define PYSEARCH_COLORPolRandomColor self.colorPol[arc4random_uniform((uint32_t)self.colorPol.count)]
@@ -17,13 +20,20 @@
 
 @property (weak, nonatomic) IBOutlet UITextField *stationTF;
 @property (weak, nonatomic) IBOutlet UITextField *daoChaTF;
+@property (weak, nonatomic) IBOutlet UITextField *nameTF;
+@property (weak, nonatomic) IBOutlet UITextField *tianqiBut;
+@property (weak, nonatomic) IBOutlet UITextField *wenduBut;
+
 @property (weak, nonatomic) IBOutlet UIButton *sureBut;
 @property (weak, nonatomic) IBOutlet UIView *stationTagsView;
 @property (weak, nonatomic) IBOutlet UIView *daoChaTagsView;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *stationTagsViewH;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *daoChaTagsViewH;
+
 @property (weak, nonatomic) IBOutlet UIButton *shen_Ding;
 @property (weak, nonatomic) IBOutlet UIButton *shen_Fan;
+@property (weak, nonatomic) IBOutlet UIButton *zuo_shen_Ding;
+@property (weak, nonatomic) IBOutlet UIButton *zuo_shen_Fan;
 
 @property (nonatomic, strong) NSMutableArray<UIColor *> *colorPol;
 @property (nonatomic, strong) TYAlertController *alertController;
@@ -38,17 +48,22 @@
     _sureBut.backgroundColor = BLUECOLOR;
     _sureBut.layer.masksToBounds = YES;
     _sureBut.layer.cornerRadius = 10;
-    _stationTF.layer.cornerRadius = 8;
+    _stationTF.layer.cornerRadius = 10;
     _stationTF.layer.borderColor = BLUECOLOR.CGColor;
     _stationTF.layer.masksToBounds = YES;
     _stationTF.layer.borderWidth = 2;
-    _daoChaTF.layer.cornerRadius = 6;
+    _daoChaTF.layer.cornerRadius = 10;
     _daoChaTF.layer.borderWidth = 2;
     _daoChaTF.layer.borderColor = BLUECOLOR.CGColor;
     _daoChaTF.layer.masksToBounds = YES;
     
     _stationTF.text = DEVICETOOL.stationStr;
     _daoChaTF.text = DEVICETOOL.roadSwitchNo;
+    _nameTF.text = DEVICETOOL.nameStr;
+    _tianqiBut.text = DEVICETOOL.tianqiStr;
+    _wenduBut.text = DEVICETOOL.wenduStr;
+    
+    
     [_sureBut.titleLabel setTextColor:[UIColor whiteColor]];
     
     _shen_Fan.layer.masksToBounds = YES;
@@ -60,6 +75,31 @@
     _shen_Ding.layer.borderColor = BLUECOLOR.CGColor;
     _shen_Ding.layer.borderWidth = 2;
     _shen_Ding.layer.cornerRadius = 10;
+    
+    _zuo_shen_Fan.layer.masksToBounds = YES;
+    _zuo_shen_Fan.layer.borderColor = BLUECOLOR.CGColor;
+    _zuo_shen_Fan.layer.borderWidth = 2;
+    _zuo_shen_Fan.layer.cornerRadius = 10;
+    
+    _zuo_shen_Ding.layer.masksToBounds = YES;
+    _zuo_shen_Ding.layer.borderColor = BLUECOLOR.CGColor;
+    _zuo_shen_Ding.layer.borderWidth = 2;
+    _zuo_shen_Ding.layer.cornerRadius = 10;
+    
+    _wenduBut.layer.masksToBounds = YES;
+    _wenduBut.layer.borderColor = BLUECOLOR.CGColor;
+    _wenduBut.layer.borderWidth = 2;
+    _wenduBut.layer.cornerRadius = 10;
+    
+    _tianqiBut.layer.masksToBounds = YES;
+    _tianqiBut.layer.borderColor = BLUECOLOR.CGColor;
+    _tianqiBut.layer.borderWidth = 2;
+    _tianqiBut.layer.cornerRadius = 10;
+    
+    _nameTF.layer.masksToBounds = YES;
+    _nameTF.layer.borderColor = BLUECOLOR.CGColor;
+    _nameTF.layer.borderWidth = 2;
+    _nameTF.layer.cornerRadius = 10;
     
     [self setSele];
 //    [self pushAlertView:^(BOOL retu){}];
@@ -119,39 +159,54 @@
 //-(void)textFieldDidBeginEditing:(UITextField *)textField{
 //    [self setSele];
 //}
+-(void)setButNoSele{
+    NSArray *arr = @[@(500),@(501),@(600),@(601)];
+    for (NSNumber *num in arr) {
+        int a = num.intValue;
+        UIButton  *but = (UIButton *)[self.view viewWithTag:a];
+        but.selected  = NO;
+    }
+}
+-(BOOL)shenShuoHasSeled{
+    NSArray *arr = @[@(500),@(501),@(600),@(601)];
+    for (NSNumber *num in arr) {
+        int a = num.intValue;
+        UIButton  *but = (UIButton *)[self.view viewWithTag:a];
+        if(but.selected){
+            return  YES;
+        }
+    }
+    return NO;
+}
 -(void)setSele{
+    [self setButNoSele];
     if(_stationTF.text.length!=0){
         if(_daoChaTF.text.length!=0){
             NSUserDefaults *user = [NSUserDefaults standardUserDefaults];
             NSInteger shenSuo = [user integerForKey:[NSString stringWithFormat:@"%@%@",_stationTF.text,_daoChaTF.text]];
+//            NSInteger zuoyou = [user integerForKey:[NSString stringWithFormat:@"zuoyou%@%@",_stationTF.text,_daoChaTF.text]];
+         
             if(shenSuo == Shen_Ding){
                 _shen_Ding.selected = YES;
-                _shen_Fan.selected =NO;
                 DEVICETOOL.shenSuo = Shen_Ding;
             }else if(shenSuo == Shen_Fan){
-                _shen_Ding.selected = NO;
                 _shen_Fan.selected =YES;
                 DEVICETOOL.shenSuo = Shen_Fan;
+            }else if(shenSuo == Shen_Ding_zuo){
+                _zuo_shen_Ding.selected =YES;
+                DEVICETOOL.shenSuo = Shen_Ding_zuo;
+            }else if(shenSuo == Shen_Fan_zuo){
+                _zuo_shen_Fan.selected =YES;
+                DEVICETOOL.shenSuo = Shen_Fan_zuo;
             }else{
-                _shen_Ding.selected = NO;
-                _shen_Fan.selected = NO;
                 DEVICETOOL.shenSuo = NoSet;
             }
         }else{
-            _shen_Ding.selected = NO;
-            _shen_Fan.selected = NO;
             DEVICETOOL.shenSuo = NoSet;
         }
     }else{
-        _shen_Ding.selected = NO;
-        _shen_Fan.selected = NO;
         DEVICETOOL.shenSuo = NoSet;
     }
-//    if(DEVICETOOL.shenSuo == Shen_Fan){
-//        DEVICETOOL.shenSuo = Shen_Ding;
-//    }else if(DEVICETOOL.shenSuo == Shen_Ding){
-//        DEVICETOOL.shenSuo = Shen_Fan;
-//    }
 }
 
 -(void)pushAlertView:(void (^)(BOOL))re{
@@ -211,39 +266,66 @@
 //    [self.navigationController pushViewController:self.alertController animated:YES];
 }
 - (IBAction)dingFanCheck:(id)sender {
+    __weak typeof(self) weakSelf = self;
     NSUserDefaults *user = [NSUserDefaults standardUserDefaults];
     UIButton *but = (UIButton *)sender;
     if(!but.selected){
+       
         if(sender == _shen_Ding){
-            if(_shen_Fan.selected && DEVICETOOL.shenSuo == Shen_Fan){
+            if([self shenShuoHasSeled]){
                 [self pushAlertView:^(BOOL retu){
                     if(retu){
-                        _shen_Ding.selected = YES;
-                        _shen_Fan.selected = NO;
-                        
+                        [weakSelf setButNoSele];
+                        but.selected = YES;
                         DEVICETOOL.shenSuo = Shen_Ding;
-                        [user setInteger:Shen_Ding forKey:[NSString stringWithFormat:@"%@%@",_stationTF.text,_daoChaTF.text]];
-                       
+                        [user setInteger:Shen_Ding forKey:[NSString stringWithFormat:@"%@%@",weakSelf.stationTF.text,weakSelf.daoChaTF.text]];
                     }
                 }];
             }else{
-                _shen_Ding.selected = YES;
-                _shen_Fan.selected = NO;
+                [weakSelf setButNoSele];
+                but.selected = YES;
             }
         }else if(sender == _shen_Fan){
-            if(_shen_Ding.selected && DEVICETOOL.shenSuo == Shen_Ding){
+            if([self shenShuoHasSeled]){
                 [self pushAlertView:^(BOOL retu){
                     if(retu){
-                        _shen_Fan.selected = YES;
-                        _shen_Ding.selected = NO;
-                        
+                        [weakSelf setButNoSele];
+                        but.selected = YES;
                         DEVICETOOL.shenSuo = Shen_Fan;
-                        [user setInteger:Shen_Fan forKey:[NSString stringWithFormat:@"%@%@",_stationTF.text,_daoChaTF.text]];
+                        [user setInteger:Shen_Fan forKey:[NSString stringWithFormat:@"%@%@",weakSelf.stationTF.text,weakSelf.daoChaTF.text]];
                     }
                 }];
             }else{
-                _shen_Fan.selected = YES;
-                _shen_Ding.selected = NO;
+                [weakSelf setButNoSele];
+                but.selected = YES;
+            }
+        }else if(sender == _zuo_shen_Fan){
+            if([self shenShuoHasSeled]){
+                [self pushAlertView:^(BOOL retu){
+                    if(retu){
+                        [weakSelf setButNoSele];
+                        but.selected = YES;
+                        DEVICETOOL.shenSuo = Shen_Fan_zuo;
+                        [user setInteger:Shen_Fan_zuo forKey:[NSString stringWithFormat:@"%@%@",weakSelf.stationTF.text,weakSelf.daoChaTF.text]];
+                    }
+                }];
+            }else{
+                [weakSelf setButNoSele];
+                but.selected = YES;
+            }
+        }else if(sender == _zuo_shen_Ding){
+            if([self shenShuoHasSeled]){
+                [self pushAlertView:^(BOOL retu){
+                    if(retu){
+                        [weakSelf setButNoSele];
+                        but.selected = YES;
+                        DEVICETOOL.shenSuo = Shen_Ding_zuo;
+                        [user setInteger:Shen_Ding_zuo forKey:[NSString stringWithFormat:@"%@%@",weakSelf.stationTF.text,weakSelf.daoChaTF.text]];
+                    }
+                }];
+            }else{
+                [weakSelf setButNoSele];
+                but.selected = YES;
             }
         }
     }
@@ -258,6 +340,17 @@
        [HUD showAlertWithText:@"道岔号不能为空"];
         return;
     }
+    if(_nameTF.text.length == 0){
+       [HUD showAlertWithText:@"测试人员名称不能为空"];
+        return;
+    }else if(_tianqiBut.text.length == 0){
+       [HUD showAlertWithText:@"天气不能为空"];
+        return;
+    }
+    if(_wenduBut.text.length == 0){
+       [HUD showAlertWithText:@"温度不能为空"];
+        return;
+    }
     if(_shen_Ding.selected){
         DEVICETOOL.shenSuo = Shen_Ding;
         NSUserDefaults *user = [NSUserDefaults standardUserDefaults];
@@ -266,6 +359,14 @@
         DEVICETOOL.shenSuo = Shen_Fan;
         NSUserDefaults *user = [NSUserDefaults standardUserDefaults];
         [user setInteger:Shen_Fan forKey:[NSString stringWithFormat:@"%@%@",_stationTF.text,_daoChaTF.text]];
+    }else if(_zuo_shen_Ding.selected){
+        DEVICETOOL.shenSuo = Shen_Ding_zuo;
+        NSUserDefaults *user = [NSUserDefaults standardUserDefaults];
+        [user setInteger:Shen_Ding_zuo forKey:[NSString stringWithFormat:@"%@%@",_stationTF.text,_daoChaTF.text]];
+    }else if(_zuo_shen_Fan.selected){
+        DEVICETOOL.shenSuo = Shen_Fan_zuo;
+        NSUserDefaults *user = [NSUserDefaults standardUserDefaults];
+        [user setInteger:Shen_Fan_zuo forKey:[NSString stringWithFormat:@"%@%@",_stationTF.text,_daoChaTF.text]];
     }else{
         [HUD showAlertWithText:@"请选择伸缩对应的定反类型"];
         return;
@@ -284,7 +385,12 @@
        [DEVICETOOL.stationStrArr insertObject:_stationTF.text atIndex:0];
     }
     DEVICETOOL.stationStr = _stationTF.text;
-    if(DEVICETOOL.stationStrArr.count >8){
+    DEVICETOOL.nameStr = _nameTF.text;
+    DEVICETOOL.tianqiStr = _tianqiBut.text;
+    DEVICETOOL.wenduStr = _wenduBut.text;
+    
+    
+    if(DEVICETOOL.stationStrArr.count >4){
         [DEVICETOOL.stationStrArr removeLastObject];
     }
     
@@ -302,7 +408,7 @@
        [DEVICETOOL.roadSwitchNoArr insertObject:_daoChaTF.text atIndex:0];
     }
     DEVICETOOL.roadSwitchNo = _daoChaTF.text;
-    if(DEVICETOOL.roadSwitchNoArr.count >12){
+    if(DEVICETOOL.roadSwitchNoArr.count >6){
         [DEVICETOOL.roadSwitchNoArr removeLastObject];
     }
     [DEVICETOOL syncArr];
@@ -436,8 +542,45 @@
         DEVICETOOL.testMaxCount = 300;
     }
 }
+- (BOOL)textFieldShouldBeginEditing:(UITextField *)textField{
 
-
+    if(textField == _tianqiBut){
+        [textField resignFirstResponder];
+        [self getTianQiPick];
+        return NO;
+    }else if(textField == _wenduBut){
+        [textField resignFirstResponder];
+        [self getWenDuPick];
+        return NO;
+    }
+    return YES;
+}
+-(void)getWenDuPick{
+    __weak typeof(self) weakSelf = self;
+    DLCustomAlertController *customAlertC = [[DLCustomAlertController alloc] init];
+    customAlertC.title = @"选择温度";
+    customAlertC.pickerDatas = @[@[@"-10℃",@"-9℃",@"-8℃",@"-7℃",@"-10℃",@"-9℃",@"-8℃",@"-7℃",@"-6℃",@"-5℃",@"-4℃",@"-3℃",@"-2℃",@"-1℃",@"0℃",@"1℃",@"2℃",@"3℃",@"4℃",@"5℃",@"6℃",@"7℃",@"8℃",@"9℃",@"10℃",@"11℃",@"12℃",@"13℃",@"14℃",@"15℃",@"16℃",@"17℃",@"18℃",@"19℃",@"20℃",@"21℃",@"22℃",@"32℃",@"24℃",@"25℃",@"26℃",@"27℃",@"28℃",@"29℃",@"30℃",@"31℃",@"32℃",@"33℃",@"34℃",@"35℃",@"36℃",@"37℃",@"38℃",@"39℃",@"40℃"]];//arr;
+    DLDateAnimation * animation = [[DLDateAnimation alloc] init];
+    customAlertC.selectValues = ^(NSArray * _Nonnull dateArray){
+        if(dateArray.count > 0){
+            [weakSelf.wenduBut setText:dateArray[0]];
+        }
+    };
+    [self presentViewController:customAlertC animation:animation completion:nil];
+}
+-(void)getTianQiPick{
+    __weak typeof(self) weakSelf = self;
+    DLCustomAlertController *customAlertC = [[DLCustomAlertController alloc] init];
+    customAlertC.title = @"选择天气";
+    customAlertC.pickerDatas = @[@[@"晴天",@"阴天",@"雨天",@"雨后"]];//arr;
+    DLDateAnimation * animation = [[DLDateAnimation alloc] init];
+    customAlertC.selectValues = ^(NSArray * _Nonnull dateArray){
+        if(dateArray.count > 0){
+            [weakSelf.tianqiBut setText:dateArray[0]];
+        }
+    };
+    [self presentViewController:customAlertC animation:animation completion:nil];
+}
 /*
 #pragma mark - Navigation
 

@@ -208,6 +208,7 @@
 		B591261F25F624B600DEC727 /* CSQVisualMap.m in Sources */ = {isa = PBXBuildFile; fileRef = B591261E25F624B600DEC727 /* CSQVisualMap.m */; };
 		B59850A625C190450057FDCD /* CSQGraphic.m in Sources */ = {isa = PBXBuildFile; fileRef = B59850A525C190450057FDCD /* CSQGraphic.m */; };
 		B5DCF46925F1F9FC008F60D6 /* ReportCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B5DCF46825F1F9FC008F60D6 /* ReportCell.m */; };
+		B5F32F762636A49500CCE0AE /* ReportDaysListVC.m in Sources */ = {isa = PBXBuildFile; fileRef = B5F32F752636A49500CCE0AE /* ReportDaysListVC.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -633,6 +634,8 @@
 		B59850A525C190450057FDCD /* CSQGraphic.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CSQGraphic.m; sourceTree = "<group>"; };
 		B5DCF46725F1F9FC008F60D6 /* ReportCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ReportCell.h; sourceTree = "<group>"; };
 		B5DCF46825F1F9FC008F60D6 /* ReportCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ReportCell.m; sourceTree = "<group>"; };
+		B5F32F742636A49500CCE0AE /* ReportDaysListVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ReportDaysListVC.h; sourceTree = "<group>"; };
+		B5F32F752636A49500CCE0AE /* ReportDaysListVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ReportDaysListVC.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -1089,6 +1092,8 @@
 				B55650AF25AD7F9A00CB61D7 /* SetDeviceViewController.m */,
 				B556514725B0736800CB61D7 /* HistoryDataViewController.h */,
 				B556514825B0736800CB61D7 /* HistoryDataViewController.m */,
+				B5F32F742636A49500CCE0AE /* ReportDaysListVC.h */,
+				B5F32F752636A49500CCE0AE /* ReportDaysListVC.m */,
 				B556514A25B073AE00CB61D7 /* HistoryCell.h */,
 				B556514B25B073AE00CB61D7 /* HistoryCell.m */,
 				B556520D25B1B33D00CB61D7 /* HistoryChartViewController.h */,
@@ -1632,6 +1637,7 @@
 				B5362CB825BBC46D00AE189A /* TYShowAlertView.m in Sources */,
 				B556CB0825A5CEAE00523758 /* PYForceSeries.m in Sources */,
 				B556CB0B25A5CEAE00523758 /* PYPieSeries.m in Sources */,
+				B5F32F762636A49500CCE0AE /* ReportDaysListVC.m in Sources */,
 				B556CB1725A5CEAE00523758 /* PYMarkLine.m in Sources */,
 				B556CB2125A5CEAE00523758 /* PYLinks.m in Sources */,
 				B556CB3B25A5CEAE00523758 /* PYEchartsView.m in Sources */,

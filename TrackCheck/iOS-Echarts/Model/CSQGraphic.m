@@ -13,10 +13,11 @@
 {
     self = [super init];
     if (self) {
-        _type = @"text";
+        _type = @"group";
         _right = @(10);
         _top = @(10);
         _z = @(100);
+        _children = @[];
         _style = @{
             @"fill":@"#333",
             @"text":@"",
@@ -33,6 +34,7 @@ PYPropertyEqualImpTemplate(CSQGraphic, id, top);
 PYPropertyEqualImpTemplate(CSQGraphic, id, bottom);
 PYPropertyEqualImpTemplate(CSQGraphic, id, left);
 PYPropertyEqualImpTemplate(CSQGraphic, id, right);
+PYPropertyEqualImpTemplate(CSQGraphic, id, children);
 PYPropertyEqualImpTemplate(CSQGraphic, id, style);
 PYPropertyEqualImpTemplate(CSQGraphic, NSNumber *, z);
 PYPropertyEqualImpTemplate(CSQGraphic, id, onclick);

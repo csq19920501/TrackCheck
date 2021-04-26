@@ -11,7 +11,7 @@
 NS_ASSUME_NONNULL_BEGIN
 
 @interface ReportViewController : UIViewController
-
+@property (nonatomic ,strong)NSString *timeStr;
 @end
 
 NS_ASSUME_NONNULL_END

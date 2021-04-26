@@ -51,9 +51,6 @@
     return YES;
 }
 
-
-
-
 -(void)preSocke{
     NSLog(@"重启socket");
     [self.scoketThread cancel];

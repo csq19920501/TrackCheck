@@ -93,8 +93,6 @@ NS_ASSUME_NONNULL_BEGIN
 //@property (nonatomic,assign)long closeValue;//闭锁力
 //@property (nonatomic,assign)long stableValue;//保持力
 
-
-
 @property (nonatomic,assign)BOOL  closeDingBefore_OK;
 @property (nonatomic,assign)BOOL  closeDingChange_OK;
 @property (nonatomic,assign)BOOL  closeDingChange2_OK;

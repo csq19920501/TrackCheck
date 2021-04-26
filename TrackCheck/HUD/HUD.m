@@ -259,7 +259,7 @@ static UIView* lastViewWithHUD = nil;
 
     MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:[self rootView] animated:NO];
     [hud showAnimated:YES whileExecutingBlock:^{
-        sleep(1);
+//        sleep(1);
     } completionBlock:^{
 //        [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
         [hud removeFromSuperview];

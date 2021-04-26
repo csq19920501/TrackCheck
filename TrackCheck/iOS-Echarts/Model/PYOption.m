@@ -28,15 +28,15 @@
         _animation = YES;
         _graphic = [[CSQGraphic alloc]init];
 //        _visualMap = [[CSQVisualMap alloc]init];
-        _graphic.type = @"text";
+        _graphic.type = @"group";
         _graphic.z = @(100);
         _graphic.right = @(12);
         _graphic.top = @(12);
-        _graphic.style = @{
-            @"fill": @"#333",
-            @"text": @"",
-            @"font": @"15px Microsoft YaHei"
-        };
+//        _graphic.style = @{
+//            @"fill": @"#333",
+//            @"text": @"",
+//            @"font": @"15px Microsoft YaHei"
+//        };
     }
     return self;
 }

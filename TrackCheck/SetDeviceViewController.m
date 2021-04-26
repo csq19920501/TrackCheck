@@ -534,8 +534,10 @@ typedef enum:NSInteger{
     BOOL isWIFIConnection = [CSQHelper isWIFIConnection];
     if(isWIFIConnection){
         _topLabel.text = @"搜索设备中";
+        DEVICETOOL.isWIFIConnection = YES;
     }else{
         _topLabel.text = @"请连接WiFi:WSD_xxxxxxx,密码:12345678,IP:192.168.4.29";
+        DEVICETOOL.isWIFIConnection = NO;
     }
     
     

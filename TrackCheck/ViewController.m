@@ -567,7 +567,7 @@
                         dataModel.deviceType = device.typeStr;
                         dataModel.colorArr = device.colorArr;
 //                        dataModel.fanColorArr = device.fanColorArr;
-                        long long currentTime = [[NSDate date] timeIntervalSince1970] ;
+                        long long currentTime = [[NSDate date] timeIntervalSince1970];
                         dataModel.timeLong = currentTime;
                    
                         NSArray *dictArray = [ReportModel mj_keyValuesArrayWithObjectArray:device.reportArr];

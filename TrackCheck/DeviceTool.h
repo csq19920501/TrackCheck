@@ -27,7 +27,14 @@ typedef enum:NSInteger{
     NoSet,
     Shen_Ding,
     Shen_Fan,
+    Shen_Ding_zuo,
+    Shen_Fan_zuo,
 }CSQShenSuo;
+typedef enum:NSInteger{
+    ZhuoYou_NoSet,
+    ZhuoYou_You,
+    ZhuoYou_Zuo,
+}CSQZuoYou;
 NS_ASSUME_NONNULL_BEGIN
 static NSString *blueColor = @"black";   // 其他曲线     #4B8CF5 红色 #E71D1C  黑色
 static NSString *redColor = @"#4B8CF5";   //报告曲线   黑色
@@ -47,6 +54,10 @@ static NSString *realRedColor = @"#E71D1C";   //报警颜色  红色
 @property(nonatomic,strong)NSMutableArray *roadSwitchNoArr;
 @property(nonatomic,copy)NSString *stationStr;
 @property(nonatomic,copy)NSString *closeLinkDevice;
+@property(nonatomic,copy)NSString *nameStr;
+@property(nonatomic,copy)NSString *tianqiStr;
+@property(nonatomic,copy)NSString *wenduStr;
+
 @property(nonatomic,strong)NSMutableArray *stationStrArr;
 @property(nonatomic,assign)long long saveStaionTime;
 @property(nonatomic,assign)long long startTime;
@@ -60,6 +71,7 @@ static NSString *realRedColor = @"#E71D1C";   //报警颜色  红色
 @property (nonatomic,assign)CSQSeleLook seleLook;
 @property (nonatomic,assign)CSQJOrX jOrX;
 @property (nonatomic,assign)CSQShenSuo shenSuo;
+@property (nonatomic,assign)CSQZuoYou zuoyou;
 @property(nonatomic,strong)NSArray *savedStationArr;
 @property(nonatomic,strong,nullable)CheckModel*checkModel1;
 @property(nonatomic,strong,nullable)CheckModel*checkModel2;
@@ -69,7 +81,8 @@ static NSString *realRedColor = @"#E71D1C";   //报警颜色  红色
 
 @property (nonatomic,assign)BOOL  isDebug;
 @property (nonatomic,assign)BOOL  isX3;
-
+@property (nonatomic,assign)BOOL  timeOk;
+@property (nonatomic,assign)BOOL  isWIFIConnection;
 @property  (nonatomic,assign)NSInteger reportSele1;
 @property  (nonatomic,assign)NSInteger reportSele2;
 @property  (nonatomic,assign)NSInteger reportSele3;
