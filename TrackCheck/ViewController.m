@@ -641,6 +641,18 @@
             [[LPDBManager defaultManager] saveModels: @[dataModel]];
         }
     }
+    BOOL findStr = NO;
+    for (NSString *str in DEVICETOOL.savedStationArr) {
+        if([str isEqualToString:DEVICETOOL.stationStr]){
+            findStr = YES;
+            break;
+        }
+    }
+    if(!findStr){
+        [DEVICETOOL.savedStationArr addObject:DEVICETOOL.stationStr];
+    }
+    NSUserDefaults *user = [NSUserDefaults standardUserDefaults];
+    [user setObject:[NSArray arrayWithArray:DEVICETOOL.savedStationArr] forKey:@"savedStationArr"];
     [HUD showAlertWithText:@"保存成功"];
 }
 

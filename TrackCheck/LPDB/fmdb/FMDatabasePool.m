@@ -50,7 +50,7 @@
 - (instancetype)initWithPath:(NSString*)aPath
 {
     // default flags for sqlite3_open
-    return [self initWithPath:aPath flags:SQLITE_OPEN_READWRITE | SQLITE_OPEN_CREATE];
+    return [self initWithPath:aPath flags:SQLITE_OPEN_READWRITE | SQLITE_OPEN_CREATE |SQLITE_OPEN_NOMUTEX];
 }
 
 - (instancetype)init {

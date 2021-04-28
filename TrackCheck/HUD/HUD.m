@@ -193,6 +193,7 @@ static UIView* lastViewWithHUD = nil;
 
 +(void)showAlertWithText:(NSString *)text
 {
+    
     [self hideUIBlockingIndicator];
     MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:[self rootView] animated:YES];
     hud.mode = MBProgressHUDModeText;

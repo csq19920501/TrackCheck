@@ -72,7 +72,7 @@ static NSString *realRedColor = @"#E71D1C";   //报警颜色  红色
 @property (nonatomic,assign)CSQJOrX jOrX;
 @property (nonatomic,assign)CSQShenSuo shenSuo;
 @property (nonatomic,assign)CSQZuoYou zuoyou;
-@property(nonatomic,strong)NSArray *savedStationArr;
+@property(nonatomic,strong)NSMutableArray *savedStationArr;
 @property(nonatomic,strong,nullable)CheckModel*checkModel1;
 @property(nonatomic,strong,nullable)CheckModel*checkModel2;
 @property(nonatomic,strong,nullable)CheckModel*checkModel3;

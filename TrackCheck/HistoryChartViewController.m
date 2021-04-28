@@ -22,7 +22,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-    _addressLabel.text = [NSString stringWithFormat:@"地点:%@%@",_dataModel.station,_dataModel.roadSwitch];
+    _addressLabel.text = [NSString stringWithFormat:@"站点:%@%@",_dataModel.station,_dataModel.roadSwitch];
     _deviceTypeLabel.text = [NSString stringWithFormat:@"牵引点:%@",_dataModel.deviceType];
         
     NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];

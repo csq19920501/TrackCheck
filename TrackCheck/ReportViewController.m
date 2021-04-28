@@ -157,7 +157,6 @@ static int width = 16;
             [_dataArray1Sele addObject:model];
         }
     }
-    
     _dataArray2Sele = [NSMutableArray array];
     for (ReportModel *model in _dataArray2) {
         if(model.isSelected){
@@ -237,8 +236,9 @@ static int width = 16;
         NSTimeInterval endTimeInterval = [endDate timeIntervalSince1970];
 
     
-    dispatch_time_t delayTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.23/*延迟执行时间*/ * NSEC_PER_SEC));
-    dispatch_after(delayTime, dispatch_get_main_queue(), ^{
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0), ^{
+        
+        
         NSArray <ReportModel *> * results = [[LPDBManager defaultManager] findModels: [ReportModel class]
         where: @"station = '%@' and timeLong > %@ and timeLong < %@",weakSelf.stationStr,@(startTimeInterval),@(endTimeInterval)];
         NSLog(@"数据库检测结束result。cout = %ld",results.count);
@@ -258,7 +258,7 @@ static int width = 16;
                 [weakSelf.dataArray3 addObject:report];
             }
         }
-    
+        dispatch_async(dispatch_get_main_queue(), ^{
             [MBProgressHUD hideHUDForView:self.view animated:YES];
             [weakSelf.chartV2 reload];
             [weakSelf.chartV reload];
@@ -266,10 +266,11 @@ static int width = 16;
             
 //        [weakSelf sigmentChange:weakSelf.segment];
     });
+});
 }
 -(void)viewDidAppear:(BOOL)animated{
     [super viewDidAppear:animated];
-    [DEVICETOOL getSavedStationArr];
+//    [DEVICETOOL getSavedStationArr];
     
     [self searchClick:nil];
 }

@@ -17,7 +17,7 @@
 @end
 
 @implementation LPDBManager
-
+static LPDBManager *manager ;
 + (NSString *)DocPath
 {
     NSString* strPath =  [[NSBundle mainBundle] bundlePath];
@@ -40,19 +40,32 @@
     NSLog(@"%@", path);
     return path;
 }
-
+//+ (NSString *)dbPath2;
+//{
+//    NSString* path = [NSString stringWithFormat:@"%@/2/lpdb.db", [self DocPath]];
+//    NSLog(@"%@", path);
+//    return path;
+//}
 + (LPDBManager *)defaultManager
 {
-    static LPDBManager *manager = nil;
-    static dispatch_once_t onceToken;
-    dispatch_once(&onceToken, ^{
-        if (manager == nil) {
+    @synchronized(self){
+           if(manager == nil)
             manager = [[LPDBManager alloc] initWithDBPath: [[self class] dbPath]];
         }
-    });
-    return manager;
-}
 
+     return manager;
+  
+//    static dispatch_once_t onceToken;
+//    dispatch_once(&onceToken, ^{
+//        if (manager == nil) {
+//            manager = [[LPDBManager alloc] initWithDBPath: [[self class] dbPath]];
+//        }
+//    });
+//    return manager;
+}
++ (void)clean{
+    manager = nil;
+}
 - (instancetype)initWithDBPath:(NSString *)path
 {
     if (self = [super init]) {
@@ -102,6 +115,10 @@
 
 - (NSArray <LPDBModel *> *)findModels:(Class)modelClass where:(NSString *)sql,...
 {
+//    NSLog(@"开始查询");
+//    if(!sql.length){
+//        return nil;
+//    }
     if ([modelClass isSubclassOfClass: [LPDBModel class]]) {
         NSString *query = nil;
         if (sql.length) {
@@ -109,8 +126,11 @@
             va_start(args, sql);
             query = [NSString stringWithFormat: @"select * from %@ where %@", [modelClass className], [[NSString alloc] initWithFormat: sql arguments: args]];
             va_end(args);
-        } else
+        } else{
+            
             query = [NSString stringWithFormat: @"select * from %@", [modelClass className]];
+        }
+            
         __block NSArray *result = nil;
         [self.queue inTransaction:^(FMDatabase *db, BOOL *rollback) {
             result = [modelClass findModels: query db: db];
@@ -133,6 +153,7 @@
             NSData *sqlValue = [value sqlBlobRepresentationOfSelf];
             where = [NSString stringWithFormat: @"%@=%@", [modelClass primaryKey], sqlValue];
         }
+//        NSLog(@"莫名其妙执行");
         return [[self findModels: modelClass where: where] lastObject];
     }
     return nil;

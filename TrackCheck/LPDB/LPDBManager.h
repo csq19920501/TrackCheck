@@ -17,7 +17,9 @@
  the defualtu manager
  */
 + (LPDBManager *)defaultManager;
-
++ (NSString *)dbPath;
+//+ (NSString *)dbPath2;
++ (void)clean;
 /**
  custom the manager
  */

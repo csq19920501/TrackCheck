@@ -77,12 +77,12 @@ static dispatch_once_t onceToken;
     }
 }
 -(void)manangeSocket{
-    if(DEVICETOOL.isDebug || !DEVICETOOL.isWIFIConnection){
+    if(DEVICETOOL.isDebug ){
         return;
     }
     NSArray *socketA = [self.clientSockets copy];
     for (GCDAsyncSocket *socket in socketA) {
-        NSLog(@"self.clientSockets.count = %d",self.clientSockets.count);
+        NSLog(@"self.clientSockets.count = %ld",self.clientSockets.count);
         NSLog(@"socket = %@",[NSString stringWithFormat:@"%@",socket]);
         NSNumber* number = [_socketDic valueForKey:[NSString stringWithFormat:@"%@",socket]];
         int num = number.intValue;
@@ -178,7 +178,34 @@ static dispatch_once_t onceToken;
 //    NSLog(@"recv:%@",str);
     NSLog(@"新增数据%@----%@",[NSString stringWithFormat:@"%@",sock], str);
     NSDictionary *dic = str.mj_JSONObject;
-    NSString *cmd = dic[@"cmd"];
+//    dic = @{@"cmd":@"push_msg",@"id":@"1",@"charging":@"0",@"vol":@"3.99",@"version":@"1.0.0",@"time":@"2021-04-28 13:47:54"};
+    
+    id cmd = dic[@"cmd"];
+    
+    if(![cmd isKindOfClass:[NSString class]]){
+        NSLog(@"cmd数据非字符串");
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [HUD showAlertWithText:@"cmd数据非字符串"];
+        });
+    
+        return;
+    }
+    id idStr = dic[@"id"];
+   
+    if(![idStr isKindOfClass:[NSString class]]){
+        NSLog(@"id数据非字符串");
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [HUD showAlertWithText:@"id数据非字符串"];
+        });
+        return;
+    }
+    if([idStr isEqualToString:@""]|| [idStr isEqual:[NSNull null]]){
+        NSLog(@"id为空");
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [HUD showAlertWithText:@"id数据为空"];
+        });
+        return;
+    }
     
     NSString *dataStr = nil;
     if([cmd isEqualToString:@"push_msg"]){
@@ -202,7 +229,6 @@ static dispatch_once_t onceToken;
         dataStr = dict.mj_JSONString;
         
         DEVICETOOL.timeOk = YES;
-//        [self  changeDevice:dic];
     }
     else if([cmd isEqualToString:@"ping"]){
         [self  changeDevice:dic];
@@ -223,8 +249,18 @@ static dispatch_once_t onceToken;
         
 //        [self  changeDevice:dic];
     }else if([cmd isEqualToString:@"version_ack"]){
-
-//        [self  changeDevice:dic];
+        [self  changeDevice:dic];
+//        NSDictionary *dict =  @{@"cmd":@"version_ack"};
+        for (int i =0; i < DEVICETOOL.deviceArr.count; i++) {
+            Device *device = DEVICETOOL.deviceArr[i];
+            if([device.id isEqualToString:dic[@"id"]]){
+                device.percent = dic[@"percent"];
+                device.vol = dic[@"vol"];
+                device.charging = dic[@"charging"];
+            }
+        }
+//        dataStr = dict.mj_JSONString;
+        
     }
     [sock writeData:[dataStr dataUsingEncoding:NSUTF8StringEncoding] withTimeout:-1 tag:0];
     [sock readDataWithTimeout:-1 tag:0];
@@ -260,7 +296,32 @@ static dispatch_once_t onceToken;
 -(void)getData:(NSDictionary*)dic{
             dispatch_queue_t queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
             dispatch_async(queue, ^{
-                NSString * timeStr = dic[@"time"];
+                id timeStr = dic[@"time"];
+                if(![timeStr isKindOfClass:[NSString class]]){
+                    NSLog(@"time数据不正常");
+                   
+                    dispatch_async(dispatch_get_main_queue(), ^{
+                        [HUD showAlertWithText:@"time数据非字符串"];
+                    });
+                    return;
+                }
+                if([timeStr isEqualToString:@""]|| [timeStr isEqual:[NSNull null]]){
+                    NSLog(@"time数据为空");
+                    dispatch_async(dispatch_get_main_queue(), ^{
+                        [HUD showAlertWithText:@"time数据为空"];
+                    });
+                    return;
+                }
+                NSString *time = timeStr;
+                if(time.length != 19){
+                    NSLog(@"时间数据长度不对");
+                    dispatch_async(dispatch_get_main_queue(), ^{
+                        [HUD showAlertWithText:@"时间数据长度不对"];
+                    });
+                    return;
+                }
+                
+                
                 NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
                 [dateFormatter setDateFormat:@"YYYY-MM-dd HH:mm:ss"];
                 NSDate *localDate = [dateFormatter dateFromString:timeStr];
@@ -268,8 +329,18 @@ static dispatch_once_t onceToken;
                 
     //            NSLog(@"timeinterval 收到时间 = %@-%f",timeStr,timeinterval);
     //            long long timeinter = (long long)timeinterval;
+//                NSString * idStr = dic[@"id"];
                 
-                NSString * idStr = dic[@"id"];
+                id idStr = dic[@"id"];
+//                if([idStr isEmpty] ||[idStr isEqualToString:@""]|| [idStr isEqual:[NSNull null]]){
+//                    [HUD showAlertWithText:@"id数据不正常"];
+//                    return;
+//                }
+//                if(![idStr isKindOfClass:[NSString class]]){
+//                    NSLog(@"数据不正常");
+//                    [HUD showAlertWithText:@"id数据不正常"];
+//                    return;
+//                }
                 
                 if(DEVICETOOL.seleLook == ONE){
 
@@ -349,7 +420,16 @@ static dispatch_once_t onceToken;
                         break;
                 }
                 //初始时间 初始时间
-                NSString *dataStr = dic[@"data"];
+                id dataStr = dic[@"data"];
+                if(![dataStr isKindOfClass:[NSString class]]){
+                    NSLog(@"dataStr数据不正常");
+                    dispatch_async(dispatch_get_main_queue(), ^{
+                    [HUD showAlertWithText:@"dataStr数据不正常"];
+                    });
+                    return;
+                }
+                
+                
                 NSArray *reciveataArr = [dataStr componentsSeparatedByString:@","];
                 NSMutableArray *checkArr = [NSMutableArray array];
                 NSMutableArray *timeArr = [NSMutableArray array];
@@ -376,7 +456,6 @@ static dispatch_once_t onceToken;
                         break;
                     case 2:
                         {
-               
                             if(!DEVICETOOL.checkModel2){
                                 DEVICETOOL.checkModel2 = [[CheckModel alloc]init];
                             }

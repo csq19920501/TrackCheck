@@ -69,7 +69,7 @@
         [self searchClick:nil];
     }
     
-    [DEVICETOOL getSavedStationArr];
+//    [DEVICETOOL getSavedStationArr];
 }
 
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
@@ -153,6 +153,7 @@
     NSTimeInterval endTimeInterval = [endDate timeIntervalSince1970];
     
     if(startTimeInterval > endTimeInterval){
+        [MBProgressHUD hideHUDForView:self.view animated:YES];
              [HUD showAlertWithText:@"开始时间不能早于结束时间"];
              return;
     }
@@ -160,17 +161,23 @@
     
     NSString *stationS = _seleStationBut.titleLabel.text;
 
-                                          dispatch_time_t delayTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.23/*延迟执行时间*/ * NSEC_PER_SEC));
-                                          dispatch_after(delayTime,
-                                                         dispatch_get_main_queue(), ^{
-                                              NSArray <TestDataModel *> * results = [[LPDBManager defaultManager] findModels: [TestDataModel class]
-                                              where: @"station = '%@' and timeLong > %@ and timeLong < %@",stationS,@(startTimeInterval),@(endTimeInterval)];
-                                              weakSelf.dataArray = [NSMutableArray arrayWithArray:results];
-                                              NSLog(@"results.count = %ld",results.count);
- 
-                                              [MBProgressHUD hideHUDForView:self.view animated:YES];
-                                              [weakSelf.tabView reloadDataWithEmptyView];
-                                          });
+//                                          dispatch_time_t delayTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.23/*延迟执行时间*/ * NSEC_PER_SEC));
+//                                          dispatch_after(delayTime,
+//                                                         dispatch_get_main_queue(), ^{
+    
+    //                                          });
+    
+//    dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0)
+    dispatch_async(dispatch_get_main_queue(), ^{
+        NSArray <TestDataModel *> * results = [[LPDBManager defaultManager] findModels: [TestDataModel class]
+        where: @"station = '%@' and timeLong > %@ and timeLong < %@",stationS,@(startTimeInterval),@(endTimeInterval)];
+        weakSelf.dataArray = [NSMutableArray arrayWithArray:results];
+        NSLog(@"results.count = %ld",results.count);
+//        dispatch_async(dispatch_get_main_queue(), ^{
+            [MBProgressHUD hideHUDForView:self.view animated:YES];
+            [weakSelf.tabView reloadDataWithEmptyView];
+//        });
+    });
 }
 -(void)getDatePick{
     DLDateSelectController *dateAlert = [[DLDateSelectController alloc] init];

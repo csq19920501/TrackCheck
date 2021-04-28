@@ -209,6 +209,10 @@ typedef enum:NSInteger{
 }
 -(void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
+//        for (int i=0; i<10000; i++) {
+//    //        NSLog(@"删除");
+//            [CSQHelper isWIFIConnection];
+//        }
     [DEVICETOOL.deviceArr removeAllObjects];
     [self changeView];
     [[CSQScoketService shareInstance]getVersion];

@@ -22,8 +22,7 @@
 //            });
 //异步主线程
 //dispatch_async(dispatch_get_main_queue(), ^{ \
-//typeof(weakSelf) self = weakSelf; \
-//{x} \
+
 //});
 //全局线程
 //dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0)

@@ -80,11 +80,15 @@
     _zuo_shen_Fan.layer.borderColor = BLUECOLOR.CGColor;
     _zuo_shen_Fan.layer.borderWidth = 2;
     _zuo_shen_Fan.layer.cornerRadius = 10;
+//    [_zuo_shen_Fan.titleLabel setText:@"左缩 伸出=反位 缩进=定位"];
+    [_zuo_shen_Fan setTitle:@"左缩 伸出=反位 缩进=定位" forState:UIControlStateNormal];
     
     _zuo_shen_Ding.layer.masksToBounds = YES;
     _zuo_shen_Ding.layer.borderColor = BLUECOLOR.CGColor;
     _zuo_shen_Ding.layer.borderWidth = 2;
     _zuo_shen_Ding.layer.cornerRadius = 10;
+//    [_zuo_shen_Ding.titleLabel setText:@"左缩 伸出=定位 缩进=反位"];
+    [_zuo_shen_Ding setTitle:@"左缩 伸出=定位 缩进=反位" forState:UIControlStateNormal];
     
     _wenduBut.layer.masksToBounds = YES;
     _wenduBut.layer.borderColor = BLUECOLOR.CGColor;

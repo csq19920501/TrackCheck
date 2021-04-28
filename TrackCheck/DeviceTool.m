@@ -32,6 +32,7 @@
         
         tcpSocket.stationStrArr = [NSMutableArray array];
         tcpSocket.roadSwitchNoArr = [NSMutableArray array];
+        tcpSocket.savedStationArr = [NSMutableArray array];
         
         NSUserDefaults *user = [NSUserDefaults standardUserDefaults];
         tcpSocket.stationStr = [user objectForKey:@"stationStr"];
@@ -47,6 +48,8 @@
         }
         tcpSocket.stationStrArr = [NSMutableArray arrayWithArray:stationStrArr];
         tcpSocket.roadSwitchNoArr = [NSMutableArray arrayWithArray:[user objectForKey:@"roadSwitchNoArr"]];
+        tcpSocket.savedStationArr = [NSMutableArray arrayWithArray:[user objectForKey:@"savedStationArr"]];
+        [tcpSocket.savedStationArr addObjectsFromArray:tcpSocket.stationStrArr];
         tcpSocket.saveStaionTime = [[user objectForKey:@"saveStaionTime"] longLongValue];
         
         tcpSocket.shenSuo = [user integerForKey:[NSString stringWithFormat:@"%@%@",tcpSocket.stationStr,tcpSocket.roadSwitchNo]];
@@ -55,6 +58,7 @@
         tcpSocket.reportSele2 = 0;
         tcpSocket.reportSele3 = 0;
         tcpSocket.reportSele4 = 0;
+        [tcpSocket getSavedStationArr];
         
         NSNumber *maxCount = [user valueForKey:@"maxCount"];
         if(!maxCount){
@@ -89,6 +93,7 @@
     NSUserDefaults *user = [NSUserDefaults standardUserDefaults];
     [user setObject:[NSArray arrayWithArray:_stationStrArr] forKey:@"stationStrArr"];
     [user setObject:[NSArray arrayWithArray:_roadSwitchNoArr] forKey:@"roadSwitchNoArr"];
+    [user setObject:[NSArray arrayWithArray:_savedStationArr] forKey:@"savedStationArr"];
     NSLog(@"userdefault 保存 _roadSwitchNoArr = %@",_roadSwitchNoArr);
     [user setObject:_stationStr forKey:@"stationStr"];
     [user setObject:_roadSwitchNo forKey:@"roadSwitchNo"];
@@ -105,25 +110,24 @@
 }
 -(void)getSavedStationArr{
     dispatch_queue_t queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
-    // 异步执行任务创建方法
+    // 异步执行任务创建方法 forPrimaryKey
     dispatch_async(queue, ^{
-        NSMutableArray *arr = [NSMutableArray array];
-        NSArray <TestDataModel *> * results = [[LPDBManager defaultManager] findModels: [TestDataModel class]
-         where:nil];
-        for (TestDataModel *model in results) {
-            NSArray*statArr = [NSArray arrayWithArray:arr];
-            BOOL isExit = NO;
-            for(NSString *str  in statArr){
-                if([str isEqualToString:model.station]){
-                    isExit = YES;
-                    break;
-                }
-            }
-            if(!isExit){
-                [arr addObject:model.station];
-            }
-        }
-        self.savedStationArr = [NSArray arrayWithArray:arr];
+//        NSArray <TestDataModel *> * results = [[LPDBManager defaultManager] findModels: [TestDataModel class]
+//         where:nil];
+//        for (TestDataModel *model in results) {
+//            NSArray*statArr = [NSArray arrayWithArray:arr];
+//            BOOL isExit = NO;
+//            for(NSString *str  in statArr){
+//                if([str isEqualToString:model.station]){
+//                    isExit = YES;
+//                    break;
+//                }
+//            }
+//            if(!isExit){
+//                [arr addObject:model.station];
+//            }
+//        }
+//        self.savedStationArr = [NSMutableArray arrayWithArray:arr];
     });
 }
 

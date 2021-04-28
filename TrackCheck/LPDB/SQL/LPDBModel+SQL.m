@@ -475,12 +475,16 @@ static const NSString *readWriteIgnorePropertys = @"readWriteIgnorePropertys";
 {
     NSMutableArray *result = [NSMutableArray array];
     FMResultSet *set = [db executeQuery: sql];
-    while ([set next]) {
-        LPDBModel *model = [self objectFromResultSet: set db: db];
-        [result addObject: model];
-    }
-    [set close];
-    
+//    NSLog(@"时jian findMOdels sql = %@",sql);
+//    if(sql.length > 0){
+        while ([set next]) {
+            LPDBModel *model = [self objectFromResultSet: set db: db];
+            [result addObject: model];
+//            NSLog(@"时jian next result.count = %ld",result.count);
+        }
+//        NSLog(@"时jian findMOdels222");
+        [set close];
+//    }
     return result;
 }
 

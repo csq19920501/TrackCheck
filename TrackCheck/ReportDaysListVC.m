@@ -64,7 +64,7 @@
         [self searchClick:nil];
     }
      
-    [DEVICETOOL getSavedStationArr];
+//    [DEVICETOOL getSavedStationArr];
 }
 
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
@@ -76,8 +76,8 @@
 -(UITableViewCell*)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     HistoryCell *cell = [tableView dequeueReusableCellWithIdentifier:@"HistoryCell" forIndexPath:indexPath];
     NSString *timeStr = _dataArray[indexPath.row];
-    cell.addressLabel.text = timeStr;
-    cell.deviceType.text = @"";
+    cell.addressLabel.text = [NSString stringWithFormat:@"站点:%@",self.seleStationBut.titleLabel.text];
+    cell.deviceType.text = timeStr;
     cell.timeLabel.text = @"";
     return cell;
 }
@@ -152,15 +152,18 @@
     NSTimeInterval endTimeInterval = [endDate timeIntervalSince1970];
     
     if(startTimeInterval > endTimeInterval){
+             [MBProgressHUD hideHUDForView:self.view animated:YES];
              [HUD showAlertWithText:@"开始时间不能早于结束时间"];
              return;
     }
     NSString *stationS = _seleStationBut.titleLabel.text;
-    dispatch_time_t delayTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.23/*延迟执行时间*/ * NSEC_PER_SEC));
-    dispatch_after(delayTime, dispatch_get_main_queue(), ^{
+    
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0), ^{
         
         NSArray <ReportModel *> * results = [[LPDBManager defaultManager] findModels: [ReportModel class]
         where: @"station = '%@' and timeLong > %@ and timeLong < %@",stationS,@(startTimeInterval),@(endTimeInterval)];
+//        [LPDBManager clean];
+        
         NSLog(@"results.count = %ld",results.count);
         NSMutableSet *daArr = [NSMutableSet set];
         for (ReportModel *model in results) {
@@ -169,13 +172,31 @@
             NSString *startDate = [dateFormatter stringFromDate:[NSDate dateWithTimeIntervalSince1970:model.timeLong]];
             [daArr addObject:startDate];
         }
+        [weakSelf.dataArray removeAllObjects];
         for (NSString *object in daArr) {
             [weakSelf.dataArray addObject:object];
         }
-        [MBProgressHUD hideHUDForView:self.view animated:YES];
+        
+        NSArray * results2 = [weakSelf.dataArray sortedArrayUsingComparator:^NSComparisonResult(NSString* obj1, NSString* obj2) {
+            
+            NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+            dateFormatter.dateFormat = @"yyyy-MM-dd";
+            NSDate *date1 = [dateFormatter dateFromString:obj1];
+            NSTimeInterval timer1 = [date1 timeIntervalSince1970];
+            
+            NSDate *date2 = [dateFormatter dateFromString:obj2];
+            NSTimeInterval timer2 = [date2 timeIntervalSince1970];
+            
+            NSNumber *obj1Num = [NSNumber numberWithLongLong:timer1];
+            NSNumber *obj2Num = [NSNumber numberWithLongLong:timer2];
+                return [obj1Num compare:obj2Num]; // 升序
+            }];
+        weakSelf.dataArray = [NSMutableArray arrayWithArray:results2];
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [MBProgressHUD hideHUDForView:self.view animated:YES];
             [weakSelf.tabView reloadDataWithEmptyView];
         });
-    
+    });
 }
 -(void)getDatePick{
     DLDateSelectController *dateAlert = [[DLDateSelectController alloc] init];
