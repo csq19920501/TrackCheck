@@ -143,7 +143,7 @@
             dataZoom.showEqual(YES).startEqual(@0).typeEqual(@"inside");
         }])
         .legendEqual([PYLegend initPYLegendWithBlock:^(PYLegend *legend) {
-            legend.dataEqual(@[titleStr]);
+            legend.dataEqual(@[@"正常",@"预警",@"告警"]);
         }])
         .addXAxis([PYAxis initPYAxisWithBlock:^(PYAxis *axis) {
             axis.typeEqual(PYAxisTypeTime)
@@ -166,7 +166,27 @@
         .addSeries([PYCartesianSeries initPYCartesianSeriesWithBlock:^(PYCartesianSeries *series) {
         series.symbolEqual(@"none")
             .smoothEqual(YES)
-            .nameEqual(titleStr).typeEqual(PYSeriesTypeLine).dataEqual(saveDataArr).samplingEqual(sample);
+            .nameEqual(@"正常").typeEqual(PYSeriesTypeLine).dataEqual(saveDataArr).samplingEqual(sample);
+        }])
+        .addSeries([PYCartesianSeries initPYCartesianSeriesWithBlock:^(PYCartesianSeries *series) {
+            series.symbolEqual(@"none")
+            .smoothEqual(NO)
+            .nameEqual(@"预警").typeEqual(PYSeriesTypeLine).samplingEqual(@"lttb")
+            .itemStyleEqual([PYItemStyle initPYItemStyleWithBlock:^(PYItemStyle *itemStyle) {
+                itemStyle.normalEqual([PYItemStyleProp initPYItemStylePropWithBlock:^(PYItemStyleProp *itemStyleProp) {
+                    itemStyleProp.colorEqual(organiColor).borderWidthEqual(@(0.25));
+                }]);
+            }]);
+        }])
+        .addSeries([PYCartesianSeries initPYCartesianSeriesWithBlock:^(PYCartesianSeries *series) {
+            series.symbolEqual(@"none")
+            .smoothEqual(NO)
+            .nameEqual(@"告警").typeEqual(PYSeriesTypeLine).samplingEqual(@"lttb")
+            .itemStyleEqual([PYItemStyle initPYItemStyleWithBlock:^(PYItemStyle *itemStyle) {
+                itemStyle.normalEqual([PYItemStyleProp initPYItemStylePropWithBlock:^(PYItemStyleProp *itemStyleProp) {
+                    itemStyleProp.colorEqual(realRedColor).borderWidthEqual(@(0.25));
+                }]);
+            }]);
         }]);
 //        .addSeries([PYCartesianSeries initPYCartesianSeriesWithBlock:^(PYCartesianSeries *series) {
 //        series.symbolSizeEqual(@(0)).showAllSymbolEqual(YES).nameEqual(@"反位锁闭力").typeEqual(PYSeriesTypeLine).dataEqual(saveDataArr2);
@@ -322,7 +342,7 @@
             dataZoom.showEqual(YES).startEqual(@0).typeEqual(@"inside");
         }])
         .legendEqual([PYLegend initPYLegendWithBlock:^(PYLegend *legend) {
-            legend.dataEqual(@[@"定位锁闭力",@"反位锁闭力",@"转换阻力"]);
+            legend.dataEqual(@[@"定位锁闭力",@"反位锁闭力",@"转换阻力",@"预警",@"告警"]);
         }])
         .addXAxis([PYAxis initPYAxisWithBlock:^(PYAxis *axis) {
             axis.typeEqual(PYAxisTypeTime)
@@ -360,6 +380,26 @@
             .itemStyleEqual([PYItemStyle initPYItemStyleWithBlock:^(PYItemStyle *itemStyle) {
                 itemStyle.normalEqual([PYItemStyleProp initPYItemStylePropWithBlock:^(PYItemStyleProp *itemStyleProp) {
                     itemStyleProp.colorEqual(close_transform_color).borderWidthEqual(@(0.25));
+                }]);
+            }]);
+        }])
+        .addSeries([PYCartesianSeries initPYCartesianSeriesWithBlock:^(PYCartesianSeries *series) {
+            series.symbolEqual(@"none")
+            .smoothEqual(NO)
+            .nameEqual(@"预警").typeEqual(PYSeriesTypeLine).samplingEqual(@"lttb")
+            .itemStyleEqual([PYItemStyle initPYItemStyleWithBlock:^(PYItemStyle *itemStyle) {
+                itemStyle.normalEqual([PYItemStyleProp initPYItemStylePropWithBlock:^(PYItemStyleProp *itemStyleProp) {
+                    itemStyleProp.colorEqual(organiColor).borderWidthEqual(@(0.25));
+                }]);
+            }]);
+        }])
+        .addSeries([PYCartesianSeries initPYCartesianSeriesWithBlock:^(PYCartesianSeries *series) {
+            series.symbolEqual(@"none")
+            .smoothEqual(NO)
+            .nameEqual(@"告警").typeEqual(PYSeriesTypeLine).samplingEqual(@"lttb")
+            .itemStyleEqual([PYItemStyle initPYItemStyleWithBlock:^(PYItemStyle *itemStyle) {
+                itemStyle.normalEqual([PYItemStyleProp initPYItemStylePropWithBlock:^(PYItemStyleProp *itemStyleProp) {
+                    itemStyleProp.colorEqual(realRedColor).borderWidthEqual(@(0.25));
                 }]);
             }]);
         }]);

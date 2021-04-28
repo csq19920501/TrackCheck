@@ -323,7 +323,7 @@
                                             <outlet property="delegate" destination="eJd-OE-y6I" id="wXc-pb-m0I"/>
                                         </connections>
                                     </textField>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="站点:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="HgV-xh-PoK">
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="站场:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="HgV-xh-PoK">
                                         <rect key="frame" x="141.5" y="82.5" width="50" height="27"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="22"/>
                                         <nil key="textColor"/>
@@ -413,7 +413,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="DFv-LG-lUK">
-                                <rect key="frame" x="0.0" y="181" width="768" height="843"/>
+                                <rect key="frame" x="0.0" y="181" width="768" height="793"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" restorationIdentifier="HistoryCell" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="HistoryCell" rowHeight="84" id="3Wy-Fq-nmQ" customClass="HistoryCell">
@@ -513,7 +513,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="768" height="1024"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="请输入监测站点名称" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ZlG-XG-yr6">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="请输入测试站场名称" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ZlG-XG-yr6">
                                 <rect key="frame" x="99" y="80" width="210" height="34"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="34" id="dXH-DB-XFj"/>
@@ -523,7 +523,7 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="请输入监测道岔号" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qsM-ll-s3r">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="请输入测试道岔号" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qsM-ll-s3r">
                                 <rect key="frame" x="99" y="234.5" width="227" height="34"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="227" id="5wA-Z0-Y6I"/>
@@ -651,14 +651,14 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <button opaque="NO" tag="600" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="IRj-17-cHf">
-                                <rect key="frame" x="98" y="431" width="300" height="50"/>
+                                <rect key="frame" x="98" y="431" width="270" height="50"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="50" id="uka-0e-x8o"/>
-                                    <constraint firstAttribute="width" constant="300" id="xsJ-A4-67d"/>
+                                    <constraint firstAttribute="width" constant="270" id="xsJ-A4-67d"/>
                                 </constraints>
-                                <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="26"/>
                                 <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="40" maxY="0.0"/>
-                                <state key="normal" title="左缩 伸出=定位 缩进=反位" image="未勾选">
+                                <state key="normal" title="左缩 伸出=定位" image="未勾选">
                                     <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 </state>
                                 <state key="selected" image="选择-勾选"/>
@@ -667,14 +667,14 @@
                                 </connections>
                             </button>
                             <button opaque="NO" tag="601" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="R3C-HD-oz7">
-                                <rect key="frame" x="98" y="489" width="300" height="50"/>
+                                <rect key="frame" x="98" y="489" width="270" height="50"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="50" id="Q2F-7S-FCK"/>
-                                    <constraint firstAttribute="width" constant="300" id="kmS-4J-03s"/>
+                                    <constraint firstAttribute="width" constant="270" id="kmS-4J-03s"/>
                                 </constraints>
-                                <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="26"/>
                                 <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="40" maxY="0.0"/>
-                                <state key="normal" title="左缩 伸出=反位 缩进=定位" image="未勾选">
+                                <state key="normal" title="左缩 伸出=反位" image="未勾选">
                                     <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 </state>
                                 <state key="selected" image="选择-勾选"/>
@@ -699,7 +699,7 @@
                                     <constraint firstAttribute="height" constant="50" id="B7n-Bl-1PE"/>
                                     <constraint firstAttribute="width" constant="167" id="c2w-ig-22K"/>
                                 </constraints>
-                                <fontDescription key="fontDescription" type="system" pointSize="29"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="28"/>
                                 <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="40" maxY="0.0"/>
                                 <state key="normal" title="3分" image="未勾选">
                                     <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -715,7 +715,7 @@
                                 <constraints>
                                     <constraint firstAttribute="height" constant="50" id="eKV-Ci-jt3"/>
                                 </constraints>
-                                <fontDescription key="fontDescription" type="system" pointSize="29"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="28"/>
                                 <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="40" maxY="0.0"/>
                                 <state key="normal" title="5分" image="未勾选">
                                     <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -730,7 +730,7 @@
                                 <constraints>
                                     <constraint firstAttribute="height" constant="50" id="ZGK-Mq-G19"/>
                                 </constraints>
-                                <fontDescription key="fontDescription" type="system" pointSize="29"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="28"/>
                                 <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="40" maxY="0.0"/>
                                 <state key="normal" title="4分" image="未勾选">
                                     <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -770,7 +770,7 @@
                             </textField>
                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="2021-02-03" borderStyle="bezel" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="1nM-wr-cy1">
                                 <rect key="frame" x="359" y="729.5" width="311" height="55"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="22"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="30"/>
                                 <textInputTraits key="textInputTraits"/>
                                 <connections>
                                     <outlet property="delegate" destination="NOn-r6-Pj7" id="VNx-gH-HB3"/>
@@ -782,7 +782,7 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="请选择温度" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Dv8-2t-fkD">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="请选择气温" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Dv8-2t-fkD">
                                 <rect key="frame" x="99" y="817" width="227" height="34"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="23"/>
                                 <nil key="textColor"/>
@@ -790,21 +790,21 @@
                             </label>
                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="2021-02-03" borderStyle="bezel" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="KkJ-aZ-iRb">
                                 <rect key="frame" x="359" y="806.5" width="311" height="55"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="22"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="27"/>
                                 <textInputTraits key="textInputTraits"/>
                                 <connections>
                                     <outlet property="delegate" destination="NOn-r6-Pj7" id="kS8-sx-xzb"/>
                                 </connections>
                             </textField>
                             <button opaque="NO" tag="500" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="KlF-y8-N2U">
-                                <rect key="frame" x="420" y="431" width="300" height="50"/>
+                                <rect key="frame" x="390" y="431" width="270" height="50"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" constant="300" id="FFq-dm-CNt"/>
+                                    <constraint firstAttribute="width" constant="270" id="FFq-dm-CNt"/>
                                     <constraint firstAttribute="height" constant="50" id="UqZ-nf-OzS"/>
                                 </constraints>
-                                <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="26"/>
                                 <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="40" maxY="0.0"/>
-                                <state key="normal" title="右缩 伸出=定位 缩进=反位" image="未勾选">
+                                <state key="normal" title="右缩 伸出=定位" image="未勾选">
                                     <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 </state>
                                 <state key="selected" image="选择-勾选"/>
@@ -813,14 +813,14 @@
                                 </connections>
                             </button>
                             <button opaque="NO" tag="501" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Q0r-Hh-b4C">
-                                <rect key="frame" x="420" y="489" width="300" height="50"/>
+                                <rect key="frame" x="390" y="489" width="270" height="50"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="50" id="odn-Tf-f6W"/>
-                                    <constraint firstAttribute="width" constant="300" id="zD3-8V-lTq"/>
+                                    <constraint firstAttribute="width" constant="270" id="zD3-8V-lTq"/>
                                 </constraints>
-                                <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="26"/>
                                 <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="40" maxY="0.0"/>
-                                <state key="normal" title="右缩 伸出=反位 缩进=定位" image="未勾选">
+                                <state key="normal" title="右缩 伸出=反位" image="未勾选">
                                     <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 </state>
                                 <state key="selected" image="选择-勾选"/>
@@ -1394,7 +1394,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="FzO-eR-vRv">
-                                <rect key="frame" x="0.0" y="50" width="768" height="974"/>
+                                <rect key="frame" x="0.0" y="50" width="768" height="924"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                             </view>
                         </subviews>
@@ -1591,7 +1591,7 @@
                                             <outlet property="delegate" destination="UZA-qN-iOh" id="Udq-Mo-hGb"/>
                                         </connections>
                                     </textField>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="站点:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="o7M-OM-tDW">
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="站场:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="o7M-OM-tDW">
                                         <rect key="frame" x="141.5" y="82.5" width="50" height="27"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="22"/>
                                         <nil key="textColor"/>
@@ -1681,7 +1681,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="xe4-YI-AwP">
-                                <rect key="frame" x="0.0" y="181" width="768" height="843"/>
+                                <rect key="frame" x="0.0" y="181" width="768" height="793"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" restorationIdentifier="HistoryCell" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="HistoryCell" rowHeight="84" id="ts3-md-vN8" customClass="HistoryCell">
@@ -1775,8 +1775,8 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="xnq-c5-0ih"/>
-        <segue reference="haj-Bh-83x"/>
+        <segue reference="Hyp-5V-dun"/>
+        <segue reference="B2n-nJ-t0q"/>
     </inferredMetricsTieBreakers>
     <resources>
         <image name="删 除 " width="32" height="41"/>

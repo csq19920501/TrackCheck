@@ -31,6 +31,10 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+    
+    [self.navigationController.navigationBar setTitleTextAttributes:
+         @{NSFontAttributeName:[UIFont systemFontOfSize:23.0f]}];
+    
     _dataArray = [NSMutableArray array];
     
     NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];

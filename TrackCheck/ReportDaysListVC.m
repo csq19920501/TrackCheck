@@ -33,6 +33,9 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+    [self.navigationController.navigationBar setTitleTextAttributes:
+         @{NSFontAttributeName:[UIFont systemFontOfSize:23.0f]}];
+    
     _dataArray = [NSMutableArray array];
     
     NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
@@ -76,9 +79,9 @@
 -(UITableViewCell*)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     HistoryCell *cell = [tableView dequeueReusableCellWithIdentifier:@"HistoryCell" forIndexPath:indexPath];
     NSString *timeStr = _dataArray[indexPath.row];
-    cell.addressLabel.text = [NSString stringWithFormat:@"站点:%@",self.seleStationBut.titleLabel.text];
-    cell.deviceType.text = timeStr;
-    cell.timeLabel.text = @"";
+    cell.addressLabel.text = [NSString stringWithFormat:@"站场:%@",self.seleStationBut.titleLabel.text];
+    cell.deviceType.text = @"";
+    cell.timeLabel.text = timeStr;
     return cell;
 }
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {

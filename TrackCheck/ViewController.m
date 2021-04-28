@@ -59,6 +59,11 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+    
+    [self.navigationController.navigationBar setTitleTextAttributes:
+         @{NSFontAttributeName:[UIFont systemFontOfSize:23.0f]}];
+    
+    
     _textCount = 0;
 //    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(deviceChange) name:DEVICECHANGE object:nil];
     _seleJJJArr = [NSMutableArray array];
@@ -281,7 +286,7 @@
             [_kEchartView3 loadEcharts];
         }
          _chartViewBackV.hidden = YES;
-        self.title = @"阻力转换测试";
+        self.title = @"转换阻力测试";
     }else{
         _firstButton.hidden = YES;
         _secondButton.hidden = YES;
@@ -680,7 +685,6 @@
            }
     }
 
-
 }
 -(void)changeView{
     if(DEVICETOOL.testStatus == TestStarted){
@@ -924,7 +928,7 @@
         }])
         
         .legendEqual([PYLegend initPYLegendWithBlock:^(PYLegend *legend) {
-            legend.dataEqual(@[@"道岔检测"]);
+            legend.dataEqual(@[@"正常",@"预警",@"告警"]);
         }])
         .addXAxis([PYAxis initPYAxisWithBlock:^(PYAxis *axis) {
             axis.typeEqual(PYAxisTypeTime)
@@ -950,10 +954,30 @@
             series.symbolEqual(@"none")
 //            .symbolSizeEqual(@(0)).showAllSymbolEqual(YES)
             .smoothEqual(YES)
-            .nameEqual(@"道岔检测").typeEqual(PYSeriesTypeLine).dataEqual(saveDataArr).samplingEqual(@"lttb")
+            .nameEqual(@"正常").typeEqual(PYSeriesTypeLine).dataEqual(saveDataArr).samplingEqual(@"lttb")
             .itemStyleEqual([PYItemStyle initPYItemStyleWithBlock:^(PYItemStyle *itemStyle) {
                 itemStyle.normalEqual([PYItemStyleProp initPYItemStylePropWithBlock:^(PYItemStyleProp *itemStyleProp) {
                     itemStyleProp.colorEqual(@"#4B8CF5").borderWidthEqual(@(0.25));
+                }]);
+            }]);
+        }])
+        .addSeries([PYCartesianSeries initPYCartesianSeriesWithBlock:^(PYCartesianSeries *series) {
+            series.symbolEqual(@"none")
+            .smoothEqual(NO)
+            .nameEqual(@"预警").typeEqual(PYSeriesTypeLine).samplingEqual(@"lttb")
+            .itemStyleEqual([PYItemStyle initPYItemStyleWithBlock:^(PYItemStyle *itemStyle) {
+                itemStyle.normalEqual([PYItemStyleProp initPYItemStylePropWithBlock:^(PYItemStyleProp *itemStyleProp) {
+                    itemStyleProp.colorEqual(organiColor).borderWidthEqual(@(0.25));
+                }]);
+            }]);
+        }])
+        .addSeries([PYCartesianSeries initPYCartesianSeriesWithBlock:^(PYCartesianSeries *series) {
+            series.symbolEqual(@"none")
+            .smoothEqual(NO)
+            .nameEqual(@"告警").typeEqual(PYSeriesTypeLine).samplingEqual(@"lttb")
+            .itemStyleEqual([PYItemStyle initPYItemStyleWithBlock:^(PYItemStyle *itemStyle) {
+                itemStyle.normalEqual([PYItemStyleProp initPYItemStylePropWithBlock:^(PYItemStyleProp *itemStyleProp) {
+                    itemStyleProp.colorEqual(realRedColor).borderWidthEqual(@(0.25));
                 }]);
             }]);
         }]);
@@ -1179,7 +1203,7 @@
             dataZoom.showEqual(YES).startEqual(@0).typeEqual(@"inside");
         }])
         .legendEqual([PYLegend initPYLegendWithBlock:^(PYLegend *legend) {
-            legend.dataEqual(@[@"定位锁闭力",@"反位锁闭力",[NSString stringWithFormat:@"%@转换力",DEVICETOOL.closeLinkDevice]]);
+            legend.dataEqual(@[@"定位锁闭力",@"反位锁闭力",[NSString stringWithFormat:@"%@转换力",DEVICETOOL.closeLinkDevice],@"预警",@"告警"]);
         }])
         .addXAxis([PYAxis initPYAxisWithBlock:^(PYAxis *axis) {
             axis.typeEqual(PYAxisTypeTime)
@@ -1218,6 +1242,26 @@
             .itemStyleEqual([PYItemStyle initPYItemStyleWithBlock:^(PYItemStyle *itemStyle) {
                 itemStyle.normalEqual([PYItemStyleProp initPYItemStylePropWithBlock:^(PYItemStyleProp *itemStyleProp) {
                     itemStyleProp.colorEqual(close_transform_color).borderWidthEqual(@(0.25));
+                }]);
+            }]);
+        }])
+        .addSeries([PYCartesianSeries initPYCartesianSeriesWithBlock:^(PYCartesianSeries *series) {
+            series.symbolEqual(@"none")
+            .smoothEqual(NO)
+            .nameEqual(@"预警").typeEqual(PYSeriesTypeLine).samplingEqual(@"lttb")
+            .itemStyleEqual([PYItemStyle initPYItemStyleWithBlock:^(PYItemStyle *itemStyle) {
+                itemStyle.normalEqual([PYItemStyleProp initPYItemStylePropWithBlock:^(PYItemStyleProp *itemStyleProp) {
+                    itemStyleProp.colorEqual(organiColor).borderWidthEqual(@(0.25));
+                }]);
+            }]);
+        }])
+        .addSeries([PYCartesianSeries initPYCartesianSeriesWithBlock:^(PYCartesianSeries *series) {
+            series.symbolEqual(@"none")
+            .smoothEqual(NO)
+            .nameEqual(@"告警").typeEqual(PYSeriesTypeLine).samplingEqual(@"lttb")
+            .itemStyleEqual([PYItemStyle initPYItemStyleWithBlock:^(PYItemStyle *itemStyle) {
+                itemStyle.normalEqual([PYItemStyleProp initPYItemStylePropWithBlock:^(PYItemStyleProp *itemStyleProp) {
+                    itemStyleProp.colorEqual(realRedColor).borderWidthEqual(@(0.25));
                 }]);
             }]);
         }])

@@ -19,7 +19,7 @@
     if(![daocha containsString:@"道岔"]){
         daocha = [NSString stringWithFormat:@"%@道岔",daocha];
     }
-    _addressLabel.text = [NSString stringWithFormat:@"站点:%@%@",model.station,daocha];
+    _addressLabel.text = [NSString stringWithFormat:@"站场:%@%@",model.station,daocha];
     _deviceType.text = [NSString stringWithFormat:@"牵引点:%@",model.deviceType];
     
     NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];

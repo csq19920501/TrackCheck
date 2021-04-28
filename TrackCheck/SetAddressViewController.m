@@ -44,6 +44,8 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+    [self.navigationController.navigationBar setTitleTextAttributes:
+         @{NSFontAttributeName:[UIFont systemFontOfSize:23.0f]}];
     
     _sureBut.backgroundColor = BLUECOLOR;
     _sureBut.layer.masksToBounds = YES;
@@ -80,15 +82,13 @@
     _zuo_shen_Fan.layer.borderColor = BLUECOLOR.CGColor;
     _zuo_shen_Fan.layer.borderWidth = 2;
     _zuo_shen_Fan.layer.cornerRadius = 10;
-//    [_zuo_shen_Fan.titleLabel setText:@"左缩 伸出=反位 缩进=定位"];
-    [_zuo_shen_Fan setTitle:@"左缩 伸出=反位 缩进=定位" forState:UIControlStateNormal];
+    [_zuo_shen_Fan setTitle:@"左缩   伸出=反位" forState:UIControlStateNormal];
     
     _zuo_shen_Ding.layer.masksToBounds = YES;
     _zuo_shen_Ding.layer.borderColor = BLUECOLOR.CGColor;
     _zuo_shen_Ding.layer.borderWidth = 2;
     _zuo_shen_Ding.layer.cornerRadius = 10;
-//    [_zuo_shen_Ding.titleLabel setText:@"左缩 伸出=定位 缩进=反位"];
-    [_zuo_shen_Ding setTitle:@"左缩 伸出=定位 缩进=反位" forState:UIControlStateNormal];
+    [_zuo_shen_Ding setTitle:@"左缩   伸出=定位" forState:UIControlStateNormal];
     
     _wenduBut.layer.masksToBounds = YES;
     _wenduBut.layer.borderColor = BLUECOLOR.CGColor;
@@ -215,7 +215,7 @@
 
 -(void)pushAlertView:(void (^)(BOOL))re{
     __weak typeof(self) weakSelf = self;
-    TYAlertView *alertView = [TYAlertView alertViewWithTitle:@"提示" message:@"请输入'1111',确认修改操作"];
+    TYAlertView *alertView = [TYAlertView alertViewWithTitle:@"提示" message:@"请确认修改伸缩类型"];
     
     self.alertController = [TYAlertController alertControllerWithAlertView:alertView preferredStyle:TYAlertControllerStyleAlert];
     
@@ -236,34 +236,34 @@
     
     [alertView addAction:[TYAlertAction actionWithTitle:@"确定" style:TYAlertActionStyleDestructive handler:^(TYAlertAction *action) {
         
-        UITextField *textField = [weakAlertView.textFieldArray firstObject];
-        
-        [textField resignFirstResponder];
-        
-        if (![textField.text isEqualToString:@"1111"] ){
-            dispatch_async(dispatch_get_main_queue(), ^{
-                [HUD showAlertWithText:@"请输入'1111'，确认修改操作"];
-            });
-            if(re){
-                re(NO);
-            }
-        }else{
+//        UITextField *textField = [weakAlertView.textFieldArray firstObject];
+//
+//        [textField resignFirstResponder];
+//
+//        if (![textField.text isEqualToString:@"1111"] ){
+//            dispatch_async(dispatch_get_main_queue(), ^{
+//                [HUD showAlertWithText:@"请输入'1111'，确认修改操作"];
+//            });
+//            if(re){
+//                re(NO);
+//            }
+//        }else{
          if(re){
              re(YES);
          }
          [weakSelf.alertController dismissViewControllerAnimated:YES];
-        }
+//        }
         
     }]];
     
-    [alertView addTextFieldWithConfigurationHandler:^(UITextField *textField) {
-        
-        textField.placeholder = @"请输入'1111'";
-        
-        textField.keyboardType = UIKeyboardTypeNumberPad;
-        
-        [textField becomeFirstResponder];
-    }];
+//    [alertView addTextFieldWithConfigurationHandler:^(UITextField *textField) {
+//
+//        textField.placeholder = @"请输入'1111'";
+//
+//        textField.keyboardType = UIKeyboardTypeNumberPad;
+//
+//        [textField becomeFirstResponder];
+//    }];
     
     
     [self presentViewController:self.alertController animated:YES completion:nil];
@@ -563,13 +563,14 @@
     __weak typeof(self) weakSelf = self;
     DLCustomAlertController *customAlertC = [[DLCustomAlertController alloc] init];
     customAlertC.title = @"选择温度";
-    customAlertC.pickerDatas = @[@[@"-10℃",@"-9℃",@"-8℃",@"-7℃",@"-10℃",@"-9℃",@"-8℃",@"-7℃",@"-6℃",@"-5℃",@"-4℃",@"-3℃",@"-2℃",@"-1℃",@"0℃",@"1℃",@"2℃",@"3℃",@"4℃",@"5℃",@"6℃",@"7℃",@"8℃",@"9℃",@"10℃",@"11℃",@"12℃",@"13℃",@"14℃",@"15℃",@"16℃",@"17℃",@"18℃",@"19℃",@"20℃",@"21℃",@"22℃",@"32℃",@"24℃",@"25℃",@"26℃",@"27℃",@"28℃",@"29℃",@"30℃",@"31℃",@"32℃",@"33℃",@"34℃",@"35℃",@"36℃",@"37℃",@"38℃",@"39℃",@"40℃"]];//arr;
+    customAlertC.pickerDatas = @[@[@"-20℃",@"-19℃",@"-18℃",@"-17℃",@"-16℃",@"-15℃",@"-14℃",@"-13℃",@"-12℃",@"-11℃",@"-10℃",@"-9℃",@"-8℃",@"-7℃",@"-6℃",@"-5℃",@"-4℃",@"-3℃",@"-2℃",@"-1℃",@"0℃",@"1℃",@"2℃",@"3℃",@"4℃",@"5℃",@"6℃",@"7℃",@"8℃",@"9℃",@"10℃",@"11℃",@"12℃",@"13℃",@"14℃",@"15℃",@"16℃",@"17℃",@"18℃",@"19℃",@"20℃",@"21℃",@"22℃",@"32℃",@"24℃",@"25℃",@"26℃",@"27℃",@"28℃",@"29℃",@"30℃",@"31℃",@"32℃",@"33℃",@"34℃",@"35℃",@"36℃",@"37℃",@"38℃",@"39℃",@"40℃"]];//arr;
     DLDateAnimation * animation = [[DLDateAnimation alloc] init];
     customAlertC.selectValues = ^(NSArray * _Nonnull dateArray){
         if(dateArray.count > 0){
             [weakSelf.wenduBut setText:dateArray[0]];
         }
     };
+    customAlertC.selectRow = 30;
     [self presentViewController:customAlertC animation:animation completion:nil];
 }
 -(void)getTianQiPick{

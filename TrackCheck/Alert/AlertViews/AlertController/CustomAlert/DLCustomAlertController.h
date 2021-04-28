@@ -15,7 +15,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 /// 弹出框数据,以[[]]的格式传入
 @property(nonatomic, strong) NSArray * pickerDatas;
-
+@property (nonatomic,assign)NSInteger selectRow;
 @property(nonatomic, copy) void(^selectValues)(NSArray *selectValues);
 
 @end

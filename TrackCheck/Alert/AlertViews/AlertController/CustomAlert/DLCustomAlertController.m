@@ -97,6 +97,9 @@
         make.left.right.bottom.equalTo(self.view);
         make.top.equalTo(self.view).offset(45);
     }];
+    if(self.selectRow != 0){
+        [pickerView selectRow:self.selectRow inComponent:0 animated:NO];
+    }
 }
 
 #pragma mark -

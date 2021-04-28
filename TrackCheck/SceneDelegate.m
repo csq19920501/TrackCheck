@@ -21,7 +21,6 @@
         [self.window setWindowScene:windowScene];
         [self.window setBackgroundColor:[UIColor whiteColor]];
         
-        
         NSUserDefaults *user = [NSUserDefaults standardUserDefaults];
         long long currentTime = [[NSDate date] timeIntervalSince1970];
         long long saveTime = [[user objectForKey:@"saveStaionTime"] longLongValue];
@@ -73,7 +72,6 @@
     // Use this method to undo the changes made on entering the background.
     NSLog(@"sceneWillEnterForeground");
 }
-
 
 - (void)sceneDidEnterBackground:(UIScene *)scene  API_AVAILABLE(ios(13.0)){
     // Called as the scene transitions from the foreground to the background.

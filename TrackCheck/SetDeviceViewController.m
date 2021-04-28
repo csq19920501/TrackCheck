@@ -155,7 +155,7 @@ typedef enum:NSInteger{
 }
 -(void)pushAlertView:(void (^)(BOOL))re{
     __weak typeof(self) weakSelf = self;
-    TYAlertView *alertView = [TYAlertView alertViewWithTitle:@"提示" message:@"请输入'1111',确认修改操作"];
+    TYAlertView *alertView = [TYAlertView alertViewWithTitle:@"提示" message:@"请确认修改设备牵引点"];
     
     _alertController = [TYAlertController alertControllerWithAlertView:alertView preferredStyle:TYAlertControllerStyleAlert];
     
@@ -170,39 +170,39 @@ typedef enum:NSInteger{
     }]];
     
     // 弱引用alertView 否则 会循环引用
-    __typeof (alertView) __weak weakAlertView = alertView;
+//    __typeof (alertView) __weak weakAlertView = alertView;
     
     [alertView addAction:[TYAlertAction actionWithTitle:@"确定" style:TYAlertActionStyleDestructive handler:^(TYAlertAction *action) {
         
-        UITextField *textField = [weakAlertView.textFieldArray firstObject];
-        
-        [textField resignFirstResponder];
-        
-        if (![textField.text isEqualToString:@"1111"] ){
-            
-            dispatch_async(dispatch_get_main_queue(), ^{
-                [HUD showAlertWithText:@"请输入'1111'，确认修改操作"];
-            });
-            if(re){
-                re(NO);
-            }
-        }else{
+//        UITextField *textField = [weakAlertView.textFieldArray firstObject];
+//
+//        [textField resignFirstResponder];
+//
+//        if (![textField.text isEqualToString:@"1111"] ){
+//
+//            dispatch_async(dispatch_get_main_queue(), ^{
+//                [HUD showAlertWithText:@"请输入'1111'，确认修改操作"];
+//            });
+//            if(re){
+//                re(NO);
+//            }
+//        }else{
          if(re){
              re(YES);
          }
          [weakSelf.alertController dismissViewControllerAnimated:YES];
-        }
+//        }
         
     }]];
     
-    [alertView addTextFieldWithConfigurationHandler:^(UITextField *textField) {
-        
-        textField.placeholder = @"请输入'1111'";
-        
-        textField.keyboardType = UIKeyboardTypeNumberPad;
-        
-        [textField becomeFirstResponder];
-    }];
+//    [alertView addTextFieldWithConfigurationHandler:^(UITextField *textField) {
+//
+//        textField.placeholder = @"请输入'1111'";
+//
+//        textField.keyboardType = UIKeyboardTypeNumberPad;
+//
+//        [textField becomeFirstResponder];
+//    }];
     
     
     [self presentViewController:self.alertController animated:YES completion:nil];
