@@ -82,6 +82,7 @@
     cell.addressLabel.text = [NSString stringWithFormat:@"站场:%@",self.seleStationBut.titleLabel.text];
     cell.deviceType.text = @"";
     cell.timeLabel.text = timeStr;
+    cell.timeLabelRight.constant = 100;
     return cell;
 }
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {

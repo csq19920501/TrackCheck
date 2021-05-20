@@ -358,10 +358,10 @@
 - (IBAction)clickLeft:(id)sender {
     
     if(DEVICETOOL.testStatus == TestStarted){
-        [HUD showAlertWithText: @"测试中，不能修改测试地址"];
+        [HUD showAlertWithText: @"测试中，不能修改测试信息"];
     }else{
             __weak typeof(self) weakSelf = self;
-            TYAlertView *alertView = [TYAlertView alertViewWithTitle:@"提示" message:@"是否确定修改测试地址"];
+            TYAlertView *alertView = [TYAlertView alertViewWithTitle:@"提示" message:@"是否确定修改测试信息"];
             
             TYAlertController * alertController = [TYAlertController alertControllerWithAlertView:alertView preferredStyle:TYAlertControllerStyleAlert];
             
@@ -738,11 +738,11 @@
             but = _threeButton;
         }
         if([device.id isEqualToString:@"11"]){
-             [but setTitle:[NSString stringWithFormat:@"%@ %@ %@",@"定位",device.percent,device.vol] forState:UIControlStateNormal];
+             [but setTitle:[NSString stringWithFormat:@"%@  %@%%",@"定位",device.percent] forState:UIControlStateNormal];
         }else if([device.id isEqualToString:@"12"]){
-            [but setTitle:[NSString stringWithFormat:@"%@ %@ %@",@"反位",device.percent,device.vol] forState:UIControlStateNormal];
+            [but setTitle:[NSString stringWithFormat:@"%@  %@%%",@"反位",device.percent] forState:UIControlStateNormal];
         }else{
-             [but setTitle:[NSString stringWithFormat:@"%@ %@ %@",device.typeStr,device.percent,device.vol] forState:UIControlStateNormal];
+             [but setTitle:[NSString stringWithFormat:@"%@  %@%%",device.typeStr,device.percent] forState:UIControlStateNormal];
         }
         
     }

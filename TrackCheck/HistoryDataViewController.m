@@ -57,11 +57,13 @@
     _tabView.dataSetDelegate = self;
     _firstLoad = YES;
     
+    UILabel *label1 = [self.view viewWithTag:1000];
+    label1.text = @"站场:";
 //    UIBarButtonItem *backBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"返回" style:UIBarButtonItemStylePlain target:self action:@selector(backBarButtonItemAction)];
 //       self.navigationItem.leftBarButtonItem = backBarButtonItem;
         
 }
-
+    
 //    - (void)backBarButtonItemAction
 //    {
 //        [self.navigationController popViewControllerAnimated:YES];
@@ -84,6 +86,7 @@
 }
 -(UITableViewCell*)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     HistoryCell *cell = [tableView dequeueReusableCellWithIdentifier:@"HistoryCell" forIndexPath:indexPath];
+    
     cell.model = _dataArray[indexPath.row];
     return cell;
 }

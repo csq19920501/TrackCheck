@@ -323,7 +323,7 @@
                                             <outlet property="delegate" destination="eJd-OE-y6I" id="wXc-pb-m0I"/>
                                         </connections>
                                     </textField>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="站场:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="HgV-xh-PoK">
+                                    <label opaque="NO" userInteractionEnabled="NO" tag="1000" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="站场:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="HgV-xh-PoK">
                                         <rect key="frame" x="141.5" y="82.5" width="50" height="27"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="22"/>
                                         <nil key="textColor"/>
@@ -503,7 +503,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="wkV-E5-MAB" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1631" y="-812"/>
+            <point key="canvasLocation" x="1376" y="-817"/>
         </scene>
         <!--测试地点设置-->
         <scene sceneID="GLr-FM-t26">
@@ -513,7 +513,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="768" height="1024"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="请输入测试站场名称" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ZlG-XG-yr6">
+                            <label opaque="NO" userInteractionEnabled="NO" tag="1000" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="请输入测试站场名称" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ZlG-XG-yr6">
                                 <rect key="frame" x="99" y="80" width="210" height="34"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="34" id="dXH-DB-XFj"/>
@@ -523,7 +523,7 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="请输入测试道岔号" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qsM-ll-s3r">
+                            <label opaque="NO" userInteractionEnabled="NO" tag="1001" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="请输入测试道岔号" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qsM-ll-s3r">
                                 <rect key="frame" x="99" y="234.5" width="227" height="34"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="227" id="5wA-Z0-Y6I"/>
@@ -940,7 +940,7 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ZDb-oZ-mel" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
                 <exit id="n8s-Sf-hrn" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
-            <point key="canvasLocation" x="-289.0625" y="-33.3984375"/>
+            <point key="canvasLocation" x="-312" y="-156"/>
         </scene>
         <!--Set Device View Controller-->
         <scene sceneID="K01-OU-OLC">
@@ -1591,7 +1591,7 @@
                                             <outlet property="delegate" destination="UZA-qN-iOh" id="Udq-Mo-hGb"/>
                                         </connections>
                                     </textField>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="站场:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="o7M-OM-tDW">
+                                    <label opaque="NO" userInteractionEnabled="NO" tag="1000" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="站场:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="o7M-OM-tDW">
                                         <rect key="frame" x="141.5" y="82.5" width="50" height="27"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="22"/>
                                         <nil key="textColor"/>
@@ -1736,6 +1736,7 @@
                                             <outlet property="addressLabel" destination="y7S-QE-2Ru" id="qUe-xK-xA8"/>
                                             <outlet property="deviceType" destination="ZGz-1O-q9o" id="fI0-JE-wqc"/>
                                             <outlet property="timeLabel" destination="lkb-rk-YF9" id="8uI-sw-xGw"/>
+                                            <outlet property="timeLabelRight" destination="dbc-KO-LpN" id="fwh-h9-K6e"/>
                                         </connections>
                                     </tableViewCell>
                                 </prototypes>

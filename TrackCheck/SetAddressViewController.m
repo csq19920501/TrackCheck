@@ -44,6 +44,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+    self.title = @"测试信息设置";
     [self.navigationController.navigationBar setTitleTextAttributes:
          @{NSFontAttributeName:[UIFont systemFontOfSize:23.0f]}];
     
@@ -104,6 +105,12 @@
     _nameTF.layer.borderColor = BLUECOLOR.CGColor;
     _nameTF.layer.borderWidth = 2;
     _nameTF.layer.cornerRadius = 10;
+    
+    UILabel *label1 = [self.view viewWithTag:1000];
+    label1.text = @"请输入测试站场名称";
+    
+    UILabel *label2 = [self.view viewWithTag:1001];
+    label2.text = @"请输入测试道岔号";
     
     [self setSele];
 //    [self pushAlertView:^(BOOL retu){}];
